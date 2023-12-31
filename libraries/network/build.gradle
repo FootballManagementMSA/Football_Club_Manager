@@ -1,0 +1,13 @@
+plugins {
+    id 'com.android.library'
+}
+
+apply from: "../../base-build.gradle"
+
+android {
+    namespace 'com.example.network'
+}
+
+dependencies {
+    implementation project(':libraries:network-api')
+}
