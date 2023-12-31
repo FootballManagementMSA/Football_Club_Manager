@@ -11,8 +11,8 @@ import com.example.ui_component.TestComponent
 @Composable
 fun HomeScreen(viewModel: TestViewModel = hiltViewModel()) {
     val state = viewModel.uiState.collectAsState()
-    viewModel.getResponse()
     LaunchedEffect(Unit){
+        viewModel.getResponse()
     }
     
     when(state.value){
