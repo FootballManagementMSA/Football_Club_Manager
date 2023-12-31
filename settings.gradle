@@ -15,7 +15,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "footballmanager_pj"
 include ':app'
-include ':libraries:data'
+include ':libraries:network'
 include ':domain'
 include ':di'
 include ':core'

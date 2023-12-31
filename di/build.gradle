@@ -30,8 +30,9 @@ android {
 }
 
 dependencies {
-    implementation project(':domain') // di는 domain , data , app(presentation layer)를 참조한다.
-    implementation project(':libraries:data')
+    implementation project(':domain')
+    implementation project(':libraries:network')
+    // di는 domain , data , app(presentation layer)를 참조한다.
     implementation project(':app')
 
     implementation 'androidx.core:core-ktx:1.9.0'
