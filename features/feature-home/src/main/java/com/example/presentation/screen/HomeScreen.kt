@@ -6,6 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.presentation.viewmodel.TestViewModel
+import com.example.ui_component.TestComponent
 
 @Composable
 fun HomeScreen(viewModel: TestViewModel = hiltViewModel()) {
@@ -16,7 +17,7 @@ fun HomeScreen(viewModel: TestViewModel = hiltViewModel()) {
     
     when(state.value){
         "Http 200" -> {
-            Text(text = "Http Request Success")
+            TestComponent(text = "Http Request Success")
         }
     }
 }
