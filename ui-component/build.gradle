@@ -3,7 +3,7 @@ plugins {
 
 }
 
-apply from: "../base-build.gradle"
+apply from: "../base-compose-build.gradle"
 
 android {
     namespace 'com.example.ui_component'

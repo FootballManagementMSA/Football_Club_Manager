@@ -2,7 +2,7 @@ plugins {
     id 'com.android.library'
 }
 
-apply from: "../../base-build.gradle"
+apply from: "../../base-compose-build.gradle"
 
 android {
     namespace 'com.example.feature_home'
