@@ -1,4 +1,4 @@
-package com.example.di
+package com.example.ui_component
 
 import org.junit.Test
 

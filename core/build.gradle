@@ -8,4 +8,5 @@ android {
 }
 dependencies {
     implementation project(':libraries:network-api')
+    api project(':ui-component')
 }

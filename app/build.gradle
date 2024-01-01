@@ -6,8 +6,9 @@ android {
     namespace 'com.example.footballmanager_pj'
 }
 
-apply from: "../base-build.gradle"
+apply from: "../base-compose-build.gradle"
 
 dependencies {
-
+    implementation project(':di')
+    implementation project(':features:feature-home')
 }

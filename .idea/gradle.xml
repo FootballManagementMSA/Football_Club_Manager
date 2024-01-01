@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/libraries" />
             <option value="$PROJECT_DIR$/libraries/network" />
             <option value="$PROJECT_DIR$/libraries/network-api" />
+            <option value="$PROJECT_DIR$/ui-component" />
           </set>
         </option>
       </GradleProjectSettings>
