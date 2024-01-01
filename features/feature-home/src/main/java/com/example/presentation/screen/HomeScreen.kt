@@ -1,23 +1,36 @@
 package com.example.presentation.screen
 
-import androidx.compose.material3.Text
+import android.util.Log
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.presentation.viewmodel.TestViewModel
-import com.example.ui_component.TestComponent
+import androidx.navigation.NavHostController
+import com.example.presentation.viewmodel.MainHomeViewModel
+import com.example.ui_component.TopAppBar
+import com.example.ui_component.mainTheme
 
 @Composable
-fun HomeScreen(viewModel: TestViewModel = hiltViewModel()) {
-    val state = viewModel.uiState.collectAsState()
-    LaunchedEffect(Unit){
-        viewModel.getResponse()
-    }
-    
-    when(state.value){
-        "Http 200" -> {
-            TestComponent(text = "Http Request Success")
-        }
+fun HomeScreen(
+    viewModel: MainHomeViewModel = hiltViewModel(),
+    navHostController: NavHostController
+) {
+    Column(
+        Modifier
+            .background(mainTheme)
+            .fillMaxSize()
+            .padding(24.dp)
+    ) {
+        TopAppBar(
+            title = "마이페이지",
+            actionIcon = Icons.Default.Menu,
+            onBack = { navHostController.popBackStack() },
+            onAction = { Log.e("MyPage", "show menu") })
     }
 }
