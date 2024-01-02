@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.presentation.ui_component.MyInfoView
 import com.example.presentation.ui_component.ProfileView
 import com.example.presentation.ui_component.ScheduleView
 import com.example.ui_component.mainTheme
@@ -39,6 +40,7 @@ fun HomeScreen(
                 .verticalScroll(scrollState)
         ) {
             ProfileView(navHostController, height, width)
+            MyInfoView(height)
             ScheduleView(currentSchedule, width)
         }
     }

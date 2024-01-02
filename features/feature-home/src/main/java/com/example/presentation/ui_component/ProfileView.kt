@@ -86,13 +86,6 @@ fun ProfileView(
                 )
             }
         }
-        Spacer(
-            modifier = Modifier.height(
-                (height / 20).coerceAtLeast(30.dp).coerceAtMost(60.dp)
-            )
-        )
-        MyInfoView(height)
-        VerticalSpacer(value = 20)
     }
 }
 

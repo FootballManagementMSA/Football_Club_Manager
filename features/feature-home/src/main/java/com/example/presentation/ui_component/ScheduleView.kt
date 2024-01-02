@@ -83,7 +83,6 @@ fun ScheduleView(currentSchedule: SnapshotStateList<Int?>, width: Dp) {
             }
         }
 
-        // Content for each tab
         when (selectedTabIndex) {
             0 -> {
                 if (currentSchedule.isEmpty()) {
