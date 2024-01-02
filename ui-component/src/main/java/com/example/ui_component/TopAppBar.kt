@@ -39,7 +39,7 @@ fun TopAppBar(
             onClick = onBack
         ){
             Icon(
-                modifier = modifier.size(bigIcon) ,
+                modifier = modifier.size(largeIcon) ,
                 imageVector = Icons.Default.ArrowBack,
                 contentDescription = "NavIcon",
                 tint = Color.White
@@ -51,7 +51,7 @@ fun TopAppBar(
             onClick = onAction
         ){
             Icon(
-                modifier = modifier.size(bigIcon) ,
+                modifier = modifier.size(largeIcon) ,
                 imageVector = actionIcon,
                 contentDescription = "Action",
                 tint = Color.White

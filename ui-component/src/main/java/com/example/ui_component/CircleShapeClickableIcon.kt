@@ -44,7 +44,7 @@ fun CircleShapeClickableIcon(
 @Composable
 @Preview
 fun CircleShapeButtonPreview() {
-    CircleShapeClickableIcon(bigIcon, profileInfoButton, R.drawable.league_icon) {
+    CircleShapeClickableIcon(largeIcon, profileInfoButton, R.drawable.league_icon) {
         //do nothing
     }
 }
