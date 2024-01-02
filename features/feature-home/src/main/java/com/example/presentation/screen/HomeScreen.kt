@@ -26,25 +26,22 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.presentation.viewmodel.MainHomeViewModel
-import com.example.ui_component.CircleShapeButton
+import androidx.navigation.compose.rememberNavController
+import com.example.ui_component.CircleShapeClickableIcon
 import com.example.ui_component.R
 import com.example.ui_component.TopAppBar
-import com.example.ui_component.appBarFont
 import com.example.ui_component.bigIcon
 import com.example.ui_component.hugeIcon
 import com.example.ui_component.mainTheme
 import com.example.ui_component.profileInfoButton
-import com.example.ui_component.smallIcon
 import com.example.ui_component.verticalGradation
 
 @Composable
 fun HomeScreen(
-    viewModel: MainHomeViewModel = hiltViewModel(),
     navHostController: NavHostController
 ) {
     Column(
@@ -95,11 +92,11 @@ private fun ProfileInfoView(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
     ) {
-        CircleShapeButton(hugeIcon, profileInfoButton, R.drawable.league_icon) {
+        CircleShapeClickableIcon(hugeIcon, profileInfoButton, R.drawable.league_icon) {
             //do nothing
         }
         Spacer(modifier = Modifier.height(10.dp))
-        CircleShapeButton(hugeIcon, profileInfoButton, R.drawable.league_icon) {
+        CircleShapeClickableIcon(hugeIcon, profileInfoButton, R.drawable.league_icon) {
             //do nothing
         }
         Spacer(modifier = Modifier.height(20.dp))
@@ -138,4 +135,10 @@ private fun ProfileImageView(modifier: Modifier = Modifier) {
             contentDescription = "profile_Image"
         )
     }
+}
+
+@Composable
+@Preview
+fun MainHomeScreenPreview(){
+    HomeScreen(navHostController = rememberNavController())
 }
