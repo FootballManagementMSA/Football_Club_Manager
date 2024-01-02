@@ -138,6 +138,7 @@ fun ProfileInfo(modifier: Modifier = Modifier, height: Dp, width: Dp) {
     }
 }
 
+//TODO width 가 커지면 깨지는 현상 발생
 @Composable
 fun ProfileImage(modifier: Modifier = Modifier, height: Dp, width: Dp) {
     Box(modifier) {
