@@ -298,7 +298,7 @@ fun ProfileView(height: Dp, width: Dp) {
                 Modifier
                     .weight(1f)
                     .fillMaxSize(),
-                height, width / 2
+                height, width
             )
         }
     }
@@ -310,9 +310,8 @@ fun ProfileImage(modifier: Modifier = Modifier, height: Dp, width: Dp) {
         Box(
             modifier = Modifier
                 .size(
-                    (width / 2)
-                        .coerceAtMost(190.dp)
-                        .coerceAtLeast(160.dp)
+                    (260.dp)
+                        .coerceAtMost(width / 2 - 20.dp)
                 )
                 .clip(CircleShape)
                 .background(verticalGradation)
