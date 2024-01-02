@@ -1,0 +1,14 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+apply from: "../../base-compose-build.gradle"
+
+android {
+    namespace 'com.example.feature_login'
+}
+
+dependencies {
+    implementation project(':core')
+}

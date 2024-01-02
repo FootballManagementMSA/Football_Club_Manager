@@ -54,7 +54,7 @@ fun CustomGradientButton(
         ) {
             Text(
                 text = buttonText,
-                fontSize = 20.sp,
+                fontSize = 13.sp,
                 color = Color.White
             )
         }
