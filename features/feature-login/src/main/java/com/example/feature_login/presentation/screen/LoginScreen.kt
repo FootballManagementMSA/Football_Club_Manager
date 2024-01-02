@@ -39,8 +39,6 @@ import com.example.ui_component.CustomGradientButton
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel()
 ) {
-    val idState by viewModel.userId
-    val passwordState by viewModel.userPassword
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -70,27 +68,15 @@ fun LoginScreen(
         )
         Spacer(modifier = Modifier.height(20.dp))
 
-        OutlinedTextField(
-            value = idState,
-            label = { Text(text = "학번") },
-            placeholder = { Text(text = "학번을 입력해 주세요.") },
-            onValueChange = {
-                viewModel.updateUserId(it)
-            },
-            modifier = Modifier.fillMaxWidth(),
-            textStyle = MaterialTheme.typography.bodyLarge
-        )
+        InputView({ viewModel.userId.value }, "학번", "학번을 입력해 주세요.", { id ->
+            viewModel.updateUserId(id)
+        })
         Spacer(modifier = Modifier.height(15.dp))
-        OutlinedTextField(
-            value = passwordState,
-            label = { Text(text = "비밀번호") },
-            placeholder = { Text(text = "비밀번호를 입력해 주세요") },
-            onValueChange = {
-                viewModel.updateUserPassword(it)
-            },
-            modifier = Modifier.fillMaxWidth(),
-            textStyle = MaterialTheme.typography.bodyLarge
-        )
+        InputView(
+            { viewModel.userPassword.value },
+            "비밀번호",
+            "비밀번호를 입력해 주세요",
+            { password -> viewModel.updateUserPassword(password) })
         Spacer(modifier = Modifier.height(35.dp))
 
         CustomGradientButton(
@@ -137,5 +123,25 @@ fun LoginScreen(
         }
 
     }
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun InputView(
+    state: () -> String,
+    label: String,
+    placeholder: String,
+    onValueChanges: (String) -> Unit
+) {
+    OutlinedTextField(
+        value = state(),
+        label = { Text(text = label) },
+        placeholder = { Text(text = placeholder) },
+        onValueChange = {
+            onValueChanges(it)
+        },
+        modifier = Modifier.fillMaxWidth(),
+        textStyle = MaterialTheme.typography.bodyLarge
+    )
 }
 
