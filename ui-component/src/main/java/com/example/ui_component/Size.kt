@@ -18,3 +18,4 @@ val bigFont = 24.sp
 val middleFont = 20.sp
 val smallFont = 16.sp
 val tinyFont = 12.sp
+val veryTinyFont = 8.sp

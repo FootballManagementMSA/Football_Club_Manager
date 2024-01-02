@@ -20,3 +20,5 @@ val verticalGradation = Brush.verticalGradient(
 )
 
 val profileInfoButton = Color(0xFFDFDFDF)
+val grayText = Color(0xFFB6BFCD)
+val infoRow = Color(0xFF2E3D53)
