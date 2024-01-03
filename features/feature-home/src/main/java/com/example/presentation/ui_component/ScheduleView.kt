@@ -35,14 +35,13 @@ import com.example.ui_component.mainTheme
 import com.example.ui_component.smallFont
 
 @Composable
-fun ScheduleView(currentSchedule: SnapshotStateList<Int?>, width: Dp) {
+fun ScheduleView(modifier: Modifier = Modifier, currentSchedule: SnapshotStateList<Int?>) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     val tabs = listOf("일정")
 
     Column(
-        modifier = Modifier
-            .height(400.dp)
+        modifier = modifier
             .fillMaxWidth()
     ) {
         ScrollableTabRow(
@@ -86,7 +85,7 @@ fun ScheduleView(currentSchedule: SnapshotStateList<Int?>, width: Dp) {
         when (selectedTabIndex) {
             0 -> {
                 if (currentSchedule.isEmpty()) {
-                    EmptyScheduleContent(width)
+                    EmptyScheduleContent()
                 } else {
 
                 }
@@ -98,11 +97,11 @@ fun ScheduleView(currentSchedule: SnapshotStateList<Int?>, width: Dp) {
 @Composable
 @Preview
 fun ScheduleViewPreview() {
-    ScheduleView(SnapshotStateList(), 360.dp)
+    ScheduleView(currentSchedule = SnapshotStateList())
 }
 
 @Composable
-fun EmptyScheduleContent(width: Dp) {
+fun EmptyScheduleContent() {
     Box(modifier = Modifier.fillMaxSize()) {
         Box(
             modifier = Modifier
@@ -124,7 +123,7 @@ fun EmptyScheduleContent(width: Dp) {
                 fontWeight = FontWeight.Bold
             )
             VerticalSpacer(value = 14)
-            RoundedIconButton(width)
+            RoundedIconButton(200.dp) {}
         }
     }
 }
@@ -132,5 +131,5 @@ fun EmptyScheduleContent(width: Dp) {
 @Composable
 @Preview
 fun EmptyScheduleContentPreview() {
-    EmptyScheduleContent(360.dp)
+    EmptyScheduleContent()
 }

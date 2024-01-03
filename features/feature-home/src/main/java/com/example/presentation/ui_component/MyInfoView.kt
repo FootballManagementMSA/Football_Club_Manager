@@ -1,49 +1,188 @@
 package com.example.presentation.ui_component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.requiredHeightIn
+import androidx.compose.foundation.layout.requiredWidthIn
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.example.ui_component.InfoItem
-import com.example.ui_component.VerticalLine
-import com.example.ui_component.infoRow
+import androidx.compose.ui.unit.max
+import androidx.navigation.NavHostController
+import com.example.ui_component.CircleShapeClickableIcon
+import com.example.ui_component.HorizontalSpacer
+import com.example.ui_component.R
+import com.example.ui_component.VerticalSpacer
+import com.example.ui_component.bigFont
+import com.example.ui_component.horizontalGradation
+import com.example.ui_component.largeIcon
+import com.example.ui_component.mainTheme
+import com.example.ui_component.profileInfoButton
+import com.example.ui_component.tinyFont
+import com.example.ui_component.verticalGradation
+import com.example.ui_component.veryBigFont
 
 @Composable
-fun MyInfoView(height: Dp) {
-    Row(
-        Modifier
-            .fillMaxWidth()
+fun MyInfoView(
+    modifier: Modifier = Modifier,
+    navHostController: NavHostController
+) {
+
+    Column(
+        modifier = modifier
             .padding(20.dp)
-            .clip(RoundedCornerShape(16.dp))
-            .height((height / 10).coerceAtLeast(80.dp))
-            .background(infoRow),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceEvenly
+            .fillMaxWidth()
     ) {
-        InfoItem(title = "나이", content = "25")
-        VerticalLine()
-        InfoItem(title = "게임 수", content = "70")
-        VerticalLine()
-        InfoItem(title = "골 수", content = "35")
-        VerticalLine()
-        InfoItem(title = "주 포메이션", content = "NF")
-        VerticalLine()
-        InfoItem(title = "주발", content = "L")
+        Row(
+            Modifier,
+            verticalAlignment = Alignment.Bottom
+        ) {
+            Info(
+                Modifier
+                    .requiredWidthIn(150.dp)
+                    .weight(2f)
+                    .fillMaxSize(),
+            )
+            ProfileImage(
+                Modifier
+                    .weight(3f)
+            )
+        }
+    }
+
+}
+
+@Composable
+fun Info(modifier: Modifier = Modifier) {
+    Column(modifier) {
+        CircleShapeClickableIcon(
+            size = largeIcon,
+            background = profileInfoButton,
+            icon = R.drawable.league_icon
+        ) {
+
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        CircleShapeClickableIcon(
+            size = largeIcon,
+            background = profileInfoButton,
+            icon = R.drawable.league_icon
+        ) {
+
+        }
+        Spacer(modifier = Modifier.weight(1f))
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                modifier = Modifier.size(largeIcon),
+                painter = painterResource(id = R.drawable.cloth_icon),
+                contentDescription = "cloth"
+            )
+            HorizontalSpacer(value = 10)
+            Text(text = "07", fontSize = bigFont, style = TextStyle(color = Color.White))
+        }
+        VerticalSpacer(value = 10)
+        Row(
+            verticalAlignment = Alignment.Bottom
+        ) {
+            Text(
+                text = "홍길동",
+                fontSize = veryBigFont,
+                style = TextStyle(color = Color.White)
+            )
+            HorizontalSpacer(value = 10)
+            Text(
+                text = "님의 페이지",
+                fontSize = tinyFont,
+                style = TextStyle(color = Color.White)
+            )
+        }
+    }
+}
+
+//TODO width 가 커지면 깨지는 현상 발생
+@Composable
+fun ProfileImage(modifier: Modifier = Modifier) {
+    Image(
+        modifier = modifier
+            .wrapContentSize()
+            .border(width = 3.dp, brush = horizontalGradation, shape = CircleShape),
+        painter = painterResource(id = R.drawable.default_profile_image),
+        contentDescription = "profileImage"
+    )
+}
+
+@Composable
+@Preview
+fun ProfileViewPreview() {
+    Column(
+        modifier = Modifier
+            .background(mainTheme)
+            .height(
+                250.dp
+            )
+            .fillMaxWidth()
+    ) {
+        Row(Modifier) {
+            Info(
+                Modifier
+                    .weight(1f)
+                    .fillMaxSize(),
+            )
+            ProfileImage(
+                Modifier
+                    .weight(1f)
+                    .fillMaxSize(),
+            )
+        }
     }
 }
 
 @Composable
 @Preview
-fun MyInfoViewPreview() {
-    MyInfoView(height = 800.dp)
+fun ProfileInfoPreview() {
+    Info(
+        modifier = Modifier
+            .height(300.dp)
+            .background(mainTheme)
+    )
+}
+
+@Composable
+@Preview
+fun ProfileImagePreview() {
+    ProfileImage(
+        modifier = Modifier
+            .height(300.dp)
+            .width(300.dp)
+            .background(mainTheme)
+    )
 }
