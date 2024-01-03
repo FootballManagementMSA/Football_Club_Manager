@@ -13,7 +13,7 @@ fun FootBallManagerAppNavigator(
 ) {
     NavHost(navController = navHostController, startDestination = "HOME"){
         composable("HOME"){
-            HomeScreen()
+            HomeScreen(navHostController = navHostController)
         }
     }
 }

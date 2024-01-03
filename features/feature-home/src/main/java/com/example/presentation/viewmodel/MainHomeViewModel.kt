@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TestViewModel @Inject constructor(
+class MainHomeViewModel @Inject constructor(
     private val testUseCase: TestUseCase
 ): ViewModel() {
     private val tempDispatcher = Dispatchers.IO
