@@ -13,4 +13,6 @@ dependencies {
     implementation project(':libraries:network')
     implementation project(':libraries:network-api')
     implementation project(':core')
+    implementation project(':features:feature-login')
+
 }
