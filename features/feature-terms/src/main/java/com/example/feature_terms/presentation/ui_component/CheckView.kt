@@ -1,6 +1,5 @@
 package com.example.feature_terms.presentation.ui_component
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -20,13 +19,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.feature_terms.R
 import com.example.ui_component.HorizontalSpacer
+import com.example.ui_component.VerticalSpacer
 
 @Composable
 fun CheckView() {
     Column {
-        CheckBox(text = "서비스 이용약관"){Log.d("click","test")}
+        CheckBox(text = "서비스 이용약관"){}
         CheckBox(text = "위치기반 서비스 이용약관"){}
         CheckBox(text = "개인정보 처리방침"){}
+        VerticalSpacer(value = 80)
     }
 }
 
@@ -53,7 +54,7 @@ fun CheckBox(text: String, onClick: () -> Unit) {
             )
         }
         HorizontalSpacer(value = 10)
-        Text(text = text, color = Color.White, modifier = Modifier.weight(1f))
+        Text(text = text, color = Color.White, maxLines = 1)
         HorizontalSpacer(value = 10)
         Text(text = "(필수)", color = Color(0xFF857FEB))
 
@@ -62,9 +63,12 @@ fun CheckBox(text: String, onClick: () -> Unit) {
         Image(
             painter = painterResource(id = R.drawable.right_arrow_icon),
             contentDescription = "RightArrowIcon",
-            modifier = Modifier.size(10.dp).clickable { onClick() }
+            modifier = Modifier
+                .size(10.dp)
+                .clickable { onClick() }
         )
     }
+    VerticalSpacer(value = 10)
 }
 
 @Composable
