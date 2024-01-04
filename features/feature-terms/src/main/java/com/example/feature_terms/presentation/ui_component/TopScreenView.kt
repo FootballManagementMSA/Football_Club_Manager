@@ -3,7 +3,6 @@ package com.example.feature_terms.presentation.ui_component
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
@@ -27,10 +26,11 @@ import com.example.ui_component.smallFont
 fun TopScreenView() {
     Column {
         BackArrowImageView()
-        VerticalSpacer(value = 88)
+        VerticalSpacer(value = 48)
         AppNameInfo()
         VerticalSpacer(value = 20)
         TermsAgreeText()
+        VerticalSpacer(value = 70)
     }
 }
 
@@ -39,7 +39,6 @@ fun BackArrowImageView() {
     Column {
         Box(
             modifier = Modifier
-                .fillMaxWidth()
                 .align(Alignment.CenterHorizontally)
         ) {
             Icon(

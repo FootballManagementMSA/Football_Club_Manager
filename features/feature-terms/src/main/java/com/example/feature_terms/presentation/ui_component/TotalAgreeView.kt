@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.feature_terms.R
+import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.infoRow
 import com.example.ui_component.smallIcon
 
@@ -28,7 +29,6 @@ fun TotalAgreeView(onClick:() -> Unit) {
     Row(
         Modifier
             .fillMaxWidth()
-            .padding(20.dp)
             .clip(RoundedCornerShape(16.dp))
             .height(50.dp)
             .background(infoRow),
@@ -48,6 +48,7 @@ fun TotalAgreeView(onClick:() -> Unit) {
         }
         Text(text = "전체동의", color = Color(0xFF857FEB))
     }
+    VerticalSpacer(value = 30)
 }
 
 @Preview
