@@ -16,11 +16,11 @@ dependencyResolutionManagement {
 rootProject.name = "footballmanager_pj"
 include ':app'
 include ':libraries:network'
-include ':di'
 include ':core'
 include ':features'
 include ':features:feature-home'
 include ':libraries'
 include ':libraries:network-api'
 include ':ui-component'
+include ':features:feature-login'
 include ':features:feature-terms'

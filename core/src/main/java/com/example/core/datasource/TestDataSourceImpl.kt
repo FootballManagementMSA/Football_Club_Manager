@@ -6,7 +6,7 @@ import com.example.network_api.model.TestResponse
 import com.example.network_api.repository.TestRepository
 import javax.inject.Inject
 
-class TestDataSourceImpl @Inject constructor(private val testRepository: TestRepository) :
+internal class TestDataSourceImpl @Inject constructor(private val testRepository: TestRepository) :
     TestDataSource {
     override suspend fun getResponse(): TestUiModel = TestMapper.mapToUiModel(testRepository.getTestResponse())
 }
