@@ -1,4 +1,4 @@
-package com.example.di
+package com.example.network.di
 
 import com.example.network.network.TestApiImpl
 import dagger.Module
@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NetworkModule {
+internal object DummyModule {
     @Singleton
     @Provides
     fun providesTestApi() : TestApiImpl = TestApiImpl()
