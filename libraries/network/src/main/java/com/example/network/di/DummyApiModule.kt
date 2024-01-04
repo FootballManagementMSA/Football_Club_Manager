@@ -1,7 +1,5 @@
-package com.example.di
+package com.example.network.di
 
-import com.example.core.datasource.TestDataSource
-import com.example.core.datasource.TestDataSourceImpl
 import com.example.network.network.TestApi
 import com.example.network.network.TestApiImpl
 import com.example.network.repository.TestRepositoryImpl
@@ -13,13 +11,10 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
+internal abstract class DummyApiModule {
     @Binds
     abstract fun bindsDummy(testApiImpl: TestApiImpl) : TestApi
 
     @Binds
-    abstract fun bindsTestRepository(testRepositoryImpl: TestRepositoryImpl): TestRepository
-
-    @Binds
-    abstract fun bindsTestDataSource(testDataSourceImpl: TestDataSourceImpl) : TestDataSource
+    abstract fun bindsTestRepository(testRepositoryImpl: TestRepositoryImpl) : TestRepository
 }
