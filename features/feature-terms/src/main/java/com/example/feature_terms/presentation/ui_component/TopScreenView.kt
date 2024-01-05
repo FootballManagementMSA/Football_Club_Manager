@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.sp
 import com.example.feature_terms.R
 import com.example.ui_component.HorizontalSpacer
 import com.example.ui_component.VerticalSpacer
-import com.example.ui_component.largeIcon
-import com.example.ui_component.smallFont
+import com.example.ui_component.values.largeIcon
+import com.example.ui_component.values.smallFont
 
 @Composable
 fun TopScreenView() {
