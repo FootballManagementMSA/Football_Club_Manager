@@ -6,4 +6,5 @@ interface UserDataSource {
     suspend fun savePassword(password: String)
     suspend fun saveRefreshToken(refreshToken: String)
     suspend fun login()
+    suspend fun join()
 }
