@@ -16,4 +16,5 @@ dependencies {
     implementation project(':libraries:network-api')
     implementation project(':core')
     implementation project(':features:feature-login')
+    implementation project(':features:feature-terms')
 }
