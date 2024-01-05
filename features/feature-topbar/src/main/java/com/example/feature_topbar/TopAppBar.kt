@@ -1,6 +1,6 @@
-package com.example.ui_component
+package com.example.feature_topbar
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -18,6 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
+import com.example.ui_component.appBarFont
+import com.example.ui_component.largeIcon
+import com.example.ui_component.mainTheme
 
 @Composable
 fun TopAppBar(
@@ -30,16 +35,17 @@ fun TopAppBar(
     Row(
         modifier
             .fillMaxWidth()
-            .wrapContentHeight(),
+            .wrapContentHeight()
+            .background(mainTheme),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(
             modifier = modifier.wrapContentSize(),
             onClick = onBack
-        ){
+        ) {
             Icon(
-                modifier = modifier.size(largeIcon) ,
+                modifier = modifier.size(largeIcon),
                 imageVector = Icons.Default.ArrowBack,
                 contentDescription = "NavIcon",
                 tint = Color.White
@@ -49,13 +55,22 @@ fun TopAppBar(
         IconButton(
             modifier = modifier.wrapContentSize(),
             onClick = onAction
-        ){
+        ) {
             Icon(
-                modifier = modifier.size(largeIcon) ,
+                modifier = modifier.size(largeIcon),
                 imageVector = actionIcon,
                 contentDescription = "Action",
                 tint = Color.White
             )
         }
+    }
+}
+
+
+@Preview
+@Composable
+fun TopAppBarPreview() {
+    TopAppBar(title = "Temp", actionIcon = Icons.Default.Menu, onBack = { }) {
+        //do Action
     }
 }

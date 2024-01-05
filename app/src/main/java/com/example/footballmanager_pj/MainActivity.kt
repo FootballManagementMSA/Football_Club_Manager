@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
@@ -17,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.feature_topbar.TopAppBar
 import androidx.navigation.compose.rememberNavController
 import com.example.feature_navigation.BottomNavItem
 import com.example.feature_navigation.CustomBottomNavigation
@@ -38,7 +40,13 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navHostController = rememberNavController()
-                    Scaffold(bottomBar = {
+                    Scaffold(
+                      topBar = {
+                            TopAppBar(title = "Temp", actionIcon = Icons.Default.Menu, onBack = {  }) {
+                                //do Action
+                            }
+                        },
+                      bottomBar = {
                         CustomBottomNavigation(
                             items = listOf(
                                 BottomNavItem(

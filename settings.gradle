@@ -22,6 +22,6 @@ include ':features:feature-home'
 include ':libraries'
 include ':libraries:network-api'
 include ':ui-component'
+include ':features:feature-topbar'
 include ':features:feature-navigation'
 include ':features:feature-login'
-

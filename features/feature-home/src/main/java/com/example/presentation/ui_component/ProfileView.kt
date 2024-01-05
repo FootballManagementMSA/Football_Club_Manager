@@ -1,6 +1,5 @@
 package com.example.presentation.ui_component
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -13,8 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,7 +29,6 @@ import androidx.navigation.NavHostController
 import com.example.ui_component.CircleShapeClickableIcon
 import com.example.ui_component.HorizontalSpacer
 import com.example.ui_component.R
-import com.example.ui_component.TopAppBar
 import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.bigFont
 import com.example.ui_component.hugeFont
@@ -52,11 +48,6 @@ fun ProfileView(
     width: Dp
 ) {
     Column(Modifier.padding(20.dp)) {
-        TopAppBar(
-            title = "마이페이지",
-            actionIcon = Icons.Default.Menu,
-            onBack = { navHostController.popBackStack() },
-            onAction = { Log.e("MyPage", "show menu") })
         Spacer(
             modifier = Modifier.height(
                 (height / 20).coerceAtLeast(30.dp).coerceAtMost(60.dp)
