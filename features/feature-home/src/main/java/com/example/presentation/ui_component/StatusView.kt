@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -15,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ui_component.InfoItem
 import com.example.ui_component.VerticalLine
-import com.example.ui_component.infoRow
+import com.example.ui_component.values.subTheme
 
 @Composable
 fun StatusView(modifier: Modifier = Modifier) {
@@ -24,7 +23,7 @@ fun StatusView(modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .padding(20.dp)
             .clip(RoundedCornerShape(16.dp))
-            .background(infoRow),
+            .background(subTheme),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {

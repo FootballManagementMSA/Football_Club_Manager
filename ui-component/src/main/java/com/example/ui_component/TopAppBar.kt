@@ -1,6 +1,5 @@
 package com.example.ui_component
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
+import com.example.ui_component.values.appBarFont
+import com.example.ui_component.values.largeIcon
 
 @Composable
 fun TopAppBar(
