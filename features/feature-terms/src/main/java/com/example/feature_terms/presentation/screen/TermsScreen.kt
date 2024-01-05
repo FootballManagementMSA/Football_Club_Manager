@@ -15,8 +15,8 @@ import com.example.feature_terms.presentation.ui_component.CheckView
 import com.example.feature_terms.presentation.ui_component.TopScreenView
 import com.example.feature_terms.presentation.ui_component.TotalAgreeView
 import com.example.ui_component.CustomGradientButton
-import com.example.ui_component.gradientColorsList
-import com.example.ui_component.mainTheme
+import com.example.ui_component.values.gradientColorsList
+import com.example.ui_component.values.mainTheme
 
 @Composable
 fun TermsScreen(

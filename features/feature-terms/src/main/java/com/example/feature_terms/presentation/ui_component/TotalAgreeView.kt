@@ -21,8 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.feature_terms.R
 import com.example.ui_component.VerticalSpacer
-import com.example.ui_component.infoRow
-import com.example.ui_component.smallIcon
+import com.example.ui_component.values.subTheme
+import com.example.ui_component.values.smallIcon
 
 @Composable
 fun TotalAgreeView(onClick:() -> Unit) {
@@ -31,7 +31,7 @@ fun TotalAgreeView(onClick:() -> Unit) {
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
             .height(50.dp)
-            .background(infoRow),
+            .background(subTheme),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         IconButton(
