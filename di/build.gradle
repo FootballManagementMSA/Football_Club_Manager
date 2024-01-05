@@ -11,6 +11,8 @@ android {
 dependencies {
     implementation project(':features:feature-home')
     implementation project(':features:feature-login')
+    implementation project(':features:feature-join')
+
     implementation project(':libraries:network')
     implementation project(':libraries:network-api')
     implementation project(':core')

@@ -13,7 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.feature_login.presentation.screen.LoginScreen
+import com.example.feature_join.presentation.screen.JoinScreen
 import com.example.footballmanager_pj.ui.theme.Footballmanager_pjTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +31,9 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Scaffold {
-                        LoginScreen()
+
+                        JoinScreen()
+
                     }
                 }
             }
