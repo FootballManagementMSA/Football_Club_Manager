@@ -1,4 +1,4 @@
-package com.example.ui_component
+package com.example.ui_component.values
 
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -21,6 +21,6 @@ val verticalGradation = Brush.verticalGradient(
 
 val profileInfoButton = Color(0xFFDFDFDF)
 val grayText = Color(0xFFB6BFCD)
-val infoRow = Color(0xFF2E3D53)
+val subTheme = Color(0xFF2E3D53)
 val darkGray = Color(0xFF535353)
 val gradientColorsList = listOf(Color(0xFFEE6DE7), Color(0xFF857FEB))

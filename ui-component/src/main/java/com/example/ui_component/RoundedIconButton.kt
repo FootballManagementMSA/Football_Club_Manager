@@ -23,11 +23,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun RoundedIconButton(width: Dp) {
+fun RoundedIconButton(width: Dp, onClick : () -> Unit) {
     Box(
         modifier = Modifier
             .clickable {
-
+                onClick()
             }
     ) {
         Row(
@@ -35,7 +35,7 @@ fun RoundedIconButton(width: Dp) {
                 .clip(
                     RoundedCornerShape(30.dp)
                 )
-                .width(width / 2)
+                .width(width)
                 .background(Color.White)
                 .padding(8.dp)
                 .align(Alignment.Center),

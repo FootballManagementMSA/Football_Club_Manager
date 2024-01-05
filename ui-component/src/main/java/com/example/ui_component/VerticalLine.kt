@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.ui_component.values.grayText
 
 @Composable
 fun VerticalLine() {

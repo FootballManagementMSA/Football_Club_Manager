@@ -23,6 +23,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.ui_component.appBarFont
 import com.example.ui_component.largeIcon
 import com.example.ui_component.mainTheme
+import com.example.ui_component.values.appBarFont
+import com.example.ui_component.values.largeIcon
 
 @Composable
 fun TopAppBar(
