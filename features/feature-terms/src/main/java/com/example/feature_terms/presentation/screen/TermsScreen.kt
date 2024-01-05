@@ -9,13 +9,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.feature_terms.presentation.ui_component.CheckView
 import com.example.feature_terms.presentation.ui_component.TopScreenView
 import com.example.feature_terms.presentation.ui_component.TotalAgreeView
 import com.example.ui_component.CustomGradientButton
+import com.example.ui_component.gradientColorsList
 import com.example.ui_component.mainTheme
 
 @Composable
@@ -33,7 +33,7 @@ fun TermsScreen(
         TotalAgreeView() {}
         CheckView()
         CustomGradientButton(
-            gradientColors = listOf(Color(0xFFEE6DE7), Color(0xFF857FEB)),
+            gradientColors = gradientColorsList,
             cornerRadius = 16.dp,
             buttonText = "동의하고 가입하기",
             roundedCornerShape = RoundedCornerShape(20.dp)
