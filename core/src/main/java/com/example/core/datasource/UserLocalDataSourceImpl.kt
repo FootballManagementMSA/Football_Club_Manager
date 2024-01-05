@@ -36,4 +36,7 @@ class UserLocalDataSourceImpl @Inject constructor(
 
     override suspend fun login() {
     }
+    override suspend fun join(){
+        // api 요청보내기
+    }
 }
