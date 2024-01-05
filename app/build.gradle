@@ -10,6 +10,8 @@ apply from: "../base-compose-build.gradle"
 
 dependencies {
     implementation project(':features:feature-home')
+    implementation project(':features:feature-topbar')
+    implementation project(':features:feature-navigation')
     implementation project(':libraries:network')
     implementation project(':libraries:network-api')
     implementation project(':core')
