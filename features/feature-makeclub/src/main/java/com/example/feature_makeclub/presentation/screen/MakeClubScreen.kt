@@ -13,10 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.feature_makeclub.presentation.ui_component.ClubIdInfoBox
-import com.example.feature_makeclub.presentation.ui_component.ClubNameInputField
-import com.example.feature_makeclub.presentation.ui_component.ClubNameView
-import com.example.feature_makeclub.presentation.ui_component.MakeClubTopView
+import com.example.feature_makeclub.presentation.ui_component.make_club.ClubIdInfoBox
+import com.example.feature_makeclub.presentation.ui_component.make_club.ClubNameInputField
+import com.example.feature_makeclub.presentation.ui_component.make_club.ClubNameView
+import com.example.feature_makeclub.presentation.ui_component.make_club.MakeClubTopView
 import com.example.feature_makeclub.presentation.viewmodel.MakeClubViewModel
 import com.example.ui_component.CustomGradientButton
 import com.example.ui_component.values.gradientColorsList

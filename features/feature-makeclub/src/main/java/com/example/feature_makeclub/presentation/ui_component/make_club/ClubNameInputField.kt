@@ -1,4 +1,4 @@
-package com.example.feature_makeclub.presentation.ui_component
+package com.example.feature_makeclub.presentation.ui_component.make_club
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
