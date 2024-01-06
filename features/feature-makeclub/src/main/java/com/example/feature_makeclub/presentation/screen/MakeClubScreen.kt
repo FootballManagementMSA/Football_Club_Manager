@@ -8,6 +8,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,6 +27,8 @@ fun MakeClubScreen(
     viewModel: MakeClubViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
+    val clubName = viewModel.clubName.collectAsState("")
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -36,7 +39,7 @@ fun MakeClubScreen(
         MakeClubTopView()
         ClubNameView()
         ClubNameInputField(
-            state = viewModel.clubName,
+            state = clubName,
             onValueChange = { viewModel.updateClubName(it) })
         ClubIdInfoBox(text = "중복되는 이름도 신규 생성 가능합니다.")
         CustomGradientButton(

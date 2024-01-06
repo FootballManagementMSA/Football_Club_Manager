@@ -1,16 +1,20 @@
 package com.example.feature_makeclub.presentation.viewmodel
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MakeClubViewModel @Inject constructor(
 ): ViewModel() {
-    private val _clubName = mutableStateOf("")
-    val clubName: State<String> = _clubName
+    private val _clubName = MutableStateFlow("")
+    val clubName: StateFlow<String> = _clubName
 
     fun updateClubName(clubName: String) {
-        _clubName.value = clubName
+        viewModelScope.launch {
+            _clubName.emit(clubName)
+        }
     }
 }
