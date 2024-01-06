@@ -28,25 +28,6 @@ fun MakeClubTopView() {
     }
 }
 
-//@Composable
-//fun NextArrowImageView() {
-//    Column {
-//        Box(
-//            modifier = Modifier
-//                .align(Alignment.CenterHorizontally)
-//        ) {
-//            Icon(
-//                painter = painterResource(id = R.drawable.next_icon),
-//                contentDescription = null,
-//                modifier = Modifier
-//                    .size(largeIcon)
-//                    .align(Alignment.TopEnd),
-//                tint = Color.White
-//            )
-//        }
-//    }
-//}
-
 @Composable
 fun NextArrowImageView() {
     Box(
