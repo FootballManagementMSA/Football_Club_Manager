@@ -74,7 +74,7 @@ fun DefaultListView(
         }
         VerticalSpacer(value = 15)
         LazyColumn(
-            Modifier
+            modifier
                 .fillMaxSize(), content = listContent
         )
     }

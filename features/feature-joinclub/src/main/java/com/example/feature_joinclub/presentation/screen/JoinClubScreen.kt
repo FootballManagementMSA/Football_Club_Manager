@@ -77,7 +77,7 @@ fun BottomSheet(onDismiss: () -> Unit) {
         sheetState = modalBottomSheetState,
         dragHandle = { BottomSheetDefaults.DragHandle() },
     ) {
-        var selectedIndex = remember {
+        val selectedIndex = remember {
             mutableStateOf(-1)
         }
         DefaultListView(
@@ -91,7 +91,7 @@ fun BottomSheet(onDismiss: () -> Unit) {
             showButton = true,
             onClick = { },
             listContent = {
-                itemsIndexed(teamList.value.club, key = { _, item -> item.name }) { index, club ->
+                itemsIndexed(teamList.value.club, key = { _, item -> item.name }) { index, _ ->
                     DefaultItem(
                         modifier = Modifier
                             .padding(bottom = 12.dp)
