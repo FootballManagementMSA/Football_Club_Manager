@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.feature_topbar.TopAppBar
 import androidx.navigation.compose.rememberNavController
+import com.example.feature_joinclub.presentation.screen.JoinClubScreen
 import com.example.feature_navigation.BottomNavItem
 import com.example.feature_navigation.CustomBottomNavigation
 import com.example.feature_navigation.Route
@@ -71,7 +72,7 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     }) {
-                        FootBallManagerAppNavigator(navHostController)
+                        JoinClubScreen()
                     }
                 }
             }

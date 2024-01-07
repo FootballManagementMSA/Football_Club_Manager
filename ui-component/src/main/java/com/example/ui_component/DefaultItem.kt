@@ -28,27 +28,12 @@ fun DefaultItem(
     modifier: Modifier = Modifier,
     radius: Dp,
     color: Color = subTheme,
-    clickable: Boolean = false,
     content: @Composable () -> Unit
 ) {
-    val clicked = rememberSaveable { mutableStateOf(false) }
     val config = LocalConfiguration.current
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(radius))
-            .clickable {
-                clicked.value = !clicked.value
-            }
-            .border(
-                width = 2.dp,
-                brush = if (clickable && clicked.value) horizontalGradation else  Brush.verticalGradient(
-                colors = listOf(
-                    color,
-                    color
-                )
-                ),
-                shape = RoundedCornerShape((8.dp))
-            )
             .background(color)
             .fillMaxWidth()
             .heightIn(min = 150.dp, max = 200.dp)
