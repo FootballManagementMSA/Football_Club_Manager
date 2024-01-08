@@ -31,7 +31,7 @@ fun ClubNameInputField(
     state: State<String>,
     onValueChange: (String) -> Unit
 ) {
-    var isFocused = false
+    val isFocused = remember { mutableStateOf(false) }
 
     Box(
         modifier = Modifier
@@ -44,7 +44,7 @@ fun ClubNameInputField(
             value = state.value,
             onValueChange = {
                 onValueChange(it)
-                isFocused = it.isNotEmpty()
+                isFocused.value = it.isNotEmpty()
             },
             textStyle = TextStyle(
                 color = darkGray,
@@ -56,7 +56,7 @@ fun ClubNameInputField(
                 .padding(16.dp),
         )
 
-        if (!isFocused && state.value.isEmpty()) {
+        if (!isFocused.value && state.value.isEmpty()) {
             Text(
                 text = "새롭게 생성할 구단의 이름을 입력해주세요.",
                 color = Color.Gray,
