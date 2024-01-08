@@ -50,6 +50,7 @@ fun EmblemSelectScreen(viewModel: MakeClubViewModel = hiltViewModel()) {
             textColor = lastGradientColor,
             roundedCornerShape = RoundedCornerShape(20.dp)
         ) {
+            viewModel.sendClubInfoData()
         }
     }
 }
