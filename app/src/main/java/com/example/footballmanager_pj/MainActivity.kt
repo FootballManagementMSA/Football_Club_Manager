@@ -72,7 +72,7 @@ class MainActivity : ComponentActivity() {
                             }
                         }
                     }) {
-                        JoinClubScreen()
+                        FootBallManagerAppNavigator(navHostController = navHostController)
                     }
                 }
             }
