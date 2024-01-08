@@ -1,5 +1,6 @@
 package com.example.feature_makeclub.presentation.ui_component.emblem
 
+import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -9,7 +10,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -17,19 +20,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import com.example.feature_makeclub.presentation.viewmodel.MakeClubViewModel
 import com.example.ui_component.R
 
 @Composable
-fun EmblemSelectIconView(viewModel: MakeClubViewModel = hiltViewModel()) {
-    val selectedImageUri = viewModel.selectedImageUri.collectAsState()
+fun EmblemSelectIconView(state: State<Uri?>, onSelect: (Uri?) -> Unit) {
     val singlePhotoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
-        onResult = { uri ->
-            viewModel.updateSelectedImageUri(uri)
-        }
+        onResult = { onSelect(it) }
     )
     Box(
         contentAlignment = Alignment.Center,
@@ -44,7 +42,7 @@ fun EmblemSelectIconView(viewModel: MakeClubViewModel = hiltViewModel()) {
             }
     )
     {
-        if (selectedImageUri.value == null) {
+        if (state.value == null) {
             Image(
                 painter = painterResource(id = R.drawable.check_icon),
                 contentDescription = "CheckIcon",
@@ -52,7 +50,7 @@ fun EmblemSelectIconView(viewModel: MakeClubViewModel = hiltViewModel()) {
             )
         } else {
             AsyncImage(
-                model = selectedImageUri.value,
+                model = state.value,
                 contentDescription = null,
                 placeholder = painterResource(R.drawable.back_icon),
                 modifier = Modifier
@@ -63,8 +61,11 @@ fun EmblemSelectIconView(viewModel: MakeClubViewModel = hiltViewModel()) {
         }
     }
 }
+
 @Preview
 @Composable
 fun EmblemSelectIconViewPreview() {
-    EmblemSelectIconView()
+    val state = remember { mutableStateOf<Uri?>(null) }
+    EmblemSelectIconView(state) {
+    }
 }

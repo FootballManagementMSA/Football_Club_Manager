@@ -9,6 +9,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,7 +39,9 @@ fun EmblemSelectScreen(viewModel: MakeClubViewModel = hiltViewModel()) {
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            EmblemSelectIconView()
+            EmblemSelectIconView(viewModel.selectedImageUri.collectAsState()){
+                viewModel.updateSelectedImageUri(it)
+            }
         }
         VerticalSpacer(value = 60)
         EmblemInfoBox(text = "규격에 맞는 엠블럼 사진을 업로드 해주세요.")
