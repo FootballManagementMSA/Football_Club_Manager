@@ -18,12 +18,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun RoundedIconButton(width: Dp, onClick : () -> Unit) {
+fun RoundedIconButton(
+    modifier: Modifier = Modifier,
+    icon: ImageVector,
+    content: String,
+    onClick: () -> Unit
+) {
     Box(
         modifier = Modifier
             .clickable {
@@ -31,11 +38,10 @@ fun RoundedIconButton(width: Dp, onClick : () -> Unit) {
             }
     ) {
         Row(
-            Modifier
+            modifier
                 .clip(
                     RoundedCornerShape(30.dp)
                 )
-                .width(width)
                 .background(Color.White)
                 .padding(8.dp)
                 .align(Alignment.Center),
@@ -43,14 +49,22 @@ fun RoundedIconButton(width: Dp, onClick : () -> Unit) {
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Icon(
-                imageVector = Icons.Default.DateRange,
+                imageVector = icon,
                 contentDescription = ""
             )
-            Text(text = "일정 생성", fontWeight = FontWeight.Bold)
+            Text(text = content, fontWeight = FontWeight.Bold)
             Icon(
                 imageVector = Icons.Default.KeyboardArrowRight,
                 contentDescription = ""
             )
         }
+    }
+}
+
+@Composable
+@Preview
+fun RoundedIconButtonPreview() {
+    RoundedIconButton(icon = Icons.Default.DateRange, content = "안녕") {
+        
     }
 }
