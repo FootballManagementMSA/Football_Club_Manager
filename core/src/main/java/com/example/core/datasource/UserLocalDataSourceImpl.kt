@@ -6,9 +6,9 @@ import com.example.core.PreferenceKeys
 import com.example.core.userDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-class UserLocalDataSourceImpl @Inject constructor(
+internal class UserLocalDataSourceImpl @Inject constructor(
     @ApplicationContext context: Context
-) : UserDataSource {
+) : UserLocalDataSource {
     private val dataStore = context.userDataStore
     override suspend fun saveAccessToken(accessToken: String) {
         dataStore.edit {
@@ -32,8 +32,5 @@ class UserLocalDataSourceImpl @Inject constructor(
         dataStore.edit {
             it[PreferenceKeys.REFRESH_TOKEN] = refreshToken
         }
-    }
-
-    override suspend fun login() {
     }
 }
