@@ -1,23 +1,34 @@
 package com.example.presentation.ui_component
 
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -28,6 +39,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,12 +48,18 @@ import androidx.compose.ui.unit.dp
 import com.example.core.model.Schedule
 import com.example.ui_component.DefaultItem
 import com.example.ui_component.DefaultListView
+import com.example.ui_component.R
 import com.example.ui_component.RoundedIconButton
 import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.darkGray
 import com.example.ui_component.values.horizontalGradation
 import com.example.ui_component.values.mainTheme
+import com.example.ui_component.values.middleFont
 import com.example.ui_component.values.smallFont
+import com.example.ui_component.values.smallIcon
+import com.example.ui_component.values.tinyFont
+import com.example.ui_component.values.veryBigFont
+import com.example.ui_component.values.veryTinyFont
 
 @Composable
 fun ScheduleView(modifier: Modifier = Modifier, currentSchedule: State<List<Schedule>>) {
@@ -103,12 +122,20 @@ fun ScheduleView(modifier: Modifier = Modifier, currentSchedule: State<List<Sche
                         showButton = true,
                         listIcon = Icons.Default.DateRange,
                         onClick = { }) {
-                        items(currentSchedule.value) {
+                        items(currentSchedule.value) { schedule ->
                             DefaultItem(
                                 modifier = Modifier.padding(bottom = 12.dp),
                                 radius = 8.dp
                             ) {
-                                Text(text = it.toString())
+                                CompositionLocalProvider(
+                                    LocalTextStyle provides TextStyle(color = Color.White)
+                                ) {
+                                    ScheduleItem(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(15.dp), schedule = schedule
+                                    )
+                                }
                             }
                         }
                     }
@@ -119,12 +146,88 @@ fun ScheduleView(modifier: Modifier = Modifier, currentSchedule: State<List<Sche
 }
 
 @Composable
-@Preview
-fun ScheduleViewPreview() {
-    val state = remember {
-        mutableStateOf(generateDummyData(5))
+private fun ScheduleItem(modifier: Modifier = Modifier, schedule: Schedule) {
+    Column(
+        modifier
+    ) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .wrapContentHeight(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = schedule.location)
+            Image(
+                modifier = Modifier.size(smallIcon),
+                painter = painterResource(id = R.drawable.pin_button),
+                contentDescription = "pin"
+            )
+        }
+        Text(
+            text = schedule.date,
+            fontSize = veryBigFont,
+            fontWeight = FontWeight.Bold
+        )
+        MatchInfo(
+            modifier = Modifier
+                .padding(top = 5.dp)
+                .fillMaxWidth()
+                .weight(1f), schedule
+        )
     }
-    ScheduleView(currentSchedule = state)
+}
+
+@Composable
+private fun MatchInfo(modifier: Modifier = Modifier, schedule: Schedule) {
+    Row(
+        modifier,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Emblem(schedule)
+        TeamInfo(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight(), schedule.team1
+        )
+        Text(text = "VS", fontSize = middleFont, fontWeight = FontWeight.Bold)
+        TeamInfo(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight(), schedule.team2
+        )
+        Emblem(schedule)
+        Icon(
+            imageVector = Icons.Default.KeyboardArrowRight,
+            contentDescription = ""
+        )
+    }
+}
+
+@Composable
+private fun Emblem(schedule: Schedule) {
+    Image(
+        modifier = Modifier
+            .aspectRatio(1f)
+            .fillMaxHeight(),
+        imageVector = Icons.Default.Settings,
+        contentDescription = schedule.team1
+    )
+}
+
+@Composable
+private fun TeamInfo(modifier: Modifier = Modifier, team: String) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(text = team, fontSize = tinyFont)
+        Text(
+            text = "this is $team",
+            fontSize = veryTinyFont
+        )
+    }
 }
 
 @Composable
@@ -162,6 +265,28 @@ fun EmptyScheduleContent() {
 
 @Composable
 @Preview
+fun ScheduleItemPreview() {
+
+    ScheduleItem(
+        modifier = Modifier
+            .height(150.dp)
+            .padding(15.dp),
+        schedule = generateDummyData(1)[0]
+    )
+}
+
+@Composable
+@Preview
+fun ScheduleViewPreview() {
+    val state = remember {
+        mutableStateOf(generateDummyData(5))
+    }
+    ScheduleView(currentSchedule = state)
+}
+
+
+@Composable
+@Preview
 fun EmptyScheduleContentPreview() {
     EmptyScheduleContent()
 }
@@ -169,7 +294,7 @@ fun EmptyScheduleContentPreview() {
 fun generateDummyData(count: Int): List<Schedule> {
     val dummyLocations = listOf("Stadium A", "Stadium B", "Stadium C", "Stadium D", "Stadium E")
     val dummyDates = listOf("2022-01-01", "2022-02-15", "2022-03-10", "2022-04-20", "2022-05-05")
-    val dummyTeams = listOf("Team Alpha", "Team Beta", "Team Gamma", "Team Delta", "Team Epsilon")
+    val dummyTeams = listOf("Alpha", "Beta", "Gamma", "Delta", "Epsilon")
 
     return (1..count).map {
         Schedule(
