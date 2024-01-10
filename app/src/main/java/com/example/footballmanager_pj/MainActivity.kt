@@ -5,12 +5,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -20,12 +20,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.feature_topbar.TopAppBar
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.example.feature_joinclub.presentation.screen.JoinClubScreen
 import com.example.feature_navigation.BottomNavItem
 import com.example.feature_navigation.CustomBottomNavigation
 import com.example.feature_navigation.Route
+import com.example.feature_topbar.TopAppBar
 import com.example.footballmanager_pj.ui.theme.Footballmanager_pjTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,6 +46,7 @@ class MainActivity : ComponentActivity() {
                     Scaffold(
                         topBar = {
                             TopAppBar(
+                                modifier = Modifier.height(60.dp),
                                 title = uiRoute.value,
                                 actionIcon = Icons.Default.Menu,
                                 onBack = { }) {
@@ -54,6 +55,7 @@ class MainActivity : ComponentActivity() {
                         },
                         bottomBar = {
                             CustomBottomNavigation(
+                                modifier = Modifier.height(60.dp),
                                 items = listOf(
                                     BottomNavItem(
                                         icon = Icons.Default.Home,
