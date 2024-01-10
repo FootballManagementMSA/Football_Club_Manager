@@ -59,7 +59,7 @@ fun MyPageCardView(modifier: Modifier = Modifier) {
                     .clickable { }
             )
         }
-        VerticalSpacer(value = 10)
+        VerticalSpacer(value = 20)
         MyPageCardItem(radius = 8.dp) {
             Image(
                 painter = painterResource(id = R.drawable.check_icon),
@@ -87,7 +87,7 @@ fun MyPageCardView(modifier: Modifier = Modifier) {
             )
 
         }
-        VerticalSpacer(value = 10)
+        VerticalSpacer(value = 20)
         MyPageCardItem(radius = 8.dp) {
             Image(
                 painter = painterResource(id = R.drawable.check_icon),
@@ -120,8 +120,8 @@ fun MyPageCardItem(
             .clip(RoundedCornerShape(radius))
             .background(color)
             .fillMaxWidth()
-            .heightIn(min = 100.dp, max = 150.dp)
-            .height(config.screenHeightDp.dp / 11)
+            .heightIn(min =60.dp, max = 150.dp)
+            .height(config.screenHeightDp.dp / 10)
     ) {
         content()
     }
