@@ -16,6 +16,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.feature_topbar.TopAppBar
@@ -30,7 +32,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -41,38 +42,42 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navHostController = rememberNavController()
+                    val uiRoute = remember { mutableStateOf(Route.HOME) }
                     Scaffold(
-                      topBar = {
-                            TopAppBar(title = "Temp", actionIcon = Icons.Default.Menu, onBack = {  }) {
+                        topBar = {
+                            TopAppBar(
+                                title = uiRoute.value,
+                                actionIcon = Icons.Default.Menu,
+                                onBack = { }) {
                                 //do Action
                             }
                         },
-                      bottomBar = {
-                        CustomBottomNavigation(
-                            items = listOf(
-                                BottomNavItem(
-                                    icon = Icons.Default.Home,
-                                    route = Route.HOME,
-                                    configuration = Route.HOME
-                                ),
-                                BottomNavItem(
-                                    icon = Icons.Default.Favorite,
-                                    route = Route.SCHEDULE,
-                                    configuration = Route.SCHEDULE
-                                ),
-                                BottomNavItem(
-                                    icon = Icons.Default.Settings,
-                                    route = Route.SETTINGS,
-                                    configuration = Route.SETTINGS
-                                )
-                            ), navHostController = navHostController
-                        ) {
-                            navHostController.navigate(it.route) {
-                                navHostController.popBackStack()
+                        bottomBar = {
+                            CustomBottomNavigation(
+                                items = listOf(
+                                    BottomNavItem(
+                                        icon = Icons.Default.Home,
+                                        route = Route.HOME,
+                                        configuration = Route.HOME
+                                    ),
+                                    BottomNavItem(
+                                        icon = Icons.Default.Favorite,
+                                        route = Route.SCHEDULE,
+                                        configuration = Route.SCHEDULE
+                                    ),
+                                    BottomNavItem(
+                                        icon = Icons.Default.Settings,
+                                        route = Route.SETTINGS,
+                                        configuration = Route.SETTINGS
+                                    )
+                                ), navHostController = navHostController
+                            ) {
+                                navHostController.navigate(it.route) {
+                                    navHostController.popBackStack()
+                                }
                             }
-                        }
-                    }) {
-                        FootBallManagerAppNavigator(navHostController = navHostController)
+                        }) {
+                        FootBallManagerAppNavigator(navHostController = navHostController){ uiRoute.value = it }
                     }
                 }
             }
