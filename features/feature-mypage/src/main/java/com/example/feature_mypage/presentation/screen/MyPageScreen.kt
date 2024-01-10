@@ -50,13 +50,14 @@ fun MyPageScreen() {
                     MyPageInfoView(
                         modifier = Modifier
                             .fillMaxHeight()
-                            .requiredHeightIn(200.dp)
+                            .requiredHeightIn(180.dp)
                             .weight(2f)
                             .align(Alignment.CenterHorizontally)
                     )
                     MyPageCardView(
                         modifier = Modifier
                             .fillMaxWidth()
+                            .requiredHeightIn(180.dp)
                             .weight(7f)
                             .padding(30.dp)
                     )
