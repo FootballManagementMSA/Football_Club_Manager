@@ -1,8 +1,14 @@
 package com.example.footballmanager_pj
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -10,14 +16,20 @@ import com.example.feature_makeclub.presentation.screen.CompleteClubMakingScreen
 import com.example.feature_makeclub.presentation.screen.EmblemSelectScreen
 import com.example.feature_makeclub.presentation.screen.MakeClubScreen
 import com.example.feature_navigation.Route
+import com.example.feature_navigation.mainTheme
 import com.example.presentation.screen.HomeScreen
 
 @Composable
 fun FootBallManagerAppNavigator(
     navHostController: NavHostController,
+    uiRoute: State<String>,
     onNavigate: (String) -> Unit
 ) {
-    NavHost(navController = navHostController, startDestination = Route.HOME) {
+    NavHost(
+        modifier = Modifier.padding(vertical = if (uiRoute.value == Route.HOME) 60.dp else 0.dp),
+        navController = navHostController,
+        startDestination = Route.HOME
+    ) {
         composable(Route.HOME) {
             onNavigate(Route.HOME)
             HomeScreen(navHostController)

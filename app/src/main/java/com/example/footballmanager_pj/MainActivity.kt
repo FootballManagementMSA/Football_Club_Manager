@@ -45,41 +45,45 @@ class MainActivity : ComponentActivity() {
                     val uiRoute = remember { mutableStateOf(Route.HOME) }
                     Scaffold(
                         topBar = {
-                            TopAppBar(
-                                modifier = Modifier.height(60.dp),
-                                title = uiRoute.value,
-                                actionIcon = Icons.Default.Menu,
-                                onBack = { }) {
-                                //do Action
+                            if(uiRoute.value == Route.HOME){
+                                TopAppBar(
+                                    modifier = Modifier.height(60.dp),
+                                    title = uiRoute.value,
+                                    actionIcon = Icons.Default.Menu,
+                                    onBack = { }) {
+                                    //do Action
+                                }
                             }
                         },
                         bottomBar = {
-                            CustomBottomNavigation(
-                                modifier = Modifier.height(60.dp),
-                                items = listOf(
-                                    BottomNavItem(
-                                        icon = Icons.Default.Home,
-                                        route = Route.HOME,
-                                        configuration = Route.HOME
-                                    ),
-                                    BottomNavItem(
-                                        icon = Icons.Default.Favorite,
-                                        route = Route.SCHEDULE,
-                                        configuration = Route.SCHEDULE
-                                    ),
-                                    BottomNavItem(
-                                        icon = Icons.Default.Settings,
-                                        route = Route.SETTINGS,
-                                        configuration = Route.SETTINGS
-                                    )
-                                ), navHostController = navHostController
-                            ) {
-                                navHostController.navigate(it.route) {
-                                    navHostController.popBackStack()
+                            if(uiRoute.value == Route.HOME){
+                                CustomBottomNavigation(
+                                    modifier = Modifier.height(60.dp),
+                                    items = listOf(
+                                        BottomNavItem(
+                                            icon = Icons.Default.Home,
+                                            route = Route.HOME,
+                                            configuration = Route.HOME
+                                        ),
+                                        BottomNavItem(
+                                            icon = Icons.Default.Favorite,
+                                            route = Route.SCHEDULE,
+                                            configuration = Route.SCHEDULE
+                                        ),
+                                        BottomNavItem(
+                                            icon = Icons.Default.Settings,
+                                            route = Route.SETTINGS,
+                                            configuration = Route.SETTINGS
+                                        )
+                                    ), navHostController = navHostController
+                                ) {
+                                    navHostController.navigate(it.route) {
+                                        navHostController.popBackStack()
+                                    }
                                 }
                             }
                         }) {
-                        FootBallManagerAppNavigator(navHostController = navHostController){ uiRoute.value = it }
+                        FootBallManagerAppNavigator(navHostController = navHostController, uiRoute){ uiRoute.value = it }
                     }
                 }
             }
