@@ -25,7 +25,6 @@ import com.example.ui_component.values.mainTheme
 @Composable
 fun SquadScreen(viewModel: SquadViewModel = hiltViewModel()) {
     val state by viewModel.uiState.collectAsState()
-    val config = LocalConfiguration.current
     LaunchedEffect(Unit) {
         viewModel.loadPreset()
     }
@@ -36,7 +35,6 @@ fun SquadScreen(viewModel: SquadViewModel = hiltViewModel()) {
 
         is SquadState.Success -> {
             DraggableBox(
-                config = config,
                 onLoad = { (state as SquadState.Success).data.user1 },
                 onSet = { position ->
                     Log.e("callback","$position")
@@ -48,45 +46,28 @@ fun SquadScreen(viewModel: SquadViewModel = hiltViewModel()) {
 
 
 @Composable
-private fun DraggableBox(config: Configuration, onLoad: () -> Position, onSet: (Position) -> Unit) {
+private fun DraggableBox(onLoad: () -> Position, onSet: (Position) -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(mainTheme)
     ) {
-        Draggable(config, onLoad, onSet)
+        Draggable(onLoad, onSet)
     }
 }
 
 @Composable
-private fun Draggable(config: Configuration, onLoad: () -> Position, onSet: (Position) -> Unit) {
-    val loaded =
-        remember {
-            mutableStateOf(
-                Position(
-                    onLoad().x * (config.screenWidthDp - 50),
-                    onLoad().y * (config.screenHeightDp - 170)
-                )
-            )
-        }
-    Log.e("123", "${loaded.value}")
+private fun Draggable(onLoad: () -> Position, onSet: (Position) -> Unit) {
+    val loaded = remember { mutableStateOf(onLoad()) }
     Image(
         modifier = Modifier
-            .offset(x = loaded.value.x.dp, y = loaded.value.y.dp)
+            .offset { IntOffset(loaded.value.x.roundToInt(), loaded.value.y.roundToInt()) }
             .size(50.dp)
             .pointerInput(Unit) {
                 detectDragGestures { change, dragAmount ->
                     change.consume()
-                    loaded.value = loaded.value.copy(
-                        x = loaded.value.x + dragAmount.x,
-                        y = loaded.value.y + dragAmount.y
-                    )
-                    onSet(
-                        Position(
-                            loaded.value.x / config.screenWidthDp,
-                            loaded.value.y / config.screenHeightDp
-                        )
-                    )
+                    loaded.value = loaded.value.copy(x = loaded.value.x + dragAmount.x, y = loaded.value.y + dragAmount.y)
+                    onSet(loaded.value)
                 }
             }, painter = painterResource(id = R.drawable.cloth_icon), contentDescription = "member"
     )
