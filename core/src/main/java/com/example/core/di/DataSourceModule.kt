@@ -1,5 +1,7 @@
 package com.example.core.di
 
+import com.example.core.datasource.PositionPresetDataSource
+import com.example.core.datasource.PositionPresetDataSourceImpl
 import com.example.core.datasource.TestDataSource
 import com.example.core.datasource.TestDataSourceImpl
 import com.example.core.datasource.UserLocalDataSource
@@ -23,4 +25,7 @@ internal abstract class DataSourceModule {
 
     @Binds
     abstract fun bindsUserRemoteDataSource(userRemoteDataSourceImpl: UserRemoteDataSourceImpl): UserRemoteDataSource
+
+    @Binds
+    abstract fun bindsPositionPresetDataSource(positionPresetDataSourceImpl: PositionPresetDataSourceImpl): PositionPresetDataSource
 }

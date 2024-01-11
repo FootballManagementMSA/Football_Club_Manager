@@ -1,11 +1,8 @@
 package com.example.footballmanager_pj
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -16,9 +13,8 @@ import com.example.feature_makeclub.presentation.screen.CompleteClubMakingScreen
 import com.example.feature_makeclub.presentation.screen.EmblemSelectScreen
 import com.example.feature_makeclub.presentation.screen.MakeClubScreen
 import com.example.feature_navigation.Route
-import com.example.feature_navigation.mainTheme
 import com.example.feature_navigation.showBarList
-import com.example.feature_squard.DraggableScreen
+import com.example.feature_squard.presentation.screen.SquadScreen
 import com.example.presentation.screen.HomeScreen
 
 @Composable
@@ -38,7 +34,7 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.SQUAD) {
             onNavigate(Route.SQUAD)
-            DraggableScreen()
+            SquadScreen()
         }
         composable(Route.SETTINGS) {
             onNavigate(Route.SETTINGS)
