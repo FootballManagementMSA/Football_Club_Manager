@@ -13,17 +13,14 @@ import javax.inject.Inject
 class JoinViewModel @Inject constructor(
     private val joinUseCase: JoinUseCase
 ) : ViewModel() {
+    private val _userAge = mutableStateOf("")
+    val userAge: State<String> = _userAge
 
-
-    private val _userAge = mutableStateOf(0)
-    val userAge: State<Int> = _userAge
-
-    private val _userHeight = mutableStateOf(0)
-    val userHeight: State<Int> = _userHeight
+    private val _userHeight = mutableStateOf("")
+    val userHeight: State<String> = _userHeight
 
     private val _userGender = mutableStateOf("")
     val userGender: State<String> = _userGender
-
 
 
     fun join() {
@@ -32,10 +29,10 @@ class JoinViewModel @Inject constructor(
         }
     }
 
-    fun updateUserAge(age:Int){
+    fun updateUserAge(age:String){
         _userAge.value=age
     }
-    fun updateUserHeight(height: Int){
+    fun updateUserHeight(height: String){
         _userHeight.value=height
     }
     fun updateUserGender(gender: String){
