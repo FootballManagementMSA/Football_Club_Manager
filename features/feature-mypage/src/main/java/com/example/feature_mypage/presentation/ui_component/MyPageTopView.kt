@@ -1,6 +1,5 @@
 package com.example.feature_mypage.presentation.ui_component
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,11 +30,10 @@ fun MyPageTopView(
     onDesroy: () -> Unit
 ) {
     Row(
-        Modifier
+        modifier
             .fillMaxWidth()
             .padding(start = 40.dp, top = 40.dp, end = 40.dp)
-            .wrapContentHeight()
-            .background(Color.Transparent),
+            .wrapContentHeight(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
