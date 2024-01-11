@@ -12,7 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.feature_squard.presentation.Position
+import com.example.core.model.Position
 import com.example.feature_squard.presentation.SquadState
 import com.example.feature_squard.presentation.viewmodel.SquadViewModel
 import kotlin.math.roundToInt
@@ -63,6 +63,7 @@ private fun Draggable(onLoad: () -> Position, onSet: (Position) -> Unit) {
                 detectDragGestures { change, dragAmount ->
                     change.consume()
                     loaded.value = loaded.value.copy(x = loaded.value.x + dragAmount.x, y = loaded.value.y + dragAmount.y)
+                    onSet(loaded.value)
                 }
             }, painter = painterResource(id = R.drawable.cloth_icon), contentDescription = "member"
     )
