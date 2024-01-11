@@ -25,6 +25,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.feature_navigation.BottomNavItem
 import com.example.feature_navigation.CustomBottomNavigation
 import com.example.feature_navigation.Route
+import com.example.feature_navigation.showBarList
 import com.example.feature_topbar.TopAppBar
 import com.example.footballmanager_pj.ui.theme.Footballmanager_pjTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,7 +46,7 @@ class MainActivity : ComponentActivity() {
                     val uiRoute = remember { mutableStateOf(Route.HOME) }
                     Scaffold(
                         topBar = {
-                            if(uiRoute.value == Route.HOME){
+                            if (showBarList.contains(uiRoute.value)){
                                 TopAppBar(
                                     modifier = Modifier.height(60.dp),
                                     title = uiRoute.value,
@@ -56,7 +57,7 @@ class MainActivity : ComponentActivity() {
                             }
                         },
                         bottomBar = {
-                            if(uiRoute.value == Route.HOME){
+                            if (showBarList.contains(uiRoute.value)){
                                 CustomBottomNavigation(
                                     modifier = Modifier.height(60.dp),
                                     items = listOf(
@@ -67,8 +68,8 @@ class MainActivity : ComponentActivity() {
                                         ),
                                         BottomNavItem(
                                             icon = Icons.Default.Favorite,
-                                            route = Route.SCHEDULE,
-                                            configuration = Route.SCHEDULE
+                                            route = Route.SQUAD,
+                                            configuration = Route.SQUAD
                                         ),
                                         BottomNavItem(
                                             icon = Icons.Default.Settings,

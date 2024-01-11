@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import kotlin.math.roundToInt
 import com.example.ui_component.R
+import com.example.ui_component.values.mainTheme
 
 @Composable
 fun DraggableScreen() {
@@ -22,21 +23,26 @@ fun DraggableScreen() {
 
 @Composable
 private fun DraggableBox() {
-    Box(modifier = Modifier.fillMaxSize()) {
-        Draggable()
-        Draggable()
-        Draggable()
+    Box(modifier = Modifier.fillMaxSize().background(mainTheme)) {
+        Draggable { x, y ->
+
+        }
+        Draggable { x, y ->
+
+        }
+        Draggable { x, y ->
+
+        }
     }
 }
 
 @Composable
-private fun Draggable() {
+private fun Draggable(onSet: (Int, Int) -> Unit) {
     var offsetX by remember { mutableFloatStateOf(0f) }
     var offsetY by remember { mutableFloatStateOf(0f) }
     Image(
         modifier = Modifier
             .offset { IntOffset(offsetX.roundToInt(), offsetY.roundToInt()) }
-            .background(Color.Blue)
             .size(50.dp)
             .pointerInput(Unit) {
                 detectDragGestures { change, dragAmount ->
@@ -44,8 +50,6 @@ private fun Draggable() {
                     offsetX += dragAmount.x
                     offsetY += dragAmount.y
                 }
-            }
-        , painter = painterResource(id = R.drawable.cloth_icon)
-        , contentDescription = "member"
+            }, painter = painterResource(id = R.drawable.cloth_icon), contentDescription = "member"
     )
 }

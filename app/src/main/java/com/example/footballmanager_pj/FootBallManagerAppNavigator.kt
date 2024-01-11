@@ -17,6 +17,8 @@ import com.example.feature_makeclub.presentation.screen.EmblemSelectScreen
 import com.example.feature_makeclub.presentation.screen.MakeClubScreen
 import com.example.feature_navigation.Route
 import com.example.feature_navigation.mainTheme
+import com.example.feature_navigation.showBarList
+import com.example.feature_squard.DraggableScreen
 import com.example.presentation.screen.HomeScreen
 
 @Composable
@@ -26,7 +28,7 @@ fun FootBallManagerAppNavigator(
     onNavigate: (String) -> Unit
 ) {
     NavHost(
-        modifier = Modifier.padding(vertical = if (uiRoute.value == Route.HOME) 60.dp else 0.dp),
+        modifier = Modifier.padding(vertical = if (showBarList.contains(uiRoute.value)) 60.dp else 0.dp),
         navController = navHostController,
         startDestination = Route.HOME
     ) {
@@ -34,9 +36,9 @@ fun FootBallManagerAppNavigator(
             onNavigate(Route.HOME)
             HomeScreen(navHostController)
         }
-        composable(Route.SCHEDULE) {
-            onNavigate(Route.SCHEDULE)
-            Text(text = "SCHEDULE")
+        composable(Route.SQUAD) {
+            onNavigate(Route.SQUAD)
+            DraggableScreen()
         }
         composable(Route.SETTINGS) {
             onNavigate(Route.SETTINGS)
