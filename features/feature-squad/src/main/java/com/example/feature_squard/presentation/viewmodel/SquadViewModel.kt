@@ -22,12 +22,10 @@ class SquadViewModel @Inject constructor(
     val uiState get() = _uiState
 
     fun loadPreset() = viewModelScope.launch {
-        Log.e("123","${loadPositionPresetUseCase()}")
         _uiState.value = SquadState.Success(loadPositionPresetUseCase())
     }
 
     fun savePosition(position: Position) = viewModelScope.launch {
         savePositionPresetUseCase(position)
-        Log.e("123","${loadPositionPresetUseCase()}")
     }
 }
