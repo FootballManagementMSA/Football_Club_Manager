@@ -9,6 +9,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,7 +24,7 @@ import com.example.ui_component.VerticalSpacer
 fun MyPageModifyInfoView(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
-            .padding(40.dp)
+            .padding(start = 40.dp, end = 40.dp, top = 10.dp)
     ) {
         MyPageInfoBar(placeholder = "홍길동", infoText = "이름(닉네임)", isModifyEnable = false)
         MyPageInfoBar(placeholder = "2001년", infoText = "나이 (출생년도)", isModifyEnable = false)
@@ -45,21 +46,36 @@ private fun MyPageInfoBar(
     val text = remember {
         mutableStateOf("")
     }
-    Text(text = infoText, style = TextStyle(color = Color.White))
-    VerticalSpacer(value = 7)
-    OutlinedTextField(
-        modifier = modifier.fillMaxWidth(),
-        value = text.value,
-        onValueChange = { text.value = it },
-        singleLine = true,
-        placeholder = {
-            Text(text = placeholder)
-        },
-        trailingIcon = {
-            if (isModifyEnable) {
-                Icon(imageVector = Icons.Default.KeyboardArrowDown, contentDescription = "")
+    val textColor = Color.Gray
+    Column(
+        modifier = Modifier
+    ) {
+        Text(text = infoText, style = TextStyle(color = Color.White))
+        VerticalSpacer(value = 7)
+        OutlinedTextField(
+            modifier = modifier.fillMaxWidth(),
+            enabled = isModifyEnable,
+            value = text.value,
+            onValueChange = { text.value = it },
+            singleLine = true,
+            placeholder = {
+                Text(text = placeholder, color = textColor)
+            },
+            textStyle = TextStyle(color = textColor),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color.Gray,
+                unfocusedBorderColor = Color.Gray,
+                disabledBorderColor = Color.Gray
+
+            ),
+            trailingIcon = {
+                if (isModifyEnable) {
+                    Icon(imageVector = Icons.Default.KeyboardArrowDown, contentDescription = "")
+                }
             }
-        })
+        )
+        VerticalSpacer(value = 25)
+    }
 }
 
 @Preview
