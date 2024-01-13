@@ -7,11 +7,9 @@ import com.example.network_api.model.PositionPreset
 import com.example.network_api.model.TestResponse
 
 object PresentationMapper {
-    fun mapToUiModel(testResponse: TestResponse) = TestUiModel(testResponse.data)
-
     fun mapToUiPreset(positionPreset: PositionPreset) =
         com.example.core.model.PositionPreset(
-            localScreen = DataMapper.mapToDataModel(positionPreset.screenSize),
+            screenSize = DataMapper.mapToDataModel(positionPreset.screenSize),
             user1 = DataMapper.mapToDataModel2(positionPreset.user1)
         )
 }
