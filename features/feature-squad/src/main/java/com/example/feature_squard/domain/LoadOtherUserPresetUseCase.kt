@@ -11,10 +11,11 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SavePositionPresetUseCase @Inject constructor(
+class LoadOtherUserPresetUseCase @Inject constructor(
     @ApplicationContext private val context: Context,
     private val positionPresetDataSource: PositionPresetDataSource
 ) {
+
     private var localScreen = Screen(0.0, 0.0)
 
     init {
@@ -27,7 +28,12 @@ class SavePositionPresetUseCase @Inject constructor(
         localScreen = Screen(w.toDouble(), h.toDouble())
     }
 
-    suspend operator fun invoke(position: Position) {
-        positionPresetDataSource.save(position = position, localScreen = localScreen)
+    suspend operator fun invoke(): Position {
+        val preset = positionPresetDataSource.loadOtherUserPreset()
+        val otherUserScreenSize = preset.screenSize
+        return Position(
+            x = preset.user1.x * (localScreen.width / otherUserScreenSize.width).toFloat(),
+            y = preset.user1.y * (localScreen.height / otherUserScreenSize.height).toFloat()
+        )
     }
 }
