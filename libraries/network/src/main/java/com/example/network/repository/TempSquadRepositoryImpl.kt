@@ -4,17 +4,26 @@ import com.example.network_api.model.Position
 import com.example.network_api.model.PositionPreset
 import com.example.network_api.model.Screen
 import com.example.network_api.repository.TempSquadRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import javax.inject.Inject
 
-internal class TempSquadRepositoryImpl : TempSquadRepository {
-    override suspend fun saveMyCustomSquadPreset(positionPreset: PositionPreset) {
-        TODO("Not yet implemented")
-    }
+//추후 API로 대체
+internal class TempSquadRepositoryImpl @Inject constructor() : TempSquadRepository {
+    private val tempPositionStore = MutableStateFlow(Position(500f, 300f))
 
+    //스크린 크기는 nexus 4 임시로 설정
     override suspend fun loadMyCustomSquadPreset(): PositionPreset {
-        return PositionPreset(user1 = Position(500f, 300f))
+        return PositionPreset(
+            screenSize = Screen(768.0, 1280.0),
+            user1 = Position(tempPositionStore.value.x, tempPositionStore.value.y)
+        )
     }
 
     override suspend fun loadOtherUserCustomSquadPreset(): PositionPreset {
         return PositionPreset(screenSize = Screen(768.0, 1280.0), user1 = Position(400f, 400f))
+    }
+
+    override suspend fun saveMyCustomSquadPreset(screen: Screen, position: Position) {
+        tempPositionStore.value = position
     }
 }
