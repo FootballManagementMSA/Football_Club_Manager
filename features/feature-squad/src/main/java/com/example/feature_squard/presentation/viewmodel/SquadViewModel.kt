@@ -3,7 +3,7 @@ package com.example.feature_squard.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.feature_squard.domain.LoadPositionPresetUseCase
+import com.example.feature_squard.domain.LoadMyPresetUseCase
 import com.example.feature_squard.domain.SavePositionPresetUseCase
 import com.example.core.model.Position
 import com.example.feature_squard.presentation.SquadState
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SquadViewModel @Inject constructor(
-    private val loadPositionPresetUseCase: LoadPositionPresetUseCase,
+    private val loadMyPresetUseCase: LoadMyPresetUseCase,
     private val savePositionPresetUseCase: SavePositionPresetUseCase
 ) : ViewModel() {
 
@@ -22,7 +22,7 @@ class SquadViewModel @Inject constructor(
     val uiState get() = _uiState
 
     fun loadPreset() = viewModelScope.launch {
-        _uiState.value = SquadState.Success(loadPositionPresetUseCase())
+        _uiState.value = SquadState.Success(loadMyPresetUseCase())
     }
 
     fun savePosition(position: Position) = viewModelScope.launch {
