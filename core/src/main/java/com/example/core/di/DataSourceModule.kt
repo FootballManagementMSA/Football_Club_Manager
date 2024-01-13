@@ -2,8 +2,6 @@ package com.example.core.di
 
 import com.example.core.datasource.PositionPresetDataSource
 import com.example.core.datasource.PositionPresetDataSourceImpl
-import com.example.core.datasource.TestDataSource
-import com.example.core.datasource.TestDataSourceImpl
 import com.example.core.datasource.UserLocalDataSource
 import com.example.core.datasource.UserLocalDataSourceImpl
 import com.example.core.datasource.UserRemoteDataSource
@@ -16,9 +14,6 @@ import dagger.hilt.components.SingletonComponent
 @Module
 @InstallIn(SingletonComponent::class)
 internal abstract class DataSourceModule {
-
-    @Binds
-    abstract fun bindsTestDataSource(testDataSourceImpl: TestDataSourceImpl): TestDataSource
 
     @Binds
     abstract fun bindsUserDataSource(userLocalDataSourceImpl: UserLocalDataSourceImpl): UserLocalDataSource
