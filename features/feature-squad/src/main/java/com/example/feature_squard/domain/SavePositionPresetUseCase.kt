@@ -12,20 +12,9 @@ import javax.inject.Singleton
 
 @Singleton
 class SavePositionPresetUseCase @Inject constructor(
-    @ApplicationContext private val context: Context,
+    private val localScreen: Screen,
     private val positionPresetDataSource: PositionPresetDataSource
 ) {
-    private var localScreen = Screen(0.0, 0.0)
-
-    init {
-        val manager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-        val (w, h) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            manager.currentWindowMetrics.bounds.width() to manager.currentWindowMetrics.bounds.height()
-        } else {
-            manager.defaultDisplay.width to manager.defaultDisplay.height
-        }
-        localScreen = Screen(w.toDouble(), h.toDouble())
-    }
 
     suspend operator fun invoke(position: Position) {
         positionPresetDataSource.save(position = position, localScreen = localScreen)
