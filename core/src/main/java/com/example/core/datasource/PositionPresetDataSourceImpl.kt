@@ -18,7 +18,7 @@ import javax.inject.Singleton
 
 //임시 테스트용
 @Singleton
-class PositionPresetDataSourceImpl @Inject constructor(private val tempSquadRepository: TempSquadRepository) :
+internal class PositionPresetDataSourceImpl @Inject constructor(private val tempSquadRepository: TempSquadRepository) :
     PositionPresetDataSource {
 
     override suspend fun save(localScreen: Screen, position: Position) {

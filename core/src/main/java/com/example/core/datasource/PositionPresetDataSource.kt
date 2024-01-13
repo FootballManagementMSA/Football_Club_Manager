@@ -8,6 +8,5 @@ import com.example.core.model.Screen
 interface PositionPresetDataSource {
     suspend fun save(localScreen: Screen, position: Position)
     suspend fun loadMyPreset() : PositionPreset
-
     suspend fun loadOtherUserPreset() : PositionPreset
 }
