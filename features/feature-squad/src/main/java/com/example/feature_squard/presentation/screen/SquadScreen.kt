@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.model.Position
+import com.example.core.model.PositionPreset
 import com.example.feature_squard.presentation.SquadState
 import com.example.feature_squard.presentation.viewmodel.SquadViewModel
 import com.example.ui_component.R
@@ -43,7 +44,7 @@ fun SquadScreen(viewModel: SquadViewModel = hiltViewModel()) {
             DraggableBox(
                 onLoad = { (state as SquadState.Success).data },
                 onSet = { position ->
-                    Log.e("callback","$position")
+                    Log.e("callback", "$position")
                     viewModel.savePosition(position)
                 })
         }
@@ -52,27 +53,48 @@ fun SquadScreen(viewModel: SquadViewModel = hiltViewModel()) {
 
 
 @Composable
-private fun DraggableBox(onLoad: () -> Position, onSet: (Position) -> Unit) {
+private fun DraggableBox(onLoad: () -> PositionPreset, onSet: (Position) -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(mainTheme)
     ) {
+        Image(modifier = Modifier.fillMaxSize(), painter = painterResource(id = R.drawable.field), contentDescription = "field")
         Draggable(onLoad, onSet)
     }
 }
 
 @Composable
-private fun Draggable(onLoad: () -> Position, onSet: (Position) -> Unit) {
-    val loaded = remember { mutableStateOf(onLoad()) }
+private fun Draggable(onLoad: () -> PositionPreset, onSet: (Position) -> Unit) {
+    val loaded = remember { mutableStateOf(onLoad().user1) }
+    val screenSize by remember { mutableStateOf(onLoad().screenSize) }
+    val boxSize = remember { mutableStateOf(36) }
     Image(
         modifier = Modifier
-            .offset { IntOffset(loaded.value.x.roundToInt(), loaded.value.y.roundToInt()) }
-            .size(50.dp)
+            .offset {
+                IntOffset(
+                    loaded.value.x
+                        .roundToInt()
+                        .coerceAtLeast(0)
+                        .coerceAtMost(screenSize.width.toInt() - boxSize.value * 2),
+                    loaded.value.y
+                        .roundToInt()
+                        .coerceAtLeast(0)
+                        .coerceAtMost(screenSize.height.toInt()),
+                )
+            }
+            .size(boxSize.value.dp)
             .pointerInput(Unit) {
                 detectDragGestures { change, dragAmount ->
                     change.consume()
-                    loaded.value = loaded.value.copy(x = loaded.value.x + dragAmount.x, y = loaded.value.y + dragAmount.y)
+                    loaded.value = loaded.value.copy(
+                        x = (loaded.value.x + dragAmount.x)
+                            .coerceAtLeast(0f)
+                            .coerceAtMost(screenSize.width.toFloat()),
+                        y = (loaded.value.y + dragAmount.y)
+                            .coerceAtLeast(0f)
+                            .coerceAtMost(screenSize.height.toFloat()),
+                    )
                     onSet(loaded.value)
                 }
             }, painter = painterResource(id = R.drawable.cloth_icon), contentDescription = "member"
