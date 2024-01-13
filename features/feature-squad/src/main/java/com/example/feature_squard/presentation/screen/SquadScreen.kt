@@ -4,20 +4,32 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -26,7 +38,10 @@ import com.example.core.model.PositionPreset
 import com.example.feature_squard.presentation.SquadState
 import com.example.feature_squard.presentation.viewmodel.SquadViewModel
 import com.example.ui_component.R
+import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.mainTheme
+import com.example.ui_component.values.subTheme
+import com.example.ui_component.values.tinyFont
 import kotlin.math.roundToInt
 
 @Composable
@@ -58,9 +73,49 @@ private fun DraggableBox(onLoad: () -> PositionPreset, onSet: (Position) -> Unit
         modifier = Modifier
             .fillMaxSize()
             .background(mainTheme)
+            .padding(10.dp)
     ) {
-        Image(modifier = Modifier.fillMaxSize(), painter = painterResource(id = R.drawable.field), contentDescription = "field")
+        Column(Modifier.fillMaxSize()) {
+            Image(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                painter = painterResource(id = R.drawable.field),
+                contentDescription = "field"
+            )
+            VerticalSpacer(value = 10)
+            CandidateView()
+        }
         Draggable(onLoad, onSet)
+    }
+}
+
+@Composable
+private fun CandidateView() {
+    Text(
+        text = "교체 선수",
+        fontSize = tinyFont,
+        fontWeight = FontWeight.Bold,
+        color = Color.White
+    )
+    VerticalSpacer(value = 10)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .background(subTheme)
+            .wrapContentHeight()
+            .padding(10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Start
+    ) {
+        Image(
+            modifier = Modifier
+                .padding(5.dp)
+                .size(20.dp),
+            painter = painterResource(id = R.drawable.cloth_icon),
+            contentDescription = ""
+        )
     }
 }
 
@@ -68,7 +123,7 @@ private fun DraggableBox(onLoad: () -> PositionPreset, onSet: (Position) -> Unit
 private fun Draggable(onLoad: () -> PositionPreset, onSet: (Position) -> Unit) {
     val loaded = remember { mutableStateOf(onLoad().user1) }
     val screenSize by remember { mutableStateOf(onLoad().screenSize) }
-    val boxSize = remember { mutableStateOf(36) }
+    val boxSize = remember { mutableStateOf(20) }
     Image(
         modifier = Modifier
             .offset {
