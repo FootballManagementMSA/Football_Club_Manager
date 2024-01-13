@@ -26,4 +26,16 @@ object LocalSizeModule {
         }
         return Screen(w.toDouble(), h.toDouble())
     }
+
+    @Provides
+    @Singleton // 임시 API 나오면 제거 예정
+    fun provideLocalScreenSizeTemp(@ApplicationContext context: Context) : com.example.network_api.model.Screen {
+        val manager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val (w, h) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            manager.currentWindowMetrics.bounds.width() to manager.currentWindowMetrics.bounds.height()
+        } else {
+            manager.defaultDisplay.width to manager.defaultDisplay.height
+        }
+        return com.example.network_api.model.Screen(w.toDouble(), h.toDouble())
+    }
 }
