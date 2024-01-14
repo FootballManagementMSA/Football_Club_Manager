@@ -2,15 +2,13 @@ package com.example.core
 
 import com.example.core.model.Position
 import com.example.core.model.Screen
-import com.example.core.model.TestUiModel
 import com.example.network_api.model.PositionPreset
-import com.example.network_api.model.TestResponse
 
 object PresentationMapper {
     fun mapToUiPreset(positionPreset: PositionPreset) =
         com.example.core.model.PositionPreset(
             screenSize = DataMapper.mapToDataModel(positionPreset.screenSize),
-            user1 = DataMapper.mapToDataModel2(positionPreset.user1)
+            memberPosition = positionPreset.memberPosition.map { DataMapper.mapToDataModel2(it) }
         )
 }
 

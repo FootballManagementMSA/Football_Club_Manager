@@ -6,7 +6,7 @@ import com.example.core.model.Screen
 
 //임시 테스트용
 interface PositionPresetDataSource {
-    suspend fun save(localScreen: Screen, position: Position)
+    suspend fun save(localScreen: Screen, positions: List<Position>)
     suspend fun loadMyPreset() : PositionPreset
     suspend fun loadOtherUserPreset() : PositionPreset
 }

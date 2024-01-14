@@ -21,9 +21,9 @@ import javax.inject.Singleton
 internal class PositionPresetDataSourceImpl @Inject constructor(private val tempSquadRepository: TempSquadRepository) :
     PositionPresetDataSource {
 
-    override suspend fun save(localScreen: Screen, position: Position) {
+    override suspend fun save(localScreen: Screen, positions: List<Position>) {
         tempSquadRepository.saveMyCustomSquadPreset(
-            position = position.mapToDataModel(), screen = localScreen.mapToDataModel()
+            positions = positions.map { it.mapToDataModel() }, screen = localScreen.mapToDataModel()
         )
     }
 
