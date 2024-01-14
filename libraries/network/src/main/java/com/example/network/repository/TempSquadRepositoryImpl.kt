@@ -1,5 +1,6 @@
 package com.example.network.repository
 
+import android.util.Log
 import com.example.network_api.model.Position
 import com.example.network_api.model.PositionPreset
 import com.example.network_api.model.Screen
@@ -11,7 +12,15 @@ import javax.inject.Inject
 internal class TempSquadRepositoryImpl @Inject constructor(
     private val screen: Screen
 ) : TempSquadRepository {
-    private val tempPositionStore = MutableStateFlow(listOf(Position(500f, 300f)))
+    private val tempPositionStore = MutableStateFlow<List<Position>>(listOf())
+
+    init {
+        repeat(11) {
+            val updatedList = generateUniquePosition(tempPositionStore.value)
+            tempPositionStore.value = updatedList
+        }
+        Log.e("positions","${tempPositionStore.value}")
+    }
 
     //스크린 크기는 nexus 4 임시로 설정
     override suspend fun loadMyCustomSquadPreset(): PositionPreset {
@@ -27,5 +36,24 @@ internal class TempSquadRepositoryImpl @Inject constructor(
 
     override suspend fun saveMyCustomSquadPreset(screen: Screen, positions: List<Position>) {
         tempPositionStore.value = positions
+    }
+
+    private fun generateUniquePosition(existingList: List<Position>): List<Position> {
+        val newList = existingList.toMutableList()
+
+        var newPosition: Position
+        do {
+            newPosition = createRandomPosition()
+        } while (newList.contains(newPosition))
+
+        newList.add(newPosition)
+        return newList.toList()
+    }
+
+    // 랜덤한 Position 객체를 생성하는 함수 (실제 코드로 대체해야 함)
+    private fun createRandomPosition(): Position {
+        val randomX = (0..768).random().toFloat()
+        val randomY = (0..1280).random().toFloat()
+        return Position(randomX, randomY)
     }
 }
