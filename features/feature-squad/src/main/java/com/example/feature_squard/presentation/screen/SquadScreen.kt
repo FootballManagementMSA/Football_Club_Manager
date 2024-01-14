@@ -91,8 +91,10 @@ private fun SquadContent(onLoad: () -> PositionPreset, onSet: (List<Position>) -
             VerticalSpacer(value = 10)
             CandidateView()
         }
-        DraggableMember(memberNumber = 0, onLoad) {
-            positions[0] = it
+        positions.forEachIndexed { index, _ ->
+            DraggableMember(memberNumber = index, onLoad) { newPosition ->
+                positions[index] = newPosition
+            }
         }
         Button(
             modifier = Modifier.align(Alignment.TopEnd),
