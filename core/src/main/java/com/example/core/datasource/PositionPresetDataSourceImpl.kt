@@ -1,18 +1,9 @@
 package com.example.core.datasource
 
-import android.content.Context
-import android.os.Build
-import android.util.Log
-import android.view.WindowManager
-import androidx.core.content.ContextCompat.getSystemService
-import com.example.core.PresentationMapper
-import com.example.core.model.Position
-import com.example.core.model.Position.Companion.mapToDataModel
-import com.example.core.model.PositionPreset
-import com.example.core.model.Screen
-import com.example.core.model.Screen.Companion.mapToDataModel
+import com.example.core.mapper.EntityMapper.mapToEntity
+import com.example.core.mapper.UiModelMapper.mapToUiModel
+import com.example.core.model.PositionPresetUIModel
 import com.example.network_api.repository.TempSquadRepository
-import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,17 +12,15 @@ import javax.inject.Singleton
 internal class PositionPresetDataSourceImpl @Inject constructor(private val tempSquadRepository: TempSquadRepository) :
     PositionPresetDataSource {
 
-    override suspend fun save(localScreen: Screen, positions: List<Position>) {
-        tempSquadRepository.saveMyCustomSquadPreset(
-            positions = positions.map { it.mapToDataModel() }, screen = localScreen.mapToDataModel()
-        )
+    override suspend fun save(positionPresetUIModel: PositionPresetUIModel) {
+        tempSquadRepository.saveMyCustomSquadPreset(positionPresetUIModel.mapToEntity())
     }
 
-    override suspend fun loadMyPreset(): PositionPreset {
-        return PresentationMapper.mapToUiPreset(tempSquadRepository.loadMyCustomSquadPreset())
+    override suspend fun loadMyPreset(): PositionPresetUIModel {
+        return tempSquadRepository.loadMyCustomSquadPreset().mapToUiModel()
     }
 
-    override suspend fun loadOtherUserPreset(): PositionPreset {
-        return PresentationMapper.mapToUiPreset(tempSquadRepository.loadOtherUserCustomSquadPreset())
+    override suspend fun loadOtherUserPreset(): PositionPresetUIModel {
+        return tempSquadRepository.loadOtherUserCustomSquadPreset().mapToUiModel()
     }
 }

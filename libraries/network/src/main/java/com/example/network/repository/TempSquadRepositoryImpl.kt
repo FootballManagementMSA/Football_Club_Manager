@@ -1,16 +1,17 @@
 package com.example.network.repository
 
-import android.util.Log
-import com.example.network_api.model.Position
-import com.example.network_api.model.PositionPreset
-import com.example.network_api.model.Screen
+import com.example.network_api.entity.Position
+import com.example.network_api.entity.PositionPreset
+import com.example.network_api.entity.RemoteScreen
 import com.example.network_api.repository.TempSquadRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
+import javax.inject.Singleton
 
 //추후 API로 대체
+@Singleton
 internal class TempSquadRepositoryImpl @Inject constructor(
-    private val screen: Screen
+    private val screen: RemoteScreen
 ) : TempSquadRepository {
     private val tempPositionStore = MutableStateFlow<List<Position>>(listOf())
 
@@ -19,7 +20,6 @@ internal class TempSquadRepositoryImpl @Inject constructor(
             val updatedList = generateUniquePosition(tempPositionStore.value)
             tempPositionStore.value = updatedList
         }
-        Log.e("positions","${tempPositionStore.value}")
     }
 
     //스크린 크기는 nexus 4 임시로 설정
@@ -31,11 +31,11 @@ internal class TempSquadRepositoryImpl @Inject constructor(
     }
 
     override suspend fun loadOtherUserCustomSquadPreset(): PositionPreset {
-        return PositionPreset(screenSize = Screen(768.0, 1280.0), memberPosition = tempPositionStore.value)
+        return PositionPreset(screenSize = RemoteScreen(768.0, 1280.0), memberPosition = tempPositionStore.value)
     }
 
-    override suspend fun saveMyCustomSquadPreset(screen: Screen, positions: List<Position>) {
-        tempPositionStore.value = positions
+    override suspend fun saveMyCustomSquadPreset(positionPreset: PositionPreset) {
+        tempPositionStore.value = positionPreset.memberPosition
     }
 
     private fun generateUniquePosition(existingList: List<Position>): List<Position> {

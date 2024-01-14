@@ -1,11 +1,10 @@
 package com.example.feature_squard.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.core.model.PositionUiModel
 import com.example.feature_squard.domain.LoadMyPresetUseCase
 import com.example.feature_squard.domain.SavePositionPresetUseCase
-import com.example.core.model.Position
 import com.example.feature_squard.presentation.SquadState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +24,7 @@ class SquadViewModel @Inject constructor(
         _uiState.value = SquadState.Success(loadMyPresetUseCase())
     }
 
-    fun savePosition(positions: List<Position>) = viewModelScope.launch {
+    fun savePosition(positions: List<PositionUiModel>) = viewModelScope.launch {
         savePositionPresetUseCase(positions)
     }
 }

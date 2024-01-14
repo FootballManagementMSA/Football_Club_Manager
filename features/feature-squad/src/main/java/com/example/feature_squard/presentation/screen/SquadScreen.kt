@@ -35,9 +35,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.core.model.Position
-import com.example.core.model.PositionPreset
-import com.example.core.model.Screen
+import com.example.core.model.LocalScreen
+import com.example.core.model.PositionPresetUIModel
+import com.example.core.model.PositionUiModel
 import com.example.feature_squard.presentation.SquadState
 import com.example.feature_squard.presentation.viewmodel.SquadViewModel
 import com.example.ui_component.R
@@ -71,7 +71,7 @@ fun SquadScreen(viewModel: SquadViewModel = hiltViewModel()) {
 
 
 @Composable
-private fun SquadContent(onLoad: () -> PositionPreset, onSet: (List<Position>) -> Unit) {
+private fun SquadContent(onLoad: () -> PositionPresetUIModel, onSet: (List<PositionUiModel>) -> Unit) {
     val positions = remember { onLoad().memberPosition.toMutableList() }
 
     Box(
@@ -136,8 +136,8 @@ private fun CandidateView() {
 @Composable
 private fun DraggableMember(
     memberNumber: Int,
-    onLoad: () -> PositionPreset,
-    onSet: (Position) -> Unit
+    onLoad: () -> PositionPresetUIModel,
+    onSet: (PositionUiModel) -> Unit
 ) {
     val loaded = remember { mutableStateOf(onLoad().memberPosition[memberNumber]) }
     val screenSize by remember { mutableStateOf(onLoad().screenSize) }
@@ -178,9 +178,9 @@ private fun DraggableMember(
 @Preview
 fun SquadContentPreview() {
     SquadContent(onLoad = {
-        PositionPreset(
-            screenSize = Screen(768.0, 1280.0),
-            memberPosition = listOf(Position(100f, 100f))
+        PositionPresetUIModel(
+            screenSize = LocalScreen(768.0, 1280.0),
+            memberPosition = listOf(PositionUiModel(100f, 100f))
         )
     }, onSet = {})
 }

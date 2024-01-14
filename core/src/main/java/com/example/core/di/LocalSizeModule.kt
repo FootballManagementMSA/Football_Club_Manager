@@ -3,7 +3,7 @@ package com.example.core.di
 import android.content.Context
 import android.os.Build
 import android.view.WindowManager
-import com.example.core.model.Screen
+import com.example.core.model.LocalScreen
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,25 +17,25 @@ object LocalSizeModule {
 
     @Provides
     @Singleton
-    fun provideLocalScreenSize(@ApplicationContext context: Context) : Screen {
+    fun provideLocalScreenSize(@ApplicationContext context: Context) : LocalScreen {
         val manager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val (w, h) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             manager.currentWindowMetrics.bounds.width() to manager.currentWindowMetrics.bounds.height()
         } else {
             manager.defaultDisplay.width to manager.defaultDisplay.height
         }
-        return Screen(w.toDouble(), h.toDouble())
+        return LocalScreen(w.toDouble(), h.toDouble())
     }
 
     @Provides
     @Singleton // 임시 API 나오면 제거 예정
-    fun provideLocalScreenSizeTemp(@ApplicationContext context: Context) : com.example.network_api.model.Screen {
+    fun provideLocalScreenSizeTemp(@ApplicationContext context: Context) : com.example.network_api.entity.RemoteScreen {
         val manager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val (w, h) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             manager.currentWindowMetrics.bounds.width() to manager.currentWindowMetrics.bounds.height()
         } else {
             manager.defaultDisplay.width to manager.defaultDisplay.height
         }
-        return com.example.network_api.model.Screen(w.toDouble(), h.toDouble())
+        return com.example.network_api.entity.RemoteScreen(w.toDouble(), h.toDouble())
     }
 }
