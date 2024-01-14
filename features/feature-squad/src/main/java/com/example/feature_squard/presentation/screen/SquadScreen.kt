@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -71,6 +72,7 @@ fun SquadScreen(viewModel: SquadViewModel = hiltViewModel()) {
 
 @Composable
 private fun SquadContent(onLoad: () -> PositionPreset, onSet: (Position) -> Unit) {
+    val member1Position = remember { mutableStateOf(Position(0f, 0f)) }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -88,7 +90,13 @@ private fun SquadContent(onLoad: () -> PositionPreset, onSet: (Position) -> Unit
             VerticalSpacer(value = 10)
             CandidateView()
         }
-        DraggableMember(onLoad, onSet)
+        DraggableMember(onLoad){
+            member1Position.value = it
+            Log.e("state","${member1Position.value}")
+        }
+        Button(modifier = Modifier.align(Alignment.TopEnd),onClick = { onSet(member1Position.value) }) {
+            Text(text = "save preset")
+        }
     }
 }
 
@@ -160,6 +168,11 @@ private fun DraggableMember(onLoad: () -> PositionPreset, onSet: (Position) -> U
 
 @Composable
 @Preview
-fun SquadContentPreview(){
-    SquadContent(onLoad = { PositionPreset(screenSize = Screen(768.0,1280.0), user1 = Position(100f,100f,)) }, onSet = {})
+fun SquadContentPreview() {
+    SquadContent(onLoad = {
+        PositionPreset(
+            screenSize = Screen(768.0, 1280.0),
+            user1 = Position(100f, 100f)
+        )
+    }, onSet = {})
 }
