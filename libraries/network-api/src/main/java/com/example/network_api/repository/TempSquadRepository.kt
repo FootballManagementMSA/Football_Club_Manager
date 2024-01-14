@@ -9,5 +9,5 @@ interface TempSquadRepository {
 
     suspend fun loadOtherUserCustomSquadPreset(): PositionPreset
 
-    suspend fun saveMyCustomSquadPreset(screen: Screen, position: Position)
+    suspend fun saveMyCustomSquadPreset(screen: Screen, positions: List<Position>)
 }
