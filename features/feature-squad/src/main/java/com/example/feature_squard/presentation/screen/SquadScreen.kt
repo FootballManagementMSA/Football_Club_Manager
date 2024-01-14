@@ -30,11 +30,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.model.Position
 import com.example.core.model.PositionPreset
+import com.example.core.model.Screen
 import com.example.feature_squard.presentation.SquadState
 import com.example.feature_squard.presentation.viewmodel.SquadViewModel
 import com.example.ui_component.R
@@ -56,7 +58,7 @@ fun SquadScreen(viewModel: SquadViewModel = hiltViewModel()) {
         }
 
         is SquadState.Success -> {
-            DraggableBox(
+            SquadContent(
                 onLoad = { (state as SquadState.Success).data },
                 onSet = { position ->
                     Log.e("callback", "$position")
@@ -68,7 +70,7 @@ fun SquadScreen(viewModel: SquadViewModel = hiltViewModel()) {
 
 
 @Composable
-private fun DraggableBox(onLoad: () -> PositionPreset, onSet: (Position) -> Unit) {
+private fun SquadContent(onLoad: () -> PositionPreset, onSet: (Position) -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -86,7 +88,7 @@ private fun DraggableBox(onLoad: () -> PositionPreset, onSet: (Position) -> Unit
             VerticalSpacer(value = 10)
             CandidateView()
         }
-        Draggable(onLoad, onSet)
+        DraggableMember(onLoad, onSet)
     }
 }
 
@@ -120,7 +122,7 @@ private fun CandidateView() {
 }
 
 @Composable
-private fun Draggable(onLoad: () -> PositionPreset, onSet: (Position) -> Unit) {
+private fun DraggableMember(onLoad: () -> PositionPreset, onSet: (Position) -> Unit) {
     val loaded = remember { mutableStateOf(onLoad().user1) }
     val screenSize by remember { mutableStateOf(onLoad().screenSize) }
     val boxSize = remember { mutableStateOf(20) }
@@ -154,4 +156,10 @@ private fun Draggable(onLoad: () -> PositionPreset, onSet: (Position) -> Unit) {
                 }
             }, painter = painterResource(id = R.drawable.cloth_icon), contentDescription = "member"
     )
+}
+
+@Composable
+@Preview
+fun SquadContentPreview(){
+    SquadContent(onLoad = { PositionPreset(screenSize = Screen(768.0,1280.0), user1 = Position(100f,100f,)) }, onSet = {})
 }
