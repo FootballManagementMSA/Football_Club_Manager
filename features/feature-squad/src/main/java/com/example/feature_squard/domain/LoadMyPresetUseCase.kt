@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 @Singleton
 class LoadMyPresetUseCase @Inject constructor(
-    private val localScreen: LocalScreen,
+    private val myScreen: LocalScreen,
     private val positionPresetDataSource: PositionPresetDataSource
 ) {
 
@@ -17,11 +17,12 @@ class LoadMyPresetUseCase @Inject constructor(
     //만약 기종이 다른 폰으로 로그인 할 경우 화면의 크기가 달라지기 때문이다.
     suspend operator fun invoke(): PositionPresetUIModel {
         val preset = positionPresetDataSource.loadMyPreset()
+        val screenFromDB = preset.screenSize
         return preset.copy(
             memberPosition = preset.memberPosition.map { position ->
                 PositionUiModel(
-                    x = position.x * (localScreen.width / preset.screenSize.width).toFloat(),
-                    y = position.y * (localScreen.height / preset.screenSize.height).toFloat()
+                    x = position.x * (myScreen.width / screenFromDB.width).toFloat(),
+                    y = position.y * (myScreen.height / screenFromDB.height).toFloat()
                 )
             }
         )

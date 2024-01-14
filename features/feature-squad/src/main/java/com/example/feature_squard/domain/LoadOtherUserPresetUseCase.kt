@@ -9,17 +9,18 @@ import javax.inject.Singleton
 
 @Singleton
 class LoadOtherUserPresetUseCase @Inject constructor(
-    private val localScreen: LocalScreen,
+    private val myScreen: LocalScreen,
     private val positionPresetDataSource: PositionPresetDataSource
 ) {
 
     suspend operator fun invoke(): PositionPresetUIModel {
         val preset = positionPresetDataSource.loadOtherUserPreset()
+        val otherUserScreen = preset.screenSize
         return preset.copy(
             memberPosition = preset.memberPosition.map { position ->
                 PositionUiModel(
-                    x = position.x * (localScreen.width / preset.screenSize.width).toFloat(),
-                    y = position.y * (localScreen.height / preset.screenSize.height).toFloat()
+                    x = position.x * (myScreen.width / otherUserScreen.width).toFloat(),
+                    y = position.y * (myScreen.height / otherUserScreen.height).toFloat()
                 )
             }
         )
