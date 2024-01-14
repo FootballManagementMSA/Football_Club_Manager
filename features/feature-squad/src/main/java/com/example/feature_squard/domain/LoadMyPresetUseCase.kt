@@ -18,10 +18,12 @@ class LoadMyPresetUseCase @Inject constructor(
     suspend operator fun invoke(): PositionPreset {
         val preset = positionPresetDataSource.loadMyPreset()
         return preset.copy(
-            user1 = Position(
-                x = preset.user1.x * (localScreen.width / preset.screenSize.width).toFloat(),
-                y = preset.user1.y * (localScreen.height / preset.screenSize.height).toFloat()
-            )
+            memberPosition = preset.memberPosition.map { position ->
+                Position(
+                    x = position.x * (localScreen.width / preset.screenSize.width).toFloat(),
+                    y = position.y * (localScreen.height / preset.screenSize.height).toFloat()
+                )
+            }
         )
     }
 }

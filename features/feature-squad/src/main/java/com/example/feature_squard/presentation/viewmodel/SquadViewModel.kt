@@ -25,7 +25,7 @@ class SquadViewModel @Inject constructor(
         _uiState.value = SquadState.Success(loadMyPresetUseCase())
     }
 
-    fun savePosition(position: Position) = viewModelScope.launch {
-        savePositionPresetUseCase(position)
+    fun savePosition(positions: List<Position>) = viewModelScope.launch {
+        savePositionPresetUseCase(positions)
     }
 }

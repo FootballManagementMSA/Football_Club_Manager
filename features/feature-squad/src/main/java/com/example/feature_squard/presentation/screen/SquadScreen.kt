@@ -71,8 +71,20 @@ fun SquadScreen(viewModel: SquadViewModel = hiltViewModel()) {
 
 
 @Composable
-private fun SquadContent(onLoad: () -> PositionPreset, onSet: (Position) -> Unit) {
-    val member1Position = remember { mutableStateOf(Position(0f, 0f)) }
+private fun SquadContent(onLoad: () -> PositionPreset, onSet: (List<Position>) -> Unit) {
+//    val member1Position = remember { mutableStateOf(Position(0f, 0f)) }
+//    val member2Position = remember { mutableStateOf(Position(0f, 0f)) }
+//    val member3Position = remember { mutableStateOf(Position(0f, 0f)) }
+//    val member4Position = remember { mutableStateOf(Position(0f, 0f)) }
+//    val member5Position = remember { mutableStateOf(Position(0f, 0f)) }
+//    val member6Position = remember { mutableStateOf(Position(0f, 0f)) }
+//    val member7Position = remember { mutableStateOf(Position(0f, 0f)) }
+//    val member8Position = remember { mutableStateOf(Position(0f, 0f)) }
+//    val member9Position = remember { mutableStateOf(Position(0f, 0f)) }
+//    val member10Position = remember { mutableStateOf(Position(0f, 0f)) }
+//    val member11Position = remember { mutableStateOf(Position(0f, 0f)) }
+    val positions = remember { mutableListOf(Position(0f, 0f)) }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -90,11 +102,12 @@ private fun SquadContent(onLoad: () -> PositionPreset, onSet: (Position) -> Unit
             VerticalSpacer(value = 10)
             CandidateView()
         }
-        DraggableMember(onLoad){
-            member1Position.value = it
-            Log.e("state","${member1Position.value}")
+        DraggableMember(memberNumber = 1, onLoad) {
+            positions[0] = it
         }
-        Button(modifier = Modifier.align(Alignment.TopEnd),onClick = { onSet(member1Position.value) }) {
+        Button(
+            modifier = Modifier.align(Alignment.TopEnd),
+            onClick = { onSet(positions) }) {
             Text(text = "save preset")
         }
     }
@@ -130,8 +143,12 @@ private fun CandidateView() {
 }
 
 @Composable
-private fun DraggableMember(onLoad: () -> PositionPreset, onSet: (Position) -> Unit) {
-    val loaded = remember { mutableStateOf(onLoad().user1) }
+private fun DraggableMember(
+    memberNumber: Int,
+    onLoad: () -> PositionPreset,
+    onSet: (Position) -> Unit
+) {
+    val loaded = remember { mutableStateOf(onLoad().memberPosition[memberNumber - 1]) }
     val screenSize by remember { mutableStateOf(onLoad().screenSize) }
     val boxSize = remember { mutableStateOf(20) }
     Image(
@@ -172,7 +189,7 @@ fun SquadContentPreview() {
     SquadContent(onLoad = {
         PositionPreset(
             screenSize = Screen(768.0, 1280.0),
-            user1 = Position(100f, 100f)
+            memberPosition = listOf(Position(100f, 100f))
         )
     }, onSet = {})
 }
