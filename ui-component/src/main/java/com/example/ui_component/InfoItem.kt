@@ -7,6 +7,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.ui_component.values.grayText
+import com.example.ui_component.values.middleFont
+import com.example.ui_component.values.veryTinyFont
 
 @Composable
 fun InfoItem(title: String, content: String) {

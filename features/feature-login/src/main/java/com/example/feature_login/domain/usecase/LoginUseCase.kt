@@ -1,10 +1,10 @@
 package com.example.feature_login.domain.usecase
 
-import com.example.core.datasource.UserDataSource
+import com.example.core.datasource.UserRemoteDataSource
 import javax.inject.Inject
 
 class LoginUseCase @Inject constructor(
-    private val userDataSource: UserDataSource
+    private val userRemoteDataSource: UserRemoteDataSource
 ) {
-    suspend operator fun invoke() = userDataSource.login()
+    suspend operator fun invoke() = userRemoteDataSource.login()
 }
