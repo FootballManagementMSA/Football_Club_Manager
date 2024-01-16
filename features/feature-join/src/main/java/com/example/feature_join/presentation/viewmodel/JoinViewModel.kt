@@ -22,6 +22,9 @@ class JoinViewModel @Inject constructor(
     private val _userGender = mutableStateOf("")
     val userGender: State<String> = _userGender
 
+    private val _userName = mutableStateOf("")
+    val userName: State<String> = _userName
+
 
     fun join() {
         viewModelScope.launch {
@@ -37,6 +40,9 @@ class JoinViewModel @Inject constructor(
     }
     fun updateUserGender(gender: String){
         _userGender.value=gender
+    }
+    fun updateUserName(name:String){
+        _userName.value=name
     }
 
 
