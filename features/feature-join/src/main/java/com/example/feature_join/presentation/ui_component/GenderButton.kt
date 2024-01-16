@@ -20,9 +20,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ui_component.horizontalGradation
-import com.example.ui_component.infoRow
-import com.example.ui_component.transparentBrush
+import com.example.ui_component.values.horizontalGradation
+import com.example.ui_component.values.subTheme
+import com.example.ui_component.values.transparentBrush
 
 @Composable
 fun GenderButton(
@@ -38,7 +38,7 @@ fun GenderButton(
         modifier = Modifier
             .height(80.dp)
             .width(120.dp)
-            .background(infoRow, shape= RoundedCornerShape(10.dp))
+            .background(subTheme, shape= RoundedCornerShape(10.dp))
             .clickable { onClick() }
             .border(
                 width = 1.dp,
