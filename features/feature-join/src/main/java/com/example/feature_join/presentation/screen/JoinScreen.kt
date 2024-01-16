@@ -48,7 +48,7 @@ fun JoinScreen(viewModel: JoinViewModel = hiltViewModel()) {
         )
         Spacer(modifier = Modifier.height(40.dp))
 
-
+        //
 
         GenderView()
         Spacer(modifier = Modifier.height(10.dp))
