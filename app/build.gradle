@@ -16,6 +16,7 @@ dependencies {
     implementation project(':features:feature-terms')
     implementation project(':features:feature-joinclub')
     implementation project(':features:feature-makeclub')
+    implementation project(':features:feature-squad')
     implementation project(':libraries:network')
     implementation project(':libraries:network-api')
     implementation project(':core')

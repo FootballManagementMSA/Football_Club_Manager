@@ -37,29 +37,31 @@ fun HomeScreen(
     }
     val scrollState = rememberScrollState()
     Column(
-        if (isScrollable(config))
-            Modifier
+        if (isFixed(config))
+            Modifier.background(mainTheme)
         else
-            Modifier.verticalScroll(scrollState)
+            Modifier
+                .background(mainTheme)
+                .verticalScroll(scrollState)
     ) {
         Column(
-            if (isScrollable(config))
+            if (isFixed(config))
                 Modifier
                     .background(mainTheme)
             else
                 Modifier
-                    .requiredHeightIn(800.dp)
+                    .requiredHeightIn(650.dp)
                     .background(mainTheme)
         ) {
             ProfileView(
                 modifier = Modifier
-                    .requiredHeightIn(min = 300.dp)
+                    .requiredHeightIn(min = 250.dp)
                     .weight(4f),
                 navHostController = navHostController
             )
             ScheduleView(
                 Modifier
-                    .requiredHeightIn(min = 500.dp)
+                    .requiredHeightIn(min = 400.dp)
                     .weight(7f), currentSchedule
             )
         }
@@ -67,7 +69,7 @@ fun HomeScreen(
 
 }
 
-private fun isScrollable(config: Configuration) = config.screenHeightDp.dp > 800.dp
+private fun isFixed(config: Configuration) = config.screenHeightDp.dp > 650.dp
 
 @Composable
 private fun ProfileView(
