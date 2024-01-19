@@ -18,6 +18,9 @@ val verticalGradation = Brush.verticalGradient(
         Color(0xFF857FEB)
     )
 )
+val transparentBrush = Brush.linearGradient(
+    colors = listOf(Color.Transparent, Color.Transparent)
+)
 
 val profileInfoButton = Color(0xFFDFDFDF)
 val grayText = Color(0xFFB6BFCD)

@@ -36,6 +36,7 @@ import com.example.ui_component.values.verticalGradation
 @Composable
 fun DefaultListView(
     modifier: Modifier = Modifier,
+    themeColor : Color = Color.White,
     listName: String,
     listIcon: ImageVector,
     buttonName: String = "",
@@ -46,7 +47,7 @@ fun DefaultListView(
     Column(modifier.fillMaxHeight()) {
         Row {
             CompositionLocalProvider(
-                LocalContentColor provides Color.White
+                LocalContentColor provides themeColor
             ) {
                 Row {
                     Icon(
@@ -73,7 +74,7 @@ fun DefaultListView(
         }
         VerticalSpacer(value = 15)
         LazyColumn(
-            Modifier
+            modifier
                 .fillMaxSize(), content = listContent
         )
     }
