@@ -12,6 +12,8 @@ import androidx.navigation.compose.composable
 import com.example.feature_makeclub.presentation.screen.CompleteClubMakingScreen
 import com.example.feature_makeclub.presentation.screen.EmblemSelectScreen
 import com.example.feature_makeclub.presentation.screen.MakeClubScreen
+import com.example.feature_mypage.presentation.screen.MyPageModifyScreen
+import com.example.feature_mypage.presentation.screen.MyPageScreen
 import com.example.feature_navigation.Route
 import com.example.feature_navigation.showBarList
 import com.example.feature_squard.presentation.screen.SquadScreen
@@ -51,6 +53,12 @@ fun FootBallManagerAppNavigator(
         composable(Route.COMPLETE_CLUB_MAKING) {
             onNavigate(Route.COMPLETE_CLUB_MAKING)
             CompleteClubMakingScreen()
+        }
+        composable(Route.MYPAGE) {
+            MyPageScreen()
+        }
+        composable(Route.MYPAGE_MODIFY) {
+            MyPageModifyScreen()
         }
     }
 }

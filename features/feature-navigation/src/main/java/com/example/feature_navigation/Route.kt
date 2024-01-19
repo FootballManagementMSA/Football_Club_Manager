@@ -8,6 +8,8 @@ object Route {
     const val SQUAD = "SQUAD"
     const val EMBLEM_SELECT = "EMBLEM_SELECT"
     const val COMPLETE_CLUB_MAKING = "COMPLETE_CLUB_MAKING"
+    const val MYPAGE = "MYPAGE"
+    const val MYPAGE_MODIFY = "MYPAGE_MODIFY"
 }
 
 val showBarList = listOf(Route.HOME, Route.SQUAD)
