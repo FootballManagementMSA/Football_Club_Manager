@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -14,8 +15,11 @@ import androidx.compose.ui.unit.dp
 import com.example.ui_component.DefaultEmblemSelectIconView
 
 @Composable
-fun ModifyProfileImageView(modifier: Modifier = Modifier) {
-    val state = remember { mutableStateOf<Uri?>(null) }
+fun ModifyProfileImageView(
+    modifier: Modifier = Modifier,
+    state: State<Uri?>,
+    onSelect: (Uri?) -> Unit
+) {
     Column(modifier.padding(top = 40.dp)) {
         MyPageTopView(
             modifier = Modifier
@@ -30,12 +34,14 @@ fun ModifyProfileImageView(modifier: Modifier = Modifier) {
                 .padding(top = 30.dp)
                 .fillMaxWidth(),
             state = state,
-            onSelect = {})
+            onSelect = onSelect
+        )
     }
 }
 
 @Preview
 @Composable
 fun ModifyProfileImageViewPreview() {
-    ModifyProfileImageView()
+    val state = remember { mutableStateOf<Uri?>(null) }
+    ModifyProfileImageView(state = state) {}
 }
