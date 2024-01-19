@@ -53,7 +53,7 @@ fun DefaultEmblemSelectIconView(
         {
             if (state.value == null) {
                 Image(
-                    painter = painterResource(id = R.drawable.default_profile_image),
+                    painter = painterResource(id = R.drawable.camera_profile),
                     contentDescription = "CheckIcon",
                     modifier = Modifier.size(100.dp)
                 )
