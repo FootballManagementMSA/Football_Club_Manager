@@ -1,7 +1,9 @@
 package com.example.feature_squard.presentation.ui_component
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.offset
@@ -49,6 +51,11 @@ fun DraggableMember(
                 )
             }
             .pointerInput(Unit) {
+                detectTapGestures (
+                    onLongPress = {
+                        Log.e("name",member.name)
+                    }
+                )
                 detectDragGestures { change, dragAmount ->
                     change.consume()
                     member = member.copy(
