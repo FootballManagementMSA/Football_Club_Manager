@@ -39,6 +39,8 @@ import com.example.core.model.LocalScreen
 import com.example.core.model.PositionPresetUIModel
 import com.example.core.model.PositionUiModel
 import com.example.feature_squard.presentation.SquadState
+import com.example.feature_squard.presentation.ui_component.CandidateView
+import com.example.feature_squard.presentation.ui_component.DraggableMember
 import com.example.feature_squard.presentation.viewmodel.SquadViewModel
 import com.example.ui_component.R
 import com.example.ui_component.VerticalSpacer
@@ -102,76 +104,6 @@ private fun SquadContent(onLoad: () -> PositionPresetUIModel, onSet: (List<Posit
             Text(text = "save preset")
         }
     }
-}
-
-@Composable
-private fun CandidateView() {
-    Text(
-        text = "교체 선수",
-        fontSize = tinyFont,
-        fontWeight = FontWeight.Bold,
-        color = Color.White
-    )
-    VerticalSpacer(value = 10)
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(subTheme)
-            .wrapContentHeight()
-            .padding(10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start
-    ) {
-        Image(
-            modifier = Modifier
-                .padding(5.dp)
-                .size(20.dp),
-            painter = painterResource(id = R.drawable.cloth_icon),
-            contentDescription = ""
-        )
-    }
-}
-
-@Composable
-private fun DraggableMember(
-    memberNumber: Int,
-    onLoad: () -> PositionPresetUIModel,
-    onSet: (PositionUiModel) -> Unit
-) {
-    val loaded = remember { mutableStateOf(onLoad().memberPosition[memberNumber]) }
-    val screenSize by remember { mutableStateOf(onLoad().screenSize) }
-    val boxSize = remember { mutableStateOf(20) }
-    Image(
-        modifier = Modifier
-            .offset {
-                IntOffset(
-                    loaded.value.x
-                        .roundToInt()
-                        .coerceAtLeast(0)
-                        .coerceAtMost(screenSize.width.toInt() - boxSize.value * 2),
-                    loaded.value.y
-                        .roundToInt()
-                        .coerceAtLeast(0)
-                        .coerceAtMost(screenSize.height.toInt()),
-                )
-            }
-            .size(boxSize.value.dp)
-            .pointerInput(Unit) {
-                detectDragGestures { change, dragAmount ->
-                    change.consume()
-                    loaded.value = loaded.value.copy(
-                        x = (loaded.value.x + dragAmount.x)
-                            .coerceAtLeast(0f)
-                            .coerceAtMost(screenSize.width.toFloat()),
-                        y = (loaded.value.y + dragAmount.y)
-                            .coerceAtLeast(0f)
-                            .coerceAtMost(screenSize.height.toFloat()),
-                    )
-                    onSet(loaded.value)
-                }
-            }, painter = painterResource(id = R.drawable.cloth_icon), contentDescription = "member"
-    )
 }
 
 @Composable
