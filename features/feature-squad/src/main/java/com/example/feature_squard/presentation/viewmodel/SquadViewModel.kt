@@ -2,7 +2,7 @@ package com.example.feature_squard.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.model.PositionUiModel
+import com.example.core.model.MemberUiModel
 import com.example.feature_squard.domain.LoadMyPresetUseCase
 import com.example.feature_squard.domain.SavePositionPresetUseCase
 import com.example.feature_squard.presentation.SquadState
@@ -24,7 +24,7 @@ class SquadViewModel @Inject constructor(
         _uiState.value = SquadState.Success(loadMyPresetUseCase())
     }
 
-    fun savePosition(positions: List<PositionUiModel>) = viewModelScope.launch {
+    fun savePosition(positions: List<MemberUiModel>) = viewModelScope.launch {
         savePositionPresetUseCase(positions)
     }
 }
