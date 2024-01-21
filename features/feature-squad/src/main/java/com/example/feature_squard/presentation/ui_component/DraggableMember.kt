@@ -33,7 +33,7 @@ import kotlin.math.roundToInt
 
 @Composable
 fun DraggableMember(
-    onLoad: () -> Pair<MemberUiModel,LocalScreen>,
+    onLoad: () -> Pair<MemberUiModel, LocalScreen>,
     onDrag: (MemberUiModel) -> Unit,
     onSet: () -> Unit
 ) {
@@ -55,11 +55,6 @@ fun DraggableMember(
                 )
             }
             .pointerInput(Unit) {
-                detectTapGestures (
-                    onLongPress = {
-                        Log.e("name",member.name)
-                    }
-                )
                 detectDragGestures { change, dragAmount ->
                     change.consume()
                     member = member.copy(
@@ -76,13 +71,26 @@ fun DraggableMember(
                 }
             }
     }
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(modifier = draggableModifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Image(
-            modifier = draggableModifier.size(20.dp),
+            modifier = Modifier
+                .size(20.dp)
+                .pointerInput(Unit) {
+                    detectTapGestures(
+                        onTap = {
+                            Toast
+                                .makeText(context, "두번 클릭하면 멤버를 설정 할 수 있어요!", Toast.LENGTH_SHORT)
+                                .show()
+                        },
+                        onDoubleTap = {
+                            onSet()
+                        }
+                    )
+                },
             painter = painterResource(id = R.drawable.cloth_icon),
             contentDescription = member.name
         )
-        Spacer(modifier = draggableModifier.padding(vertical = 3.dp))
-        Text(modifier = draggableModifier.wrapContentSize(), text = member.name, color = Color.White)
+        Spacer(modifier = Modifier.padding(vertical = 3.dp))
+        Text(modifier = Modifier.wrapContentSize(), text = member.name, color = Color.White)
     }
 }

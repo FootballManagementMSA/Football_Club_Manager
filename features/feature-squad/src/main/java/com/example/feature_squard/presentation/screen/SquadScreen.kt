@@ -5,6 +5,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,21 +16,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.model.LocalScreen
-import com.example.core.model.PositionPresetUIModel
 import com.example.core.model.MemberUiModel
 import com.example.core.model.Position
+import com.example.core.model.PositionPresetUIModel
 import com.example.feature_squard.presentation.SquadState
 import com.example.feature_squard.presentation.ui_component.CandidateView
 import com.example.feature_squard.presentation.ui_component.DraggableMember
 import com.example.feature_squard.presentation.viewmodel.SquadViewModel
+import com.example.ui_component.DefaultBottomSheet
 import com.example.ui_component.R
 import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.mainTheme
@@ -63,7 +67,8 @@ private fun SquadContent(
     onSet: (List<MemberUiModel>) -> Unit
 ) {
     val positions = remember { onLoad().members.toMutableList() }
-
+    val showSheet = remember { mutableStateOf(false) }
+    val config = LocalConfiguration.current
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -88,13 +93,21 @@ private fun SquadContent(
                     positions[index] = newPosition
                 },
                 onSet = {
-
+                    showSheet.value = true
                 })
         }
         Button(
             modifier = Modifier.align(Alignment.TopEnd),
             onClick = { onSet(positions) }) {
             Text(text = "save preset")
+        }
+    }
+    if (showSheet.value) {
+        DefaultBottomSheet(onDismiss = { showSheet.value = false }) {
+            Box(Modifier.fillMaxHeight()) {
+
+            }
+
         }
     }
 }
