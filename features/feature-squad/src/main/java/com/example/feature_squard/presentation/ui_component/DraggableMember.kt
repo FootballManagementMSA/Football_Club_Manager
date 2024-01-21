@@ -32,7 +32,7 @@ import kotlin.math.roundToInt
 @Composable
 fun DraggableMember(
     onLoad: () -> Pair<MemberUiModel,LocalScreen>,
-    onSet: (MemberUiModel) -> Unit
+    onDrag: (MemberUiModel) -> Unit,
 ) {
     var member by remember { mutableStateOf(onLoad().first) }
     val screenSize by remember { mutableStateOf(onLoad().second) }
@@ -68,7 +68,7 @@ fun DraggableMember(
                                 .coerceAtMost(screenSize.height.toFloat())
                         )
                     )
-                    onSet(member)
+                    onDrag(member)
                 }
             }
     }
