@@ -58,9 +58,6 @@ fun DraggableMember(
                 detectTapGestures (
                     onLongPress = {
                         Log.e("name",member.name)
-                    },
-                    onTap = {
-                        Toast.makeText(context,"멤버를 길게 누르면 설정 할 수 있습니다.",Toast.LENGTH_SHORT).show()
                     }
                 )
                 detectDragGestures { change, dragAmount ->
