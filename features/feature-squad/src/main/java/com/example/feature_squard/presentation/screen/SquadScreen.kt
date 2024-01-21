@@ -82,9 +82,14 @@ private fun SquadContent(
             CandidateView()
         }
         positions.forEachIndexed { index, _ ->
-            DraggableMember({onLoad().members[index] to onLoad().screenSize}) { newPosition ->
-                positions[index] = newPosition
-            }
+            DraggableMember(
+                onLoad = { onLoad().members[index] to onLoad().screenSize },
+                onDrag = { newPosition ->
+                    positions[index] = newPosition
+                },
+                onSet = {
+
+                })
         }
         Button(
             modifier = Modifier.align(Alignment.TopEnd),

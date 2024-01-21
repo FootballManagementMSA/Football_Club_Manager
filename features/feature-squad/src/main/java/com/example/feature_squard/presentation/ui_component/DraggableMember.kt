@@ -1,6 +1,7 @@
 package com.example.feature_squard.presentation.ui_component
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -20,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -33,7 +35,9 @@ import kotlin.math.roundToInt
 fun DraggableMember(
     onLoad: () -> Pair<MemberUiModel,LocalScreen>,
     onDrag: (MemberUiModel) -> Unit,
+    onSet: () -> Unit
 ) {
+    val context = LocalContext.current
     var member by remember { mutableStateOf(onLoad().first) }
     val screenSize by remember { mutableStateOf(onLoad().second) }
     val draggableModifier = remember {
@@ -54,6 +58,9 @@ fun DraggableMember(
                 detectTapGestures (
                     onLongPress = {
                         Log.e("name",member.name)
+                    },
+                    onTap = {
+                        Toast.makeText(context,"멤버를 길게 누르면 설정 할 수 있습니다.",Toast.LENGTH_SHORT).show()
                     }
                 )
                 detectDragGestures { change, dragAmount ->
