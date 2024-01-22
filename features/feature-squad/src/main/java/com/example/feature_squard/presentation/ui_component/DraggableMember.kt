@@ -74,7 +74,7 @@ fun DraggableMember(
     Column(modifier = draggableModifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Image(
             modifier = Modifier
-                .size(20.dp)
+                .size(30.dp)
                 .pointerInput(Unit) {
                     detectTapGestures(
                         onTap = {
@@ -87,7 +87,7 @@ fun DraggableMember(
                         }
                     )
                 },
-            painter = painterResource(id = R.drawable.cloth_icon),
+            painter = painterResource(id = R.drawable.default_profile_image),
             contentDescription = member.name
         )
         Spacer(modifier = Modifier.padding(vertical = 3.dp))
