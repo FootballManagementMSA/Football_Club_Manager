@@ -11,14 +11,19 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ui_component.values.verticalGradation
 import java.time.YearMonth
@@ -29,24 +34,59 @@ import java.util.Locale
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HorizontalScrollCalendar() {
-    val page = rememberPagerState { 5 }
-    val days = makeCalendar(2024, 2)
-    HorizontalPager(
-        modifier = Modifier.fillMaxSize(), state = page
-    ) {
-        CalendarView(days)
+fun HorizontalScrollCalendar(modifier: Modifier = Modifier, pageCount: Int = 12) {
+    val currentPage = remember { mutableIntStateOf(0) }
+    val pagerState = rememberPagerState { pageCount }
+
+    val (year, month, calendar) = remember(pagerState.currentPage) {
+        val calendar = Calendar.getInstance()
+        val currentYear = calendar.get(Calendar.YEAR)
+        val currentMonth = calendar.get(Calendar.MONTH) + 1
+        val monthOffset = pagerState.currentPage - currentPage.intValue
+        val totalMonth = currentMonth + monthOffset
+        val adjustedYear = currentYear + (totalMonth - 1) / 12
+        val adjustedMonth = if (totalMonth % 12 == 0) 12 else totalMonth % 12
+        Triple(adjustedYear, adjustedMonth, makeCalendar(adjustedYear, adjustedMonth))
+    }
+    Column(Modifier.fillMaxSize()) {
+        Row(Modifier.padding(20.dp)) {
+            Text(text = "$year 년 $month 월")
+        }
+        HorizontalPager(
+            modifier = modifier.fillMaxSize(), state = pagerState
+        ) {
+            CalendarView(calendar)
+        }
     }
 }
+
 
 @Composable
 private fun CalendarView(days: List<List<CalendarDate?>>) {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(20.dp)) {
+        DaysOfWeekView(Modifier.weight(0.5f))
         days.forEach { week ->
             WeekRow(week)
             Spacer(modifier = Modifier.weight(1f))
         }
     }
+}
+
+@Composable
+private fun DaysOfWeekView(modifier: Modifier = Modifier) {
+    val dayOfWeekList = remember { listOf("일", "월", "화", "수", "목", "금", "토") }
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        dayOfWeekList.forEach {
+            Box(modifier = Modifier.size(20.dp)) {
+                Text(modifier = Modifier.align(Alignment.Center), text = it)
+            }
+        }
+    }
+    Spacer(modifier = modifier)
 }
 
 @Composable
@@ -142,4 +182,10 @@ fun makeCalendar(year: Int, month: Int): List<List<CalendarDate?>> {
     }
 
     return daysList
+}
+
+@Preview
+@Composable
+fun CalendarPreview() {
+    HorizontalScrollCalendar(modifier = Modifier.height(400.dp))
 }
