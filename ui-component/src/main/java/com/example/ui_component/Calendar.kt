@@ -1,6 +1,7 @@
 package com.example.ui_component
 
 import android.os.Build
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -42,14 +44,21 @@ import java.util.Locale
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HorizontalScrollCalendar(modifier: Modifier = Modifier, pageCount: Int = 12) {
+fun HorizontalScrollCalendar(
+    modifier: Modifier = Modifier,
+    pageCount: Int = 12,
+    onSelect: (CalendarDate) -> Unit
+) {
     val currentPage = remember { mutableIntStateOf(0) }
     val pagerState = rememberPagerState { pageCount }
+    val calendar = remember { Calendar.getInstance() }
+    val currentYear = remember { calendar.get(Calendar.YEAR) }
+    val currentMonth = remember { calendar.get(Calendar.MONTH) + 1 }
+    val currentDay = remember { calendar.get(Calendar.DAY_OF_MONTH) }
+    val selectedDate =
+        remember { mutableStateOf(CalendarDate(currentYear, currentMonth, currentDay, "Empty")) }
     val coroutineScope = rememberCoroutineScope()
-    val (year, month, calendar) = remember(pagerState.currentPage) {
-        val calendar = Calendar.getInstance()
-        val currentYear = calendar.get(Calendar.YEAR)
-        val currentMonth = calendar.get(Calendar.MONTH) + 1
+    val (year, month, calendarDate) = remember(pagerState.currentPage) {
         val monthOffset = pagerState.currentPage - currentPage.intValue
         val totalMonth = currentMonth + monthOffset
         val adjustedYear = currentYear + (totalMonth - 1) / 12
@@ -61,14 +70,14 @@ fun HorizontalScrollCalendar(modifier: Modifier = Modifier, pageCount: Int = 12)
         HorizontalPager(
             modifier = modifier.weight(1f), state = pagerState
         ) {
-            CalendarView(calendar) { month }
+            CalendarView(calendarDate) { month }
         }
         DefaultRoundedButton(
             modifier = Modifier.padding(20.dp),
             cornerRadius = 32.dp,
             buttonText = "날짜 선택"
         ) {
-
+            onSelect(selectedDate.value)
         }
     }
 }
@@ -274,5 +283,7 @@ fun makeCalendar(year: Int, month: Int): List<List<CalendarDate?>> {
 @Preview
 @Composable
 fun CalendarPreview() {
-    HorizontalScrollCalendar(modifier = Modifier.height(400.dp))
+    HorizontalScrollCalendar(modifier = Modifier.height(400.dp)){
+
+    }
 }
