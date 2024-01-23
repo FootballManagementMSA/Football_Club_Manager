@@ -23,8 +23,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.ui_component.values.semiBlue
+import com.example.ui_component.values.semiRed
 import com.example.ui_component.values.verticalGradation
 import java.time.YearMonth
 import java.time.format.TextStyle
@@ -55,18 +58,18 @@ fun HorizontalScrollCalendar(modifier: Modifier = Modifier, pageCount: Int = 12)
         HorizontalPager(
             modifier = modifier.fillMaxSize(), state = pagerState
         ) {
-            CalendarView(calendar)
+            CalendarView(calendar) { month }
         }
     }
 }
 
 
 @Composable
-private fun CalendarView(days: List<List<CalendarDate?>>) {
+private fun CalendarView(days: List<List<CalendarDate?>>,month: () -> Int) {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(20.dp)) {
         DaysOfWeekView(Modifier.weight(0.5f))
         days.forEach { week ->
-            WeekRow(week)
+            WeekRow(week,month)
             Spacer(modifier = Modifier.weight(1f))
         }
     }
@@ -80,9 +83,17 @@ private fun DaysOfWeekView(modifier: Modifier = Modifier) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        dayOfWeekList.forEach {
+        dayOfWeekList.forEachIndexed { index, dayOfWeek ->
             Box(modifier = Modifier.size(20.dp)) {
-                Text(modifier = Modifier.align(Alignment.Center), text = it)
+                Text(
+                    modifier = Modifier.align(Alignment.Center),
+                    text = dayOfWeek,
+                    color = when (index) {
+                        0 -> Color.Red
+                        dayOfWeekList.size - 1 -> Color.Blue
+                        else -> Color.Black
+                    }
+                )
             }
         }
     }
@@ -90,22 +101,29 @@ private fun DaysOfWeekView(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun WeekRow(week: List<CalendarDate?>) {
+private fun WeekRow(week: List<CalendarDate?>,month: () -> Int) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         week.forEach { day ->
-            CalendarItem(day)
+            CalendarItem(day,month)
         }
     }
 }
 
 @Composable
-private fun CalendarItem(day: CalendarDate?) {
+private fun CalendarItem(day: CalendarDate?,month: () -> Int) {
     Box(modifier = Modifier.size(20.dp)) {
-        Text(modifier = Modifier.align(Alignment.Center), text = "${day?.day}")
+        Text(modifier = Modifier.align(Alignment.Center), text = "${day?.day}", color = when{
+            day?.month != month() &&  day?.dayOfWeek == "Sun" -> semiRed
+            day?.month != month() &&  day?.dayOfWeek == "Sat" -> semiBlue
+            day?.month != month() -> Color.Gray
+            day.dayOfWeek == "Sun" -> Color.Red
+            day.dayOfWeek == "Sat" -> Color.Blue
+            else -> Color.Black
+        })
     }
 }
 
