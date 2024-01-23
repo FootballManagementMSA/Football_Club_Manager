@@ -100,6 +100,23 @@ private fun DaysOfWeekView(modifier: Modifier = Modifier) {
     Spacer(modifier = modifier)
 }
 
+val dayOfWeekToCalendarDay = mapOf(
+    "Sun" to Calendar.SUNDAY,
+    "Mon" to Calendar.MONDAY,
+    "Tue" to Calendar.TUESDAY,
+    "Wed" to Calendar.WEDNESDAY,
+    "Thu" to Calendar.THURSDAY,
+    "Fri" to Calendar.FRIDAY,
+    "Sat" to Calendar.SATURDAY,
+    "일" to Calendar.SUNDAY,
+    "월" to Calendar.MONDAY,
+    "화" to Calendar.TUESDAY,
+    "수" to Calendar.WEDNESDAY,
+    "목" to Calendar.THURSDAY,
+    "금" to Calendar.FRIDAY,
+    "토" to Calendar.SATURDAY
+)
+
 @Composable
 private fun WeekRow(week: List<CalendarDate?>,month: () -> Int) {
     Row(
@@ -116,14 +133,18 @@ private fun WeekRow(week: List<CalendarDate?>,month: () -> Int) {
 @Composable
 private fun CalendarItem(day: CalendarDate?,month: () -> Int) {
     Box(modifier = Modifier.size(20.dp)) {
-        Text(modifier = Modifier.align(Alignment.Center), text = "${day?.day}", color = when{
-            day?.month != month() &&  day?.dayOfWeek == "Sun" -> semiRed
-            day?.month != month() &&  day?.dayOfWeek == "Sat" -> semiBlue
-            day?.month != month() -> Color.Gray
-            day.dayOfWeek == "Sun" -> Color.Red
-            day.dayOfWeek == "Sat" -> Color.Blue
-            else -> Color.Black
-        })
+        Text(
+            modifier = Modifier.align(Alignment.Center),
+            text = "${day?.day}",
+            color = when {
+                day?.month != month() && dayOfWeekToCalendarDay[day?.dayOfWeek] == Calendar.SUNDAY -> semiRed
+                day?.month != month() && dayOfWeekToCalendarDay[day?.dayOfWeek] == Calendar.SATURDAY -> semiBlue
+                day?.month != month() -> Color.Gray
+                dayOfWeekToCalendarDay[day.dayOfWeek] == Calendar.SUNDAY -> Color.Red
+                dayOfWeekToCalendarDay[day.dayOfWeek] == Calendar.SATURDAY -> Color.Blue
+                else -> Color.Black
+            }
+        )
     }
 }
 
