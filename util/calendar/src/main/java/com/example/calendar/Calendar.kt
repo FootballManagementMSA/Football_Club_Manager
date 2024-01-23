@@ -1,4 +1,4 @@
-package com.example.ui_component
+package com.example.calendar
 
 import android.os.Build
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -37,6 +37,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.ui_component.DefaultRoundedButton
+import com.example.ui_component.HorizontalSpacer
+import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.bigFont
 import com.example.ui_component.values.darkButton
 import com.example.ui_component.values.semiBlue
@@ -50,7 +53,7 @@ import java.util.Locale
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HorizontalScrollCalendar(
+fun Calendar(
     modifier: Modifier = Modifier,
     pageCount: Int = 12,
     onSelect: (CalendarDate) -> Unit
@@ -79,7 +82,7 @@ fun HorizontalScrollCalendar(
         HorizontalPager(
             modifier = modifier.weight(1f), state = pagerState
         ) {
-            Calendar(calendarDate) { selectedDate.value = it }
+            CalendarContent(calendarDate) { selectedDate.value = it }
         }
         DefaultRoundedButton(
             modifier = Modifier,
@@ -132,7 +135,7 @@ private fun CalendarControlView(
 
 
 @Composable
-private fun Calendar(
+private fun CalendarContent(
     calendar: List<List<CalendarDate?>>,
     onSelect: (CalendarDate) -> Unit
 ) {
@@ -335,7 +338,7 @@ fun makeCalendar(year: Int, month: Int): List<List<CalendarDate?>> {
 @Preview
 @Composable
 fun CalendarPreview() {
-    HorizontalScrollCalendar(modifier = Modifier.height(400.dp)) {
+    Calendar(modifier = Modifier.height(400.dp)) {
 
     }
 }
