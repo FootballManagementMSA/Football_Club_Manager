@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -19,6 +20,7 @@ import com.example.calendar.model.CalendarDate
 import com.example.calendar.util.CalendarUtil.makeCalendar
 import com.example.ui_component.DefaultRoundedButton
 import com.example.ui_component.VerticalSpacer
+import com.example.ui_component.values.bigFont
 import com.example.ui_component.values.darkButton
 import java.util.Calendar
 
@@ -48,7 +50,9 @@ fun Calendar(
             .fillMaxSize()
             .background(Color.White)
     ) {
-        CalendarControlView(year, month, pagerState, pageCount)
+        Text(text = "날짜 선택", fontSize = bigFont)
+        VerticalSpacer(value = 10)
+        CalendarControlView(Modifier,year, month, pagerState, pageCount)
         VerticalSpacer(value = 10)
         HorizontalPager(
             modifier = modifier.weight(1f), state = pagerState
