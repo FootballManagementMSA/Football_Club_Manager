@@ -8,7 +8,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.calendar.model.CalendarDate
+import com.example.calendar.util.CalendarUtil
 
 @Composable
 fun CalendarContent(
@@ -26,5 +28,13 @@ fun CalendarContent(
             Week(week, columnIndex, selectedIndex, onSelect)
             Spacer(modifier = Modifier.weight(1f))
         }
+    }
+}
+
+@Preview
+@Composable
+fun CalendarContentPreview() {
+    CalendarContent(calendar = CalendarUtil.makeCalendar(2024, 1)) {
+
     }
 }
