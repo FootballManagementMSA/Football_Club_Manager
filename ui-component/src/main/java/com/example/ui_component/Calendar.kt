@@ -39,6 +39,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.ui_component.values.bigFont
+import com.example.ui_component.values.hugeFont
 import com.example.ui_component.values.semiBlue
 import com.example.ui_component.values.semiRed
 import com.example.ui_component.values.verticalGradation
@@ -75,9 +77,14 @@ fun HorizontalScrollCalendar(
     }
     Column(
         modifier
+            .padding(20.dp)
             .fillMaxSize()
-            .background(Color.White)) {
+            .background(Color.White)
+    ) {
+        Text(text = "날짜 선택", fontSize = bigFont)
+        VerticalSpacer(value = 10)
         MonthControlView(year, month, coroutineScope, pagerState, pageCount)
+        VerticalSpacer(value = 10)
         HorizontalPager(
             modifier = modifier.weight(1f), state = pagerState
         ) {
@@ -86,9 +93,10 @@ fun HorizontalScrollCalendar(
             }
         }
         DefaultRoundedButton(
-            modifier = Modifier.padding(20.dp),
+            modifier = Modifier,
             cornerRadius = 32.dp,
-            buttonText = "날짜 선택"
+            buttonText = "선택",
+            buttonColor = Color(0xFF212A3A)
         ) {
             onSelect(selectedDate.value)
         }
@@ -104,7 +112,7 @@ private fun MonthControlView(
     pagerState: PagerState,
     pageCount: Int
 ) {
-    Row(Modifier.padding(20.dp)) {
+    Row {
         Text(text = "$year 년 $month 월")
         HorizontalSpacer(value = 10)
         Icon(
@@ -144,7 +152,6 @@ private fun CalendarView(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(20.dp)
             .selectableGroup()
     ) {
         DaysOfWeekView(Modifier.weight(0.5f))
