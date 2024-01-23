@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
@@ -31,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ui_component.values.semiBlue
 import com.example.ui_component.values.semiRed
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.time.YearMonth
 import java.time.format.TextStyle
@@ -54,35 +56,58 @@ fun HorizontalScrollCalendar(modifier: Modifier = Modifier, pageCount: Int = 12)
         val adjustedMonth = if (totalMonth % 12 == 0) 12 else totalMonth % 12
         Triple(adjustedYear, adjustedMonth, makeCalendar(adjustedYear, adjustedMonth))
     }
-    Column(Modifier.fillMaxSize()) {
-        Row(Modifier.padding(20.dp)) {
-            Text(text = "$year 년 $month 월")
-            HorizontalSpacer(value = 10)
-            Icon(
-                modifier = Modifier.clickable {
-                    coroutineScope.launch {
-                        pagerState.animateScrollToPage((pagerState.currentPage - 1).coerceAtLeast(0))
-                    }
-                },
-                imageVector = Icons.AutoMirrored.Default.KeyboardArrowLeft,
-                contentDescription = "key"
-            )
-            HorizontalSpacer(value = 10)
-            Icon(
-                modifier = Modifier.clickable {
-                    coroutineScope.launch {
-                        pagerState.animateScrollToPage((pagerState.currentPage + 1).coerceAtMost(pageCount))
-                    }
-                },
-                imageVector = Icons.AutoMirrored.Default.KeyboardArrowRight,
-                contentDescription = "key"
-            )
-        }
+    Column(modifier.fillMaxSize()) {
+        MonthControlView(year, month, coroutineScope, pagerState, pageCount)
         HorizontalPager(
-            modifier = modifier.fillMaxSize(), state = pagerState
+            modifier = modifier.weight(1f), state = pagerState
         ) {
             CalendarView(calendar) { month }
         }
+        DefaultRoundedButton(
+            modifier = Modifier.padding(20.dp),
+            cornerRadius = 32.dp,
+            buttonText = "날짜 선택"
+        ) {
+
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun MonthControlView(
+    year: Int,
+    month: Int,
+    coroutineScope: CoroutineScope,
+    pagerState: PagerState,
+    pageCount: Int
+) {
+    Row(Modifier.padding(20.dp)) {
+        Text(text = "$year 년 $month 월")
+        HorizontalSpacer(value = 10)
+        Icon(
+            modifier = Modifier.clickable {
+                coroutineScope.launch {
+                    pagerState.animateScrollToPage((pagerState.currentPage - 1).coerceAtLeast(0))
+                }
+            },
+            imageVector = Icons.AutoMirrored.Default.KeyboardArrowLeft,
+            contentDescription = "key"
+        )
+        HorizontalSpacer(value = 10)
+        Icon(
+            modifier = Modifier.clickable {
+                coroutineScope.launch {
+                    pagerState.animateScrollToPage(
+                        (pagerState.currentPage + 1).coerceAtMost(
+                            pageCount
+                        )
+                    )
+                }
+            },
+            imageVector = Icons.AutoMirrored.Default.KeyboardArrowRight,
+            contentDescription = "key"
+        )
     }
 }
 
