@@ -9,11 +9,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.calendar.model.CalendarDate
 import com.example.ui_component.values.semiBlue
@@ -62,5 +64,33 @@ fun Day(
                 else -> Color.Black
             }
         )
+    }
+}
+
+@Preview
+@Composable
+fun DaySelectedPreview() {
+    val selectedIndex = remember { mutableStateOf(0 to 0) }
+    Day(
+        calendarDate = CalendarDate(2024, 1, 24, "목"),
+        rowIndex = 0,
+        columnIndex = 0,
+        selectedIndex = selectedIndex,
+    ) {
+
+    }
+}
+
+@Preview
+@Composable
+fun DayNotSelectedPreview() {
+    val selectedIndex = remember { mutableStateOf(-1 to -1) }
+    Day(
+        calendarDate = CalendarDate(2024, 1, 24, "목"),
+        rowIndex = 0,
+        columnIndex = 0,
+        selectedIndex = selectedIndex,
+    ) {
+
     }
 }
