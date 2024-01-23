@@ -2,6 +2,7 @@ package com.example.ui_component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,11 +36,16 @@ import com.example.ui_component.values.bigFont
 import com.example.ui_component.values.smallFont
 
 @Composable
-fun DefaultDialog(title: String, userName: String, content: @Composable () -> Unit) {
+fun DefaultDialog(
+    title: String,
+    userName: String,
+    onDismiss: () -> Unit,
+    content: @Composable () -> Unit
+) {
     val config = LocalConfiguration.current
     Dialog(
         onDismissRequest = {},
-        properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false),
+        properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = true),
     ) {
         Surface(
             modifier = Modifier
@@ -54,7 +60,7 @@ fun DefaultDialog(title: String, userName: String, content: @Composable () -> Un
                     .heightIn(min = 270.dp)
                     .height(config.screenHeightDp.dp / 3)
             ) {
-                DialogTopView(title = title)
+                DialogTopView(title = title, onDismiss = onDismiss)
                 Spacer(modifier = Modifier.weight(1f))
                 DialogProfileView(userName = userName)
                 Spacer(modifier = Modifier.weight(1f))
@@ -65,7 +71,7 @@ fun DefaultDialog(title: String, userName: String, content: @Composable () -> Un
 }
 
 @Composable
-private fun DialogTopView(modifier: Modifier = Modifier, title: String) {
+private fun DialogTopView(modifier: Modifier = Modifier, title: String, onDismiss: () -> Unit) {
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Start,
@@ -75,7 +81,10 @@ private fun DialogTopView(modifier: Modifier = Modifier, title: String) {
             text = title, fontSize = smallFont, fontWeight = FontWeight.Bold
         )
         Spacer(modifier = Modifier.weight(1f))
-        Icon(imageVector = Icons.Default.Close, contentDescription = null)
+        Icon(
+            imageVector = Icons.Default.Close,
+            contentDescription = null,
+            modifier = Modifier.clickable { onDismiss() })
     }
     VerticalSpacer(value = 10)
 }
@@ -105,8 +114,9 @@ private fun DialogProfileView(modifier: Modifier = Modifier, userName: String) {
     }
     VerticalSpacer(value = 10)
 }
+
 @Preview
 @Composable
 fun DefaultDialogPreview() {
-    DefaultDialog("구단 가입 신청입니다.", "임성우") {}
+    DefaultDialog("구단 가입 신청입니다.", "임성우",{}) {}
 }

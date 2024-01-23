@@ -15,7 +15,7 @@ import com.example.ui_component.DefaultDialog
 
 @Composable
 fun ClubJoinDialog() {
-    DefaultDialog(title = "구단 가입 신청입니다.", userName = "홍길동") {
+    DefaultDialog(title = "구단 가입 신청입니다.", userName = "홍길동", {}) {
         Text(text = "자기 소개 입력")
         OutlinedTextField(
             value = "",
