@@ -1,7 +1,6 @@
 package com.example.ui_component
 
 import android.os.Build
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,7 +27,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,11 +38,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ui_component.values.bigFont
-import com.example.ui_component.values.hugeFont
+import com.example.ui_component.values.darkButton
 import com.example.ui_component.values.semiBlue
 import com.example.ui_component.values.semiRed
-import com.example.ui_component.values.verticalGradation
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.time.YearMonth
 import java.time.format.TextStyle
@@ -65,9 +61,7 @@ fun HorizontalScrollCalendar(
     val currentYear = remember { calendar.get(Calendar.YEAR) }
     val currentMonth = remember { calendar.get(Calendar.MONTH) + 1 }
     val currentDay = remember { calendar.get(Calendar.DAY_OF_MONTH) }
-    val selectedDate =
-        remember { mutableStateOf(CalendarDate(currentYear, currentMonth, currentDay, "Empty")) }
-    val coroutineScope = rememberCoroutineScope()
+    val selectedDate = remember { mutableStateOf(CalendarDate(currentYear, currentMonth, currentDay, "Empty")) }
     val (year, month, calendarDate) = remember(pagerState.currentPage) {
         val monthOffset = pagerState.currentPage - currentPage.intValue
         val totalMonth = currentMonth + monthOffset
@@ -77,41 +71,40 @@ fun HorizontalScrollCalendar(
     }
     Column(
         modifier
-            .padding(20.dp)
             .fillMaxSize()
             .background(Color.White)
     ) {
-        Text(text = "날짜 선택", fontSize = bigFont)
-        VerticalSpacer(value = 10)
-        MonthControlView(year, month, coroutineScope, pagerState, pageCount)
+        CalendarControlView(year, month, pagerState, pageCount)
         VerticalSpacer(value = 10)
         HorizontalPager(
             modifier = modifier.weight(1f), state = pagerState
         ) {
-            CalendarView(calendarDate, { month }) {
-                selectedDate.value = it
-            }
+            Calendar(calendarDate) { selectedDate.value = it }
         }
         DefaultRoundedButton(
             modifier = Modifier,
             cornerRadius = 32.dp,
             buttonText = "선택",
-            buttonColor = Color(0xFF212A3A)
+            buttonColor = darkButton
         ) {
             onSelect(selectedDate.value)
         }
     }
 }
 
+val calendarDateSize = 28.dp
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun MonthControlView(
+private fun CalendarControlView(
     year: Int,
     month: Int,
-    coroutineScope: CoroutineScope,
     pagerState: PagerState,
     pageCount: Int
 ) {
+    val coroutineScope = rememberCoroutineScope()
+    Text(text = "날짜 선택", fontSize = bigFont)
+    VerticalSpacer(value = 10)
     Row {
         Text(text = "$year 년 $month 월")
         HorizontalSpacer(value = 10)
@@ -128,11 +121,7 @@ private fun MonthControlView(
         Icon(
             modifier = Modifier.clickable {
                 coroutineScope.launch {
-                    pagerState.animateScrollToPage(
-                        (pagerState.currentPage + 1).coerceAtMost(
-                            pageCount
-                        )
-                    )
+                    pagerState.animateScrollToPage((pagerState.currentPage + 1).coerceAtMost(pageCount))
                 }
             },
             imageVector = Icons.AutoMirrored.Default.KeyboardArrowRight,
@@ -143,9 +132,8 @@ private fun MonthControlView(
 
 
 @Composable
-private fun CalendarView(
-    days: List<List<CalendarDate?>>,
-    month: () -> Int,
+private fun Calendar(
+    calendar: List<List<CalendarDate?>>,
     onSelect: (CalendarDate) -> Unit
 ) {
     val selectedIndex = remember { mutableStateOf(-1 to -1) }
@@ -154,24 +142,24 @@ private fun CalendarView(
         modifier = Modifier
             .selectableGroup()
     ) {
-        DaysOfWeekView(Modifier.weight(0.5f))
-        days.forEachIndexed { columnIndex, week ->
-            WeekRow(week, month, columnIndex, selectedIndex, onSelect)
+        DaysOfWeek(Modifier.weight(0.5f))
+        calendar.forEachIndexed { columnIndex, week ->
+            Week(week, columnIndex, selectedIndex, onSelect)
             Spacer(modifier = Modifier.weight(1f))
         }
     }
 }
-
+val dayOfWeekList = listOf("일", "월", "화", "수", "목", "금", "토")
 @Composable
-private fun DaysOfWeekView(modifier: Modifier = Modifier) {
-    val dayOfWeekList = remember { listOf("일", "월", "화", "수", "목", "금", "토") }
+private fun DaysOfWeek(modifier: Modifier = Modifier) {
+    val dayOfWeekList = remember { dayOfWeekList }
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         dayOfWeekList.forEachIndexed { index, dayOfWeek ->
-            Box(modifier = Modifier.size(28.dp)) {
+            Box(modifier = Modifier.size(calendarDateSize)) {
                 Text(
                     modifier = Modifier.align(Alignment.Center),
                     text = dayOfWeek,
@@ -205,9 +193,8 @@ val dayOfWeekToCalendarDay = mapOf(
 )
 
 @Composable
-private fun WeekRow(
+private fun Week(
     week: List<CalendarDate?>,
-    month: () -> Int,
     columnIndex: Int,
     selectedIndex: MutableState<Pair<Int, Int>>,
     onSelect: (CalendarDate) -> Unit
@@ -220,20 +207,21 @@ private fun WeekRow(
         verticalAlignment = Alignment.CenterVertically
     ) {
         week.forEachIndexed { rowIndex, day ->
-            CalendarItem(day, month, rowIndex, columnIndex, selectedIndex, onSelect)
+            Day(day, rowIndex, columnIndex, selectedIndex, onSelect)
         }
     }
 }
 
 @Composable
-private fun CalendarItem(
-    day: CalendarDate?,
-    month: () -> Int,
+private fun Day(
+    calendarDate: CalendarDate?,
     rowIndex: Int,
     columnIndex: Int,
     selectedIndex: MutableState<Pair<Int, Int>>,
     onSelect: (CalendarDate) -> Unit
 ) {
+    val calendar = remember { Calendar.getInstance() }
+    val currentMonth = remember { calendar.get(Calendar.MONTH) + 1 }
     Box(
         modifier = Modifier
             .clip(CircleShape)
@@ -244,25 +232,25 @@ private fun CalendarItem(
                         selectedIndex.value = -1 to -1
                     else {
                         selectedIndex.value = columnIndex to rowIndex
-                        day?.let { onSelect(it) }
+                        calendarDate?.let { onSelect(it) }
                     }
                 }
             )
             .background(if (selectedIndex.value == columnIndex to rowIndex) Color.Black else Color.White)
-            .size(28.dp)
+            .size(calendarDateSize)
     ) {
         Text(
             modifier = Modifier
                 .align(Alignment.Center)
                 .padding(4.dp),
-            text = "${day?.day}",
+            text = "${calendarDate?.day}",
             color = when {
                 selectedIndex.value == columnIndex to rowIndex -> Color.White
-                day?.month != month() && dayOfWeekToCalendarDay[day?.dayOfWeek] == Calendar.SUNDAY -> semiRed
-                day?.month != month() && dayOfWeekToCalendarDay[day?.dayOfWeek] == Calendar.SATURDAY -> semiBlue
-                day?.month != month() -> Color.Gray
-                dayOfWeekToCalendarDay[day.dayOfWeek] == Calendar.SUNDAY -> Color.Red
-                dayOfWeekToCalendarDay[day.dayOfWeek] == Calendar.SATURDAY -> Color.Blue
+                calendarDate?.month != currentMonth && dayOfWeekToCalendarDay[calendarDate?.dayOfWeek] == Calendar.SUNDAY -> semiRed
+                calendarDate?.month != currentMonth && dayOfWeekToCalendarDay[calendarDate?.dayOfWeek] == Calendar.SATURDAY -> semiBlue
+                calendarDate?.month != currentMonth -> Color.Gray
+                dayOfWeekToCalendarDay[calendarDate.dayOfWeek] == Calendar.SUNDAY -> Color.Red
+                dayOfWeekToCalendarDay[calendarDate.dayOfWeek] == Calendar.SATURDAY -> Color.Blue
                 else -> Color.Black
             }
         )
