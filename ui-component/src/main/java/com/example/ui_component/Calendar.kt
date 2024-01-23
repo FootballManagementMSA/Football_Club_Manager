@@ -18,6 +18,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
@@ -25,6 +27,7 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -70,12 +73,15 @@ fun HorizontalScrollCalendar(
         val adjustedMonth = if (totalMonth % 12 == 0) 12 else totalMonth % 12
         Triple(adjustedYear, adjustedMonth, makeCalendar(adjustedYear, adjustedMonth))
     }
-    Column(modifier.fillMaxSize()) {
+    Column(
+        modifier
+            .fillMaxSize()
+            .background(Color.White)) {
         MonthControlView(year, month, coroutineScope, pagerState, pageCount)
         HorizontalPager(
             modifier = modifier.weight(1f), state = pagerState
         ) {
-            CalendarView(calendarDate, selectedDate, { month }) {
+            CalendarView(calendarDate, { month }) {
                 selectedDate.value = it
             }
         }
@@ -131,14 +137,19 @@ private fun MonthControlView(
 @Composable
 private fun CalendarView(
     days: List<List<CalendarDate?>>,
-    selectedDate: State<CalendarDate>,
     month: () -> Int,
     onSelect: (CalendarDate) -> Unit
 ) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(20.dp)) {
+    val selectedIndex = remember { mutableStateOf(-1 to -1) }
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .padding(20.dp)
+            .selectableGroup()
+    ) {
         DaysOfWeekView(Modifier.weight(0.5f))
-        days.forEach { week ->
-            WeekRow(week, month, onSelect)
+        days.forEachIndexed { columnIndex, week ->
+            WeekRow(week, month, columnIndex, selectedIndex, onSelect)
             Spacer(modifier = Modifier.weight(1f))
         }
     }
@@ -190,15 +201,19 @@ val dayOfWeekToCalendarDay = mapOf(
 private fun WeekRow(
     week: List<CalendarDate?>,
     month: () -> Int,
+    columnIndex: Int,
+    selectedIndex: MutableState<Pair<Int, Int>>,
     onSelect: (CalendarDate) -> Unit
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .selectableGroup(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        week.forEach { day ->
-            CalendarItem(day, month, onSelect)
+        week.forEachIndexed { rowIndex, day ->
+            CalendarItem(day, month, rowIndex, columnIndex, selectedIndex, onSelect)
         }
     }
 }
@@ -207,17 +222,27 @@ private fun WeekRow(
 private fun CalendarItem(
     day: CalendarDate?,
     month: () -> Int,
+    rowIndex: Int,
+    columnIndex: Int,
+    selectedIndex: MutableState<Pair<Int, Int>>,
     onSelect: (CalendarDate) -> Unit
 ) {
     Box(
         modifier = Modifier
-            .clickable {
-                Log.e("select","$day")
-                day?.let { onSelect(it) }
-            }
-            .size(28.dp)
             .clip(CircleShape)
-//            .background(if (isSelected.value) Color.Black else Color.White)
+            .selectable(
+                selected = selectedIndex.value == columnIndex to rowIndex,
+                onClick = {
+                    if (selectedIndex.value == columnIndex to rowIndex)
+                        selectedIndex.value = -1 to -1
+                    else {
+                        selectedIndex.value = columnIndex to rowIndex
+                        day?.let { onSelect(it) }
+                    }
+                }
+            )
+            .background(if (selectedIndex.value == columnIndex to rowIndex) Color.Black else Color.White)
+            .size(28.dp)
     ) {
         Text(
             modifier = Modifier
@@ -225,7 +250,7 @@ private fun CalendarItem(
                 .padding(4.dp),
             text = "${day?.day}",
             color = when {
-//                isSelected.value -> Color.White
+                selectedIndex.value == columnIndex to rowIndex -> Color.White
                 day?.month != month() && dayOfWeekToCalendarDay[day?.dayOfWeek] == Calendar.SUNDAY -> semiRed
                 day?.month != month() && dayOfWeekToCalendarDay[day?.dayOfWeek] == Calendar.SATURDAY -> semiBlue
                 day?.month != month() -> Color.Gray
