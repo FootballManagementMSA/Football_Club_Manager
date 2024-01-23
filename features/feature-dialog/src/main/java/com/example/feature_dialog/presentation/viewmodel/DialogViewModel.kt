@@ -14,7 +14,7 @@ import javax.inject.Inject
 class DialogViewModel @Inject constructor(
     private val getJoinClubUserInfoUseCase: GetJoinClubUserInfoUseCase
 ) : ViewModel() {
-    private val _joinClubUserInfo = MutableStateFlow<List<UserInfo>>(listOf( UserInfo("","","","")))
+    private val _joinClubUserInfo = MutableStateFlow<List<UserInfo>>(listOf( UserInfo("","","","","")))
     val joinClubUserInfo: StateFlow<List<UserInfo>> = _joinClubUserInfo
 
     init {
