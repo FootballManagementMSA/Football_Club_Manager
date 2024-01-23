@@ -3,6 +3,7 @@ package com.example.ui_component
 import android.os.Build
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,23 +18,27 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ui_component.values.semiBlue
 import com.example.ui_component.values.semiRed
+import com.example.ui_component.values.verticalGradation
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.time.YearMonth
@@ -70,7 +75,9 @@ fun HorizontalScrollCalendar(
         HorizontalPager(
             modifier = modifier.weight(1f), state = pagerState
         ) {
-            CalendarView(calendarDate) { month }
+            CalendarView(calendarDate, selectedDate, { month }) {
+                selectedDate.value = it
+            }
         }
         DefaultRoundedButton(
             modifier = Modifier.padding(20.dp),
@@ -122,11 +129,16 @@ private fun MonthControlView(
 
 
 @Composable
-private fun CalendarView(days: List<List<CalendarDate?>>, month: () -> Int) {
+private fun CalendarView(
+    days: List<List<CalendarDate?>>,
+    selectedDate: State<CalendarDate>,
+    month: () -> Int,
+    onSelect: (CalendarDate) -> Unit
+) {
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(20.dp)) {
         DaysOfWeekView(Modifier.weight(0.5f))
         days.forEach { week ->
-            WeekRow(week, month)
+            WeekRow(week, month, onSelect)
             Spacer(modifier = Modifier.weight(1f))
         }
     }
@@ -141,7 +153,7 @@ private fun DaysOfWeekView(modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         dayOfWeekList.forEachIndexed { index, dayOfWeek ->
-            Box(modifier = Modifier.size(20.dp)) {
+            Box(modifier = Modifier.size(28.dp)) {
                 Text(
                     modifier = Modifier.align(Alignment.Center),
                     text = dayOfWeek,
@@ -175,25 +187,45 @@ val dayOfWeekToCalendarDay = mapOf(
 )
 
 @Composable
-private fun WeekRow(week: List<CalendarDate?>, month: () -> Int) {
+private fun WeekRow(
+    week: List<CalendarDate?>,
+    month: () -> Int,
+    onSelect: (CalendarDate) -> Unit
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         week.forEach { day ->
-            CalendarItem(day, month)
+            CalendarItem(day, month, onSelect)
         }
     }
 }
 
 @Composable
-private fun CalendarItem(day: CalendarDate?, month: () -> Int) {
-    Box(modifier = Modifier.size(20.dp)) {
+private fun CalendarItem(
+    day: CalendarDate?,
+    month: () -> Int,
+    onSelect: (CalendarDate) -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .clickable {
+                Log.e("select","$day")
+                day?.let { onSelect(it) }
+            }
+            .size(28.dp)
+            .clip(CircleShape)
+//            .background(if (isSelected.value) Color.Black else Color.White)
+    ) {
         Text(
-            modifier = Modifier.align(Alignment.Center),
+            modifier = Modifier
+                .align(Alignment.Center)
+                .padding(4.dp),
             text = "${day?.day}",
             color = when {
+//                isSelected.value -> Color.White
                 day?.month != month() && dayOfWeekToCalendarDay[day?.dayOfWeek] == Calendar.SUNDAY -> semiRed
                 day?.month != month() && dayOfWeekToCalendarDay[day?.dayOfWeek] == Calendar.SATURDAY -> semiBlue
                 day?.month != month() -> Color.Gray
@@ -283,7 +315,7 @@ fun makeCalendar(year: Int, month: Int): List<List<CalendarDate?>> {
 @Preview
 @Composable
 fun CalendarPreview() {
-    HorizontalScrollCalendar(modifier = Modifier.height(400.dp)){
+    HorizontalScrollCalendar(modifier = Modifier.height(400.dp)) {
 
     }
 }
