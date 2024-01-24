@@ -17,17 +17,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.calendar.model.CalendarDate
-import com.example.calendar.util.CalendarUtil.currentMonth
+import com.example.calendar.model.Date
 import com.example.calendar.values.calendarDateSize
 import com.example.calendar.values.dayOfWeekToCalendarDay
-import com.example.ui_component.values.semiBlue
-import com.example.ui_component.values.semiRed
 import java.util.Calendar
 
 @Composable
 fun Day(
-    calendarDate: CalendarDate?,
+    date: Date?,
     dayIndex: Int,
     weekIndex: Int,
     monthIndex: Int,
@@ -53,14 +50,11 @@ fun Day(
             modifier = Modifier
                 .align(Alignment.Center)
                 .padding(4.dp),
-            text = "${calendarDate?.day}",
+            text = "${date?.day}",
             color = when {
                 selectedIndex.value == Triple(monthIndex, weekIndex, dayIndex) -> Color.White
-                calendarDate?.month != currentMonth + monthIndex && dayOfWeekToCalendarDay[calendarDate?.dayOfWeek] == Calendar.SUNDAY -> semiRed
-                calendarDate?.month != currentMonth + monthIndex && dayOfWeekToCalendarDay[calendarDate?.dayOfWeek] == Calendar.SATURDAY -> semiBlue
-                calendarDate?.month != currentMonth + monthIndex -> Color.Gray
-                dayOfWeekToCalendarDay[calendarDate.dayOfWeek] == Calendar.SUNDAY -> Color.Red
-                dayOfWeekToCalendarDay[calendarDate.dayOfWeek] == Calendar.SATURDAY -> Color.Blue
+                dayOfWeekToCalendarDay[date?.dayOfWeek] == Calendar.SUNDAY -> Color.Red
+                dayOfWeekToCalendarDay[date?.dayOfWeek] == Calendar.SATURDAY -> Color.Blue
                 else -> Color.Black
             }
         )
@@ -72,7 +66,7 @@ fun Day(
 fun DaySelectedPreview() {
     val selectedIndex = remember { mutableStateOf(Triple(0,0,0)) }
     Day(
-        calendarDate = CalendarDate(2024, 1, 24, "목"),
+        date = Date(2024, 1, 24, "목"),
         dayIndex = 0,
         weekIndex = 0,
         monthIndex = 0,
@@ -85,7 +79,7 @@ fun DaySelectedPreview() {
 fun DayNotSelectedPreview() {
     val selectedIndex = remember { mutableStateOf(Triple(-1,-1,-1)) }
     Day(
-        calendarDate = CalendarDate(2024, 1, 24, "목"),
+        date = Date(2024, 1, 24, "목"),
         dayIndex = 0,
         weekIndex = 0,
         monthIndex = 0,

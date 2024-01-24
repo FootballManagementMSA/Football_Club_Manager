@@ -1,7 +1,7 @@
 package com.example.calendar.util
 
 import android.os.Build
-import com.example.calendar.model.CalendarDate
+import com.example.calendar.model.Date
 import com.example.calendar.model.CalendarPage
 import java.time.YearMonth
 import java.time.format.TextStyle
@@ -24,8 +24,8 @@ object CalendarUtil {
     }
 
 
-    fun makeMonth(year: Int, month: Int): List<List<CalendarDate?>> {
-        val daysList = MutableList(5) { MutableList<CalendarDate?>(7) { null } }
+    fun makeMonth(year: Int, month: Int): List<List<Date?>> {
+        val daysList = MutableList(5) { MutableList<Date?>(7) { null } }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val firstDayOfMonth = YearMonth.of(year, month).atDay(1)
             var currentDay =
@@ -42,7 +42,7 @@ object CalendarUtil {
                                 Locale.getDefault()
                             )
                         daysList[week][dayOfWeek] =
-                            CalendarDate(
+                            Date(
                                 adjustedYear,
                                 currentDay.monthValue,
                                 currentDay.dayOfMonth,
@@ -79,7 +79,7 @@ object CalendarUtil {
                             set(Calendar.MONTH, month - 1)
                             set(Calendar.DAY_OF_MONTH, 1)
                         }) || adjustedMonth == (month % 12) + 1) {
-                        daysList[week][dayOfWeek] = CalendarDate(
+                        daysList[week][dayOfWeek] = Date(
                             adjustedYear,
                             adjustedMonth,
                             calendar.get(Calendar.DAY_OF_MONTH),

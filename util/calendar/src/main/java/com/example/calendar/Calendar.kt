@@ -26,7 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.calendar.model.CalendarDate
+import com.example.calendar.model.Date
 import com.example.calendar.viewmodel.CalendarViewModel
 import com.example.ui_component.DefaultRoundedButton
 import com.example.ui_component.VerticalSpacer
@@ -45,7 +45,7 @@ fun Calendar(
     scope: CoroutineScope = rememberCoroutineScope(),
     viewModel: CalendarViewModel = hiltViewModel(),
     pageCount: Int = 12,
-    onSelect: (CalendarDate) -> Unit
+    onSelect: (Date) -> Unit
 ) {
     val context = LocalContext.current
     val pagerState = rememberPagerState { pageCount }
@@ -86,7 +86,7 @@ private fun CalendarContent(
     pageCount: Int,
     viewModel: CalendarViewModel,
     context: Context,
-    onSelect: (CalendarDate) -> Unit
+    onSelect: (Date) -> Unit
 ) {
     val calendarPages = remember { (uiState.value as CalendarState.Success).calendarPage }
     Column(

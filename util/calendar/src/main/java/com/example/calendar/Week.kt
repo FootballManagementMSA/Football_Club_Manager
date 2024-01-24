@@ -12,13 +12,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.calendar.model.CalendarDate
+import com.example.calendar.model.Date
 import com.example.calendar.util.CalendarUtil
 
 
 @Composable
 fun Week(
-    week: List<CalendarDate?>,
+    week: List<Date?>,
     weekIndex: Int,
     monthIndex: Int,
     selectedIndex: MutableState<Triple<Int, Int, Int>>
