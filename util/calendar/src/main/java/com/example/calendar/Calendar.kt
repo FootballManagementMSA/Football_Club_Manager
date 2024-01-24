@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.calendar.model.CalendarDate
+import com.example.calendar.model.CalendarPage
 import com.example.calendar.util.CalendarUtil.makeCalendar
 import com.example.ui_component.DefaultRoundedButton
 import com.example.ui_component.VerticalSpacer
@@ -75,13 +76,6 @@ fun Calendar(
         }
     }
 }
-
-data class CalendarPage(
-    val year: Int,
-    val month: Int,
-    val calendar: List<List<CalendarDate?>>
-)
-
 @Preview
 @Composable
 fun CalendarPreview() {
