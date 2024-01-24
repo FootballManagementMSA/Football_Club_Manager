@@ -33,7 +33,7 @@ fun DefaultRoundedButton(
         colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
     ) {
         Text(
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier.padding(4.dp),
             text = buttonText,
             fontSize = smallFont,
             color = textColor
