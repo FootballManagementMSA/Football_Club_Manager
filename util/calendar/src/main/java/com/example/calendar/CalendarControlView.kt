@@ -60,6 +60,6 @@ fun CalendarControlView(
 @OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
-fun CalendarControlView() {
+fun CalendarControlViewPreview() {
     CalendarControlView(modifier = Modifier.fillMaxWidth(), year = 2024, month = 1, pagerState = rememberPagerState { 5 }, pageCount = 5)
 }

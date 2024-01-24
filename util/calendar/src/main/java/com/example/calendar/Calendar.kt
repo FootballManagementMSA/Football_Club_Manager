@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,12 +19,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.calendar.model.CalendarDate
-import com.example.calendar.util.CalendarUtil.makeCalenderPage
 import com.example.calendar.viewmodel.CalendarViewModel
 import com.example.ui_component.DefaultRoundedButton
 import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.bigFont
 import com.example.ui_component.values.darkButton
+
+//TODO 뷰모델로 이벤트 옮기기
+//TODO UI Test 작성
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
