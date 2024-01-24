@@ -10,4 +10,5 @@ apply from: "../../base-compose-build.gradle"
 
 dependencies {
     implementation project(':ui-component')
+    implementation project(':util:coroutine')
 }
