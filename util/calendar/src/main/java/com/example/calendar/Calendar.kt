@@ -4,7 +4,6 @@ import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
@@ -39,7 +38,7 @@ fun Calendar(
     val currentYear = remember { calendar.get(Calendar.YEAR) }
     val currentMonth = remember { calendar.get(Calendar.MONTH) + 1 }
     val currentDay = remember { calendar.get(Calendar.DAY_OF_MONTH) }
-    val selectedIndex = remember { mutableStateOf(-1 to -1) }
+    val selectedIndex = remember { mutableStateOf(Triple(-1,-1,-1)) }
     val selectedDate =
         remember { mutableStateOf(CalendarDate(currentYear, currentMonth, currentDay, "Empty")) }
     val calendarPages = remember {
@@ -79,7 +78,7 @@ fun Calendar(
             buttonText = "선택",
             buttonColor = darkButton
         ) {
-            if (selectedIndex.value == -1 to -1) {
+            if (selectedIndex.value == Triple(-1, -1, -1)) {
                 Toast.makeText(context, "날짜를 선택 해 주세요", Toast.LENGTH_SHORT).show()
             } else {
                 onSelect(selectedDate.value)

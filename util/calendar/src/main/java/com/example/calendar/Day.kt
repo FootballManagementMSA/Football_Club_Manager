@@ -30,7 +30,7 @@ fun Day(
     rowIndex: Int,
     columnIndex: Int,
     pageIndex: Int,
-    selectedIndex: MutableState<Pair<Int, Int>>,
+    selectedIndex: MutableState<Triple<Int, Int, Int>>,
     onSelect: (CalendarDate) -> Unit
 ) {
     val calendar = remember { Calendar.getInstance() }
@@ -39,17 +39,17 @@ fun Day(
         modifier = Modifier
             .clip(CircleShape)
             .selectable(
-                selected = selectedIndex.value == columnIndex to rowIndex,
+                selected = selectedIndex.value == Triple(columnIndex, rowIndex, pageIndex),
                 onClick = {
-                    if (selectedIndex.value == columnIndex to rowIndex)
-                        selectedIndex.value = -1 to -1
+                    if (selectedIndex.value == Triple(columnIndex, rowIndex, pageIndex))
+                        selectedIndex.value = Triple(-1, -1, -1)
                     else {
-                        selectedIndex.value = columnIndex to rowIndex
+                        selectedIndex.value = Triple(columnIndex, rowIndex, pageIndex)
                         calendarDate?.let { onSelect(it) }
                     }
                 }
             )
-            .background(if (selectedIndex.value == columnIndex to rowIndex) Color.Black else Color.White)
+            .background(if (selectedIndex.value == Triple(columnIndex, rowIndex, pageIndex)) Color.Black else Color.White)
             .size(calendarDateSize)
     ) {
         Text(
@@ -58,7 +58,7 @@ fun Day(
                 .padding(4.dp),
             text = "${calendarDate?.day}",
             color = when {
-                selectedIndex.value == columnIndex to rowIndex -> Color.White
+                selectedIndex.value == Triple(columnIndex, rowIndex, pageIndex) -> Color.White
                 calendarDate?.month != currentMonth && dayOfWeekToCalendarDay[calendarDate?.dayOfWeek] == Calendar.SUNDAY -> semiRed
                 calendarDate?.month != currentMonth && dayOfWeekToCalendarDay[calendarDate?.dayOfWeek] == Calendar.SATURDAY -> semiBlue
                 calendarDate?.month != currentMonth -> Color.Gray
@@ -73,7 +73,7 @@ fun Day(
 @Preview
 @Composable
 fun DaySelectedPreview() {
-    val selectedIndex = remember { mutableStateOf(0 to 0) }
+    val selectedIndex = remember { mutableStateOf(Triple(-1,-1,-1)) }
     Day(
         calendarDate = CalendarDate(2024, 1, 24, "목"),
         rowIndex = 0,
@@ -88,7 +88,7 @@ fun DaySelectedPreview() {
 @Preview
 @Composable
 fun DayNotSelectedPreview() {
-    val selectedIndex = remember { mutableStateOf(-1 to -1) }
+    val selectedIndex = remember { mutableStateOf(Triple(-1,-1,-1)) }
     Day(
         calendarDate = CalendarDate(2024, 1, 24, "목"),
         rowIndex = 0,

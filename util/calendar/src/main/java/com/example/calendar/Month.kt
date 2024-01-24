@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -17,7 +16,7 @@ import com.example.calendar.util.CalendarUtil
 @Composable
 fun Month(
     month: List<List<CalendarDate?>>,
-    selectedIndex: MutableState<Pair<Int, Int>>,
+    selectedIndex: MutableState<Triple<Int, Int, Int>>,
     pageIndex: Int,
     onSelect: (CalendarDate) -> Unit
 ) {
@@ -37,7 +36,7 @@ fun Month(
 @Preview
 @Composable
 fun MonthPreview() {
-    val selectedIndex = remember { mutableStateOf(-1 to -1) }
+    val selectedIndex = remember { mutableStateOf(Triple(-1,-1,-1)) }
     Month(month = CalendarUtil.makeCalendar(2024, 1), selectedIndex, 0) {
 
     }

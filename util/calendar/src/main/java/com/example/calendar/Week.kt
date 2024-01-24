@@ -21,7 +21,7 @@ fun Week(
     week: List<CalendarDate?>,
     columnIndex: Int,
     pageIndex: Int,
-    selectedIndex: MutableState<Pair<Int, Int>>,
+    selectedIndex: MutableState<Triple<Int, Int, Int>>,
     onSelect: (CalendarDate) -> Unit
 ) {
     Row(
@@ -43,7 +43,7 @@ fun WeekPreview() {
     val calendar = remember {
         CalendarUtil.makeCalendar(2024, 1)
     }
-    val selectedIndex = remember { mutableStateOf(-1 to -1) }
+    val selectedIndex = remember { mutableStateOf(Triple(-1,-1,-1)) }
     Column {
         Week(week = calendar[0], columnIndex = 0, pageIndex = 0, selectedIndex = selectedIndex) {
 
