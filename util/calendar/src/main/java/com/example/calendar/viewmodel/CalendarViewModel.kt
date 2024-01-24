@@ -26,11 +26,4 @@ class CalendarViewModel @Inject constructor(
         _uiState.value = CalendarState.Success(CalendarUtil.makeCalenderPage(pageCount))
     }
 
-    fun goToNextMonth() = viewModelScope.launch(dispatcher) {
-
-    }
-
-    fun goToPreviousMonth() = viewModelScope.launch(dispatcher) {
-
-    }
 }

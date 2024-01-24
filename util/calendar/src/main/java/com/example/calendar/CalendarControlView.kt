@@ -24,42 +24,33 @@ fun CalendarControlView(
     modifier: Modifier = Modifier,
     year: Int,
     month: Int,
-    pagerState: PagerState,
-    pageCount: Int
+    onPrev: () -> Unit,
+    onNext: () -> Unit
 ) {
-    val coroutineScope = rememberCoroutineScope()
     Row(modifier) {
         Text(text = "$year 년 $month 월")
         HorizontalSpacer(value = 10)
         Icon(
-            modifier = Modifier.clickable {
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage((pagerState.currentPage - 1).coerceAtLeast(0))
-                }
-            },
+            modifier = Modifier.clickable { onPrev() },
             imageVector = Icons.AutoMirrored.Default.KeyboardArrowLeft,
             contentDescription = "key"
         )
         HorizontalSpacer(value = 10)
         Icon(
-            modifier = Modifier.clickable {
-                coroutineScope.launch {
-                    pagerState.animateScrollToPage(
-                        (pagerState.currentPage + 1).coerceAtMost(
-                            pageCount
-                        )
-                    )
-                }
-            },
+            modifier = Modifier.clickable { onNext() },
             imageVector = Icons.AutoMirrored.Default.KeyboardArrowRight,
             contentDescription = "key"
         )
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
 fun CalendarControlViewPreview() {
-    CalendarControlView(modifier = Modifier.fillMaxWidth(), year = 2024, month = 1, pagerState = rememberPagerState { 5 }, pageCount = 5)
+    CalendarControlView(
+        modifier = Modifier.fillMaxWidth(),
+        year = 2024,
+        month = 1,
+        onNext = {}, onPrev = {}
+    )
 }
