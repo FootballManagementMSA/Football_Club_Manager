@@ -9,7 +9,6 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -31,19 +30,19 @@ fun Calendar(
     pageCount: Int = 12,
     onSelect: (CalendarDate) -> Unit
 ) {
-    val currentPage = remember { mutableIntStateOf(0) }
     val pagerState = rememberPagerState { pageCount }
     val calendar = remember { Calendar.getInstance() }
     val currentYear = remember { calendar.get(Calendar.YEAR) }
     val currentMonth = remember { calendar.get(Calendar.MONTH) + 1 }
     val currentDay = remember { calendar.get(Calendar.DAY_OF_MONTH) }
     val selectedDate = remember { mutableStateOf(CalendarDate(currentYear, currentMonth, currentDay, "Empty")) }
-    val (year, month, calendarDate) = remember(pagerState.currentPage) {
-        val monthOffset = pagerState.currentPage - currentPage.intValue
-        val totalMonth = currentMonth + monthOffset
-        val adjustedYear = currentYear + (totalMonth - 1) / 12
-        val adjustedMonth = if (totalMonth % 12 == 0) 12 else totalMonth % 12
-        Triple(adjustedYear, adjustedMonth, makeCalendar(adjustedYear, adjustedMonth))
+    val calendarPages = remember {
+        List(pageCount) { pageIndex ->
+            val totalMonth = currentMonth + pageIndex
+            val adjustedYear = currentYear + (totalMonth - 1) / 12
+            val adjustedMonth = if (totalMonth % 12 == 0) 12 else totalMonth % 12
+            CalendarPage(adjustedYear, adjustedMonth, makeCalendar(adjustedYear, adjustedMonth))
+        }
     }
     Column(
         modifier
@@ -52,12 +51,12 @@ fun Calendar(
     ) {
         Text(text = "날짜 선택", fontSize = bigFont)
         VerticalSpacer(value = 10)
-        CalendarControlView(Modifier,year, month, pagerState, pageCount)
+        CalendarControlView(Modifier,calendarPages[pagerState.currentPage].year, calendarPages[pagerState.currentPage].month, pagerState, pageCount)
         VerticalSpacer(value = 10)
         HorizontalPager(
             modifier = modifier.weight(1f), state = pagerState
-        ) {
-            Month(calendarDate) { selectedDate.value = it }
+        ) {pageIndex ->
+            Month(calendarPages[pageIndex].calendar) { selectedDate.value = it }
         }
         DefaultRoundedButton(
             modifier = Modifier,
@@ -70,6 +69,11 @@ fun Calendar(
     }
 }
 
+data class CalendarPage(
+    val year: Int,
+    val month: Int,
+    val calendar: List<List<CalendarDate?>>
+)
 @Preview
 @Composable
 fun CalendarPreview() {
