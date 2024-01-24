@@ -14,7 +14,7 @@ import com.example.calendar.util.CalendarUtil
 
 @Composable
 fun Month(
-    calendar: List<List<CalendarDate?>>,
+    month: List<List<CalendarDate?>>,
     onSelect: (CalendarDate) -> Unit
 ) {
     val selectedIndex = remember { mutableStateOf(-1 to -1) }
@@ -24,7 +24,7 @@ fun Month(
             .selectableGroup()
     ) {
         DaysOfWeek(Modifier.weight(0.5f))
-        calendar.forEachIndexed { columnIndex, week ->
+        month.forEachIndexed { columnIndex, week ->
             Week(week, columnIndex, selectedIndex, onSelect)
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -34,7 +34,7 @@ fun Month(
 @Preview
 @Composable
 fun MonthPreview() {
-    Month(calendar = CalendarUtil.makeCalendar(2024, 1)) {
+    Month(month = CalendarUtil.makeCalendar(2024, 1)) {
 
     }
 }
