@@ -43,7 +43,7 @@ fun WeekPreview() {
     val calendar = remember {
         CalendarUtil.makeCalendar(2024, 1)
     }
-    val selectedIndex = remember { mutableStateOf(Triple(-1,-1,-1)) }
+    val selectedIndex = remember { mutableStateOf(Triple(3,0,0)) }
     Column {
         Week(week = calendar[0], columnIndex = 0, pageIndex = 0, selectedIndex = selectedIndex) {
 

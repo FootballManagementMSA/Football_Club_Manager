@@ -73,7 +73,7 @@ fun Day(
 @Preview
 @Composable
 fun DaySelectedPreview() {
-    val selectedIndex = remember { mutableStateOf(Triple(-1,-1,-1)) }
+    val selectedIndex = remember { mutableStateOf(Triple(0,0,0)) }
     Day(
         calendarDate = CalendarDate(2024, 1, 24, "목"),
         rowIndex = 0,
