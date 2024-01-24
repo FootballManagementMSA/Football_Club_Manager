@@ -20,6 +20,7 @@ import com.example.calendar.util.CalendarUtil
 fun Week(
     week: List<CalendarDate?>,
     columnIndex: Int,
+    pageIndex: Int,
     selectedIndex: MutableState<Pair<Int, Int>>,
     onSelect: (CalendarDate) -> Unit
 ) {
@@ -31,7 +32,7 @@ fun Week(
         verticalAlignment = Alignment.CenterVertically
     ) {
         week.forEachIndexed { rowIndex, day ->
-            Day(day, rowIndex, columnIndex, selectedIndex, onSelect)
+            Day(day, pageIndex, rowIndex, columnIndex, selectedIndex, onSelect)
         }
     }
 }
@@ -44,7 +45,7 @@ fun WeekPreview() {
     }
     val selectedIndex = remember { mutableStateOf(-1 to -1) }
     Column {
-        Week(week = calendar[0], columnIndex = 0, selectedIndex = selectedIndex) {
+        Week(week = calendar[0], columnIndex = 0, pageIndex = 0, selectedIndex = selectedIndex) {
 
         }
     }

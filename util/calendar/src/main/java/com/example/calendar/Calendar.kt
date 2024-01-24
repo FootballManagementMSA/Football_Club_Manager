@@ -35,7 +35,8 @@ fun Calendar(
     val currentYear = remember { calendar.get(Calendar.YEAR) }
     val currentMonth = remember { calendar.get(Calendar.MONTH) + 1 }
     val currentDay = remember { calendar.get(Calendar.DAY_OF_MONTH) }
-    val selectedDate = remember { mutableStateOf(CalendarDate(currentYear, currentMonth, currentDay, "Empty")) }
+    val selectedDate =
+        remember { mutableStateOf(CalendarDate(currentYear, currentMonth, currentDay, "Empty")) }
     val calendarPages = remember {
         List(pageCount) { pageIndex ->
             val totalMonth = currentMonth + pageIndex
@@ -51,12 +52,18 @@ fun Calendar(
     ) {
         Text(text = "날짜 선택", fontSize = bigFont)
         VerticalSpacer(value = 10)
-        CalendarControlView(Modifier,calendarPages[pagerState.currentPage].year, calendarPages[pagerState.currentPage].month, pagerState, pageCount)
+        CalendarControlView(
+            Modifier,
+            calendarPages[pagerState.currentPage].year,
+            calendarPages[pagerState.currentPage].month,
+            pagerState,
+            pageCount
+        )
         VerticalSpacer(value = 10)
         HorizontalPager(
             modifier = modifier.weight(1f), state = pagerState
-        ) {pageIndex ->
-            Month(calendarPages[pageIndex].calendar) { selectedDate.value = it }
+        ) { pageIndex ->
+            Month(calendarPages[pageIndex].calendar, pageIndex) { selectedDate.value = it }
         }
         DefaultRoundedButton(
             modifier = Modifier,
@@ -74,6 +81,7 @@ data class CalendarPage(
     val month: Int,
     val calendar: List<List<CalendarDate?>>
 )
+
 @Preview
 @Composable
 fun CalendarPreview() {

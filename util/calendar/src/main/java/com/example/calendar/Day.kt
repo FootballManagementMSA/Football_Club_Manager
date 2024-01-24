@@ -29,11 +29,12 @@ fun Day(
     calendarDate: CalendarDate?,
     rowIndex: Int,
     columnIndex: Int,
+    pageIndex: Int,
     selectedIndex: MutableState<Pair<Int, Int>>,
     onSelect: (CalendarDate) -> Unit
 ) {
     val calendar = remember { Calendar.getInstance() }
-    val currentMonth = remember { calendar.get(Calendar.MONTH) + 1 }
+    val currentMonth = remember { calendar.get(Calendar.MONTH) + pageIndex + 1 }
     Box(
         modifier = Modifier
             .clip(CircleShape)
@@ -77,6 +78,7 @@ fun DaySelectedPreview() {
         calendarDate = CalendarDate(2024, 1, 24, "목"),
         rowIndex = 0,
         columnIndex = 0,
+        pageIndex = 0,
         selectedIndex = selectedIndex,
     ) {
 
@@ -91,6 +93,7 @@ fun DayNotSelectedPreview() {
         calendarDate = CalendarDate(2024, 1, 24, "목"),
         rowIndex = 0,
         columnIndex = 0,
+        pageIndex = 0,
         selectedIndex = selectedIndex,
     ) {
 
