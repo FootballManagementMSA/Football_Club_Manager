@@ -48,7 +48,6 @@ fun Calendar(
     }
     Column(
         modifier
-            .fillMaxSize()
             .background(Color.White)
     ) {
         Text(text = "날짜 선택", fontSize = bigFont)
