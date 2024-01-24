@@ -57,7 +57,7 @@ fun Calendar(
         HorizontalPager(
             modifier = modifier.weight(1f), state = pagerState
         ) {
-            CalendarContent(calendarDate) { selectedDate.value = it }
+            Month(calendarDate) { selectedDate.value = it }
         }
         DefaultRoundedButton(
             modifier = Modifier,

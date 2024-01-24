@@ -1,4 +1,4 @@
-package com.example.calendar
+package com.example.calendar.values
 
 import androidx.compose.ui.unit.dp
 

@@ -18,6 +18,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.calendar.model.CalendarDate
+import com.example.calendar.values.calendarDateSize
+import com.example.calendar.values.dayOfWeekToCalendarDay
 import com.example.ui_component.values.semiBlue
 import com.example.ui_component.values.semiRed
 import java.util.Calendar

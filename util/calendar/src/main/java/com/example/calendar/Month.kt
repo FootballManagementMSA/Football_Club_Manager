@@ -13,7 +13,7 @@ import com.example.calendar.model.CalendarDate
 import com.example.calendar.util.CalendarUtil
 
 @Composable
-fun CalendarContent(
+fun Month(
     calendar: List<List<CalendarDate?>>,
     onSelect: (CalendarDate) -> Unit
 ) {
@@ -33,8 +33,8 @@ fun CalendarContent(
 
 @Preview
 @Composable
-fun CalendarContentPreview() {
-    CalendarContent(calendar = CalendarUtil.makeCalendar(2024, 1)) {
+fun MonthPreview() {
+    Month(calendar = CalendarUtil.makeCalendar(2024, 1)) {
 
     }
 }
