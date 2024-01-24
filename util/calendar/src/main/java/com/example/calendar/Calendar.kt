@@ -1,5 +1,6 @@
 package com.example.calendar
 
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.calendar.model.CalendarDate
@@ -31,11 +33,13 @@ fun Calendar(
     pageCount: Int = 12,
     onSelect: (CalendarDate) -> Unit
 ) {
+    val context = LocalContext.current
     val pagerState = rememberPagerState { pageCount }
     val calendar = remember { Calendar.getInstance() }
     val currentYear = remember { calendar.get(Calendar.YEAR) }
     val currentMonth = remember { calendar.get(Calendar.MONTH) + 1 }
     val currentDay = remember { calendar.get(Calendar.DAY_OF_MONTH) }
+    val selectedIndex = remember { mutableStateOf(-1 to -1) }
     val selectedDate =
         remember { mutableStateOf(CalendarDate(currentYear, currentMonth, currentDay, "Empty")) }
     val calendarPages = remember {
@@ -63,7 +67,11 @@ fun Calendar(
         HorizontalPager(
             modifier = modifier.weight(1f), state = pagerState
         ) { pageIndex ->
-            Month(calendarPages[pageIndex].calendar, pageIndex) { selectedDate.value = it }
+            Month(
+                calendarPages[pageIndex].calendar,
+                selectedIndex,
+                pageIndex
+            ) { selectedDate.value = it }
         }
         DefaultRoundedButton(
             modifier = Modifier,
@@ -71,10 +79,15 @@ fun Calendar(
             buttonText = "선택",
             buttonColor = darkButton
         ) {
-            onSelect(selectedDate.value)
+            if (selectedIndex.value == -1 to -1) {
+                Toast.makeText(context, "날짜를 선택 해 주세요", Toast.LENGTH_SHORT).show()
+            } else {
+                onSelect(selectedDate.value)
+            }
         }
     }
 }
+
 @Preview
 @Composable
 fun CalendarPreview() {
