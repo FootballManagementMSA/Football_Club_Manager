@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.calendar.model.CalendarDate
+import com.example.calendar.util.CalendarUtil.currentMonth
 import com.example.calendar.values.calendarDateSize
 import com.example.calendar.values.dayOfWeekToCalendarDay
 import com.example.ui_component.values.semiBlue
@@ -27,29 +28,25 @@ import java.util.Calendar
 @Composable
 fun Day(
     calendarDate: CalendarDate?,
-    rowIndex: Int,
-    columnIndex: Int,
-    pageIndex: Int,
-    selectedIndex: MutableState<Triple<Int, Int, Int>>,
-    onSelect: (CalendarDate) -> Unit
+    dayIndex: Int,
+    weekIndex: Int,
+    monthIndex: Int,
+    selectedIndex: MutableState<Triple<Int, Int, Int>>
 ) {
-    val calendar = remember { Calendar.getInstance() }
-    val currentMonth = remember { calendar.get(Calendar.MONTH) + pageIndex + 1 }
     Box(
         modifier = Modifier
             .clip(CircleShape)
             .selectable(
-                selected = selectedIndex.value == Triple(columnIndex, rowIndex, pageIndex),
+                selected = selectedIndex.value == Triple(monthIndex, weekIndex, dayIndex),
                 onClick = {
-                    if (selectedIndex.value == Triple(columnIndex, rowIndex, pageIndex))
+                    if (selectedIndex.value == Triple(monthIndex, weekIndex, dayIndex))
                         selectedIndex.value = Triple(-1, -1, -1)
                     else {
-                        selectedIndex.value = Triple(columnIndex, rowIndex, pageIndex)
-                        calendarDate?.let { onSelect(it) }
+                        selectedIndex.value = Triple(monthIndex, weekIndex, dayIndex)
                     }
                 }
             )
-            .background(if (selectedIndex.value == Triple(columnIndex, rowIndex, pageIndex)) Color.Black else Color.White)
+            .background(if (selectedIndex.value == Triple(monthIndex, weekIndex, dayIndex)) Color.Black else Color.White)
             .size(calendarDateSize)
     ) {
         Text(
@@ -58,10 +55,10 @@ fun Day(
                 .padding(4.dp),
             text = "${calendarDate?.day}",
             color = when {
-                selectedIndex.value == Triple(columnIndex, rowIndex, pageIndex) -> Color.White
-                calendarDate?.month != currentMonth && dayOfWeekToCalendarDay[calendarDate?.dayOfWeek] == Calendar.SUNDAY -> semiRed
-                calendarDate?.month != currentMonth && dayOfWeekToCalendarDay[calendarDate?.dayOfWeek] == Calendar.SATURDAY -> semiBlue
-                calendarDate?.month != currentMonth -> Color.Gray
+                selectedIndex.value == Triple(monthIndex, weekIndex, dayIndex) -> Color.White
+                calendarDate?.month != currentMonth + monthIndex && dayOfWeekToCalendarDay[calendarDate?.dayOfWeek] == Calendar.SUNDAY -> semiRed
+                calendarDate?.month != currentMonth + monthIndex && dayOfWeekToCalendarDay[calendarDate?.dayOfWeek] == Calendar.SATURDAY -> semiBlue
+                calendarDate?.month != currentMonth + monthIndex -> Color.Gray
                 dayOfWeekToCalendarDay[calendarDate.dayOfWeek] == Calendar.SUNDAY -> Color.Red
                 dayOfWeekToCalendarDay[calendarDate.dayOfWeek] == Calendar.SATURDAY -> Color.Blue
                 else -> Color.Black
@@ -76,13 +73,11 @@ fun DaySelectedPreview() {
     val selectedIndex = remember { mutableStateOf(Triple(0,0,0)) }
     Day(
         calendarDate = CalendarDate(2024, 1, 24, "목"),
-        rowIndex = 0,
-        columnIndex = 0,
-        pageIndex = 0,
+        dayIndex = 0,
+        weekIndex = 0,
+        monthIndex = 0,
         selectedIndex = selectedIndex,
-    ) {
-
-    }
+    )
 }
 
 @Preview
@@ -91,11 +86,9 @@ fun DayNotSelectedPreview() {
     val selectedIndex = remember { mutableStateOf(Triple(-1,-1,-1)) }
     Day(
         calendarDate = CalendarDate(2024, 1, 24, "목"),
-        rowIndex = 0,
-        columnIndex = 0,
-        pageIndex = 0,
+        dayIndex = 0,
+        weekIndex = 0,
+        monthIndex = 0,
         selectedIndex = selectedIndex,
-    ) {
-
-    }
+    )
 }

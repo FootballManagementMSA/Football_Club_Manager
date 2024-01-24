@@ -17,8 +17,7 @@ import com.example.calendar.util.CalendarUtil
 fun Month(
     month: List<List<CalendarDate?>>,
     selectedIndex: MutableState<Triple<Int, Int, Int>>,
-    pageIndex: Int,
-    onSelect: (CalendarDate) -> Unit
+    monthIndex: Int
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -26,8 +25,8 @@ fun Month(
             .selectableGroup()
     ) {
         DaysOfWeek(Modifier.weight(0.5f))
-        month.forEachIndexed { columnIndex, week ->
-            Week(week, pageIndex, columnIndex, selectedIndex, onSelect)
+        month.forEachIndexed { weekIndex, week ->
+            Week(week, monthIndex, weekIndex, selectedIndex)
             Spacer(modifier = Modifier.weight(1f))
         }
     }
@@ -37,7 +36,5 @@ fun Month(
 @Composable
 fun MonthPreview() {
     val selectedIndex = remember { mutableStateOf(Triple(-1,-1,-1)) }
-    Month(month = CalendarUtil.makeCalendar(2024, 1), selectedIndex, 0) {
-
-    }
+    Month(month = CalendarUtil.makeMonth(2024, 1), selectedIndex, 0)
 }

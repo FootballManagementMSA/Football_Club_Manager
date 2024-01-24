@@ -17,13 +17,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.calendar.model.CalendarDate
-import com.example.calendar.model.CalendarPage
-import com.example.calendar.util.CalendarUtil.makeCalendar
+import com.example.calendar.util.CalendarUtil.makeCalenderPage
 import com.example.ui_component.DefaultRoundedButton
 import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.bigFont
 import com.example.ui_component.values.darkButton
-import java.util.Calendar
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -34,21 +32,8 @@ fun Calendar(
 ) {
     val context = LocalContext.current
     val pagerState = rememberPagerState { pageCount }
-    val calendar = remember { Calendar.getInstance() }
-    val currentYear = remember { calendar.get(Calendar.YEAR) }
-    val currentMonth = remember { calendar.get(Calendar.MONTH) + 1 }
-    val currentDay = remember { calendar.get(Calendar.DAY_OF_MONTH) }
-    val selectedIndex = remember { mutableStateOf(Triple(-1,-1,-1)) }
-    val selectedDate =
-        remember { mutableStateOf(CalendarDate(currentYear, currentMonth, currentDay, "Empty")) }
-    val calendarPages = remember {
-        List(pageCount) { pageIndex ->
-            val totalMonth = currentMonth + pageIndex
-            val adjustedYear = currentYear + (totalMonth - 1) / 12
-            val adjustedMonth = if (totalMonth % 12 == 0) 12 else totalMonth % 12
-            CalendarPage(adjustedYear, adjustedMonth, makeCalendar(adjustedYear, adjustedMonth))
-        }
-    }
+    val selectedIndex = remember { mutableStateOf(Triple(-1, -1, -1)) }
+    val calendarPages = remember { makeCalenderPage(pageCount)}
     Column(
         modifier
             .background(Color.White)
@@ -65,12 +50,12 @@ fun Calendar(
         VerticalSpacer(value = 10)
         HorizontalPager(
             modifier = modifier.weight(1f), state = pagerState
-        ) { pageIndex ->
+        ) { monthIndex ->
             Month(
-                calendarPages[pageIndex].calendar,
+                calendarPages[monthIndex].calendar,
                 selectedIndex,
-                pageIndex
-            ) { selectedDate.value = it }
+                monthIndex
+            )
         }
         DefaultRoundedButton(
             modifier = Modifier,
@@ -81,7 +66,8 @@ fun Calendar(
             if (selectedIndex.value == Triple(-1, -1, -1)) {
                 Toast.makeText(context, "날짜를 선택 해 주세요", Toast.LENGTH_SHORT).show()
             } else {
-                onSelect(selectedDate.value)
+                val (month, week, day) = selectedIndex.value
+                onSelect(calendarPages[month].calendar[day][week]!!)
             }
         }
     }

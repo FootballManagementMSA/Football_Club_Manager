@@ -19,10 +19,9 @@ import com.example.calendar.util.CalendarUtil
 @Composable
 fun Week(
     week: List<CalendarDate?>,
-    columnIndex: Int,
-    pageIndex: Int,
-    selectedIndex: MutableState<Triple<Int, Int, Int>>,
-    onSelect: (CalendarDate) -> Unit
+    weekIndex: Int,
+    monthIndex: Int,
+    selectedIndex: MutableState<Triple<Int, Int, Int>>
 ) {
     Row(
         modifier = Modifier
@@ -31,8 +30,8 @@ fun Week(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        week.forEachIndexed { rowIndex, day ->
-            Day(day, pageIndex, rowIndex, columnIndex, selectedIndex, onSelect)
+        week.forEachIndexed { dayIndex, day ->
+            Day(day, monthIndex, dayIndex, weekIndex, selectedIndex)
         }
     }
 }
@@ -41,12 +40,10 @@ fun Week(
 @Composable
 fun WeekPreview() {
     val calendar = remember {
-        CalendarUtil.makeCalendar(2024, 1)
+        CalendarUtil.makeMonth(2024, 1)
     }
     val selectedIndex = remember { mutableStateOf(Triple(3,0,0)) }
     Column {
-        Week(week = calendar[0], columnIndex = 0, pageIndex = 0, selectedIndex = selectedIndex) {
-
-        }
+        Week(week = calendar[0], weekIndex = 0, monthIndex = 0, selectedIndex = selectedIndex)
     }
 }
