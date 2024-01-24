@@ -18,7 +18,6 @@ import com.example.feature_navigation.Route
 import com.example.feature_navigation.showBarList
 import com.example.feature_squard.presentation.screen.SquadScreen
 import com.example.presentation.screen.HomeScreen
-import com.example.ui_component.HorizontalScrollCalendar
 
 @Composable
 fun FootBallManagerAppNavigator(
@@ -41,7 +40,7 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.SETTINGS) {
             onNavigate(Route.SETTINGS)
-            HorizontalScrollCalendar()
+            Text(text = "Settings")
         }
         composable(Route.MAKE_CLUB) {
             onNavigate(Route.MAKE_CLUB)
