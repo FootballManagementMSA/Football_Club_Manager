@@ -15,53 +15,40 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun MainFootSelectView() {
-    var isLeftFootButtonClicked by remember { mutableStateOf(false) }
-    var isRightFootButtonClicked by remember { mutableStateOf(false) }
-    var isBothFeetButtonClicked by remember { mutableStateOf(false) }
-
+    // -1: 초기 아무것도 x, 0: 왼발, 1: 오른발, 2: 양발
+    var selectedFootIndex by remember { mutableStateOf(-1) }
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-        ,
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         SelectProfileButton(
-            isSelected = isLeftFootButtonClicked,
+            isSelected = selectedFootIndex == 0,
             onClick = {
-                isLeftFootButtonClicked = !isLeftFootButtonClicked
-                isBothFeetButtonClicked = false
-                isRightFootButtonClicked = false
+                selectedFootIndex = if (selectedFootIndex == 0) -1 else 0
             },
             contentDescription = "왼발잡이",
             position = "왼발",
             modifier = Modifier.weight(1f).height(30.dp)
         )
         SelectProfileButton(
-            isSelected = isRightFootButtonClicked,
+            isSelected = selectedFootIndex == 1,
             onClick = {
-                isRightFootButtonClicked = !isRightFootButtonClicked
-                isBothFeetButtonClicked = false
-                isLeftFootButtonClicked = false
+                selectedFootIndex = if (selectedFootIndex == 1) -1 else 1
             },
             contentDescription = "오른발잡이",
             position = "오른발",
             modifier = Modifier.weight(1f).height(30.dp)
         )
         SelectProfileButton(
-            isSelected = isBothFeetButtonClicked,
+            isSelected = selectedFootIndex == 2,
             onClick = {
-                isBothFeetButtonClicked = !isBothFeetButtonClicked
-                isRightFootButtonClicked = false
-                isLeftFootButtonClicked = false
+                selectedFootIndex = if (selectedFootIndex == 2) -1 else 2
             },
             contentDescription = "양발잡이",
             position = "양발",
             modifier = Modifier.weight(1f).height(30.dp)
         )
-
-
-
     }
 }
