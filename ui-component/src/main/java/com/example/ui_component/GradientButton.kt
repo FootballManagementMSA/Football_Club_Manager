@@ -70,7 +70,7 @@ fun DialogCustomGradientButton(
     modifier: Modifier = Modifier,
     gradientColors: List<Color>,
     buttonText: String,
-    roundedCornerShape: RoundedCornerShape,
+    radius: Dp,
     onClick: () -> Unit
 ) {
     Column(modifier = modifier.wrapContentSize(align = Alignment.Center)) {
@@ -91,9 +91,9 @@ fun DialogCustomGradientButton(
                     .fillMaxWidth()
                     .background(
                         brush = Brush.horizontalGradient(colors = gradientColors),
-                        shape = roundedCornerShape
+                        shape = RoundedCornerShape(radius)
                     )
-                    .clip(roundedCornerShape)
+                    .clip(RoundedCornerShape(radius))
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 contentAlignment = Alignment.Center
             ) {
@@ -113,7 +113,7 @@ fun FinalCustomGradientButtonPreview() {
     DialogCustomGradientButton(
         gradientColors = gradientColorsList,
         buttonText = "수락하기",
-        roundedCornerShape = RoundedCornerShape(20.dp)
+        radius = 20.dp
     ) {
 
     }
