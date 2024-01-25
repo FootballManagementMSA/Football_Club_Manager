@@ -40,7 +40,7 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.SETTINGS) {
             onNavigate(Route.SETTINGS)
-            Text(text = "SETTINGS")
+            Text(text = "Settings")
         }
         composable(Route.MAKE_CLUB) {
             onNavigate(Route.MAKE_CLUB)
