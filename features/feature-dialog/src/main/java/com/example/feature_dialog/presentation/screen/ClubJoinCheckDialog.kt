@@ -21,37 +21,34 @@ import com.example.ui_component.values.gradientColorsList
 @Composable
 fun ClubJoinCheckDialog(
     userInfo: UserInfo,
-    isOpen: Boolean,
     onDismiss: () -> Unit,
     viewModel: DialogViewModel = hiltViewModel()
 ) {
-    if (isOpen) {
-        DefaultDialog(
-            title = "멤버 가입 신청입니다.",
-            userName = "${userInfo.name}",
-            onDismiss = {
+    DefaultDialog(
+        title = "멤버 가입 신청입니다.",
+        userName = "${userInfo.name}",
+        onDismiss = {
+            onDismiss()
+        }) {
+        ClubJoinCheckDialogTextView(userInfo)
+        Row {
+            DarkButton(
+                modifier = Modifier
+                    .weight(1f)
+                    .align(Alignment.CenterVertically),
+                buttonText = "거절하기",
+                textColor = Color.White,
+                roundedCornerShape = RoundedCornerShape(20.dp)
+            ) {
                 onDismiss()
-            }) {
-            ClubJoinCheckDialogTextView(userInfo)
-            Row {
-                DarkButton(
-                    modifier = Modifier
-                        .weight(1f)
-                        .align(Alignment.CenterVertically),
-                    buttonText = "거절하기",
-                    textColor = Color.White,
-                    roundedCornerShape = RoundedCornerShape(20.dp)
-                ) {
-                    onDismiss()
-                }
-                HorizontalSpacer(value = 15)
-                DialogCustomGradientButton(
-                    modifier = Modifier.weight(1f),
-                    gradientColors = gradientColorsList,
-                    buttonText = "수락하기",
-                    roundedCornerShape = RoundedCornerShape(20.dp)
-                ) {
-                }
+            }
+            HorizontalSpacer(value = 15)
+            DialogCustomGradientButton(
+                modifier = Modifier.weight(1f),
+                gradientColors = gradientColorsList,
+                buttonText = "수락하기",
+                roundedCornerShape = RoundedCornerShape(20.dp)
+            ) {
             }
         }
     }

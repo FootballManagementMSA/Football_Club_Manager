@@ -30,7 +30,6 @@ fun DialogTestScreen(viewModel: DialogViewModel = hiltViewModel()) {
             if (isDialogOpen.getOrNull(index) == true) {
                 ClubJoinCheckDialog(
                     userInfo = userInfo,
-                    isOpen = true,
                     onDismiss = { isDialogOpen[index] = false }
                 )
             }
