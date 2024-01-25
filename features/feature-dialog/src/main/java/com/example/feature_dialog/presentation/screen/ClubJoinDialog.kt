@@ -1,5 +1,6 @@
 package com.example.feature_dialog.presentation.screen
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,21 +17,23 @@ import com.example.ui_component.DefaultDialog
 @Composable
 fun ClubJoinDialog() {
     DefaultDialog(title = "구단 가입 신청입니다.", userName = "홍길동", {}) {
-        Text(text = "자기 소개 입력")
-        OutlinedTextField(
-            value = "",
-            onValueChange = {},
-            label = { Text("자기 소개 글을 입력해주세요.") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-        )
-        DarkButton(
-            buttonText = "가입 신청",
-            textColor = Color.White,
-            roundedCornerShape = RoundedCornerShape(20.dp)
-        ) {
+        Column {
+            Text(text = "자기 소개 입력")
+            OutlinedTextField(
+                value = "",
+                onValueChange = {},
+                label = { Text("자기 소개 글을 입력해주세요.") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            )
+            DarkButton(
+                buttonText = "가입 신청",
+                textColor = Color.White,
+                roundedCornerShape = RoundedCornerShape(20.dp)
+            ) {
 
+            }
         }
     }
 }
