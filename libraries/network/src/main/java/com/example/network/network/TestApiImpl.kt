@@ -1,6 +1,6 @@
 package com.example.network.network
 
-import com.example.network_api.model.TestResponse
+import com.example.network_api.response.TestResponse
 
 // 순수 더미 클래스
 internal class TestApiImpl : TestApi {
