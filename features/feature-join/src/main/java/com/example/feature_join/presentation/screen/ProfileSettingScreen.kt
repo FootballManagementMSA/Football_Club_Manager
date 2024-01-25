@@ -46,7 +46,13 @@ fun ProfileSettingScreen(viewModel: JoinViewModel = hiltViewModel()) {
 
 
         Text(
-            text = "프로필을,\n\n설정해주세요.",
+            text = "프로필을,",
+            fontSize = 30.sp,
+            color = Color.White,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = "설정해주세요.",
             fontSize = 30.sp,
             color = Color.White,
             fontWeight = FontWeight.Bold
