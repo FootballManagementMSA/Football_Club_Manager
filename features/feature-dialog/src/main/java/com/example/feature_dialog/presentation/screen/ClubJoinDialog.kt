@@ -12,10 +12,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.ui_component.DarkButton
 import com.example.ui_component.DefaultDialog
+import com.example.ui_component.Header
 
 @Composable
 fun ClubJoinDialog() {
-    DefaultDialog(title = "구단 가입 신청입니다.", userName = "홍길동", {}) {
+    DefaultDialog(
+        header = { Header(onDismiss = {}, title = "구단 가입 신청입니다.", userName = "테스트")}
+    ) {
         Column {
             Text(text = "자기 소개 입력")
             OutlinedTextField(

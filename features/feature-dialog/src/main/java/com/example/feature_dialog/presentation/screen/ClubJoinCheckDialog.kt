@@ -15,6 +15,7 @@ import com.example.feature_dialog.presentation.viewmodel.DialogViewModel
 import com.example.ui_component.DarkButton
 import com.example.ui_component.DefaultDialog
 import com.example.ui_component.DialogCustomGradientButton
+import com.example.ui_component.Header
 import com.example.ui_component.HorizontalSpacer
 import com.example.ui_component.values.gradientColorsList
 
@@ -25,11 +26,8 @@ fun ClubJoinCheckDialog(
     viewModel: DialogViewModel = hiltViewModel()
 ) {
     DefaultDialog(
-        title = "멤버 가입 신청입니다.",
-        userName = "${userInfo.name}",
-        onDismiss = {
-            onDismiss()
-        }) {
+        header = { Header(onDismiss = onDismiss, title = "멤버 가입 신청입니다." , userName = userInfo.name.toString())}
+    ) {
         ClubJoinCheckDialogTextView(userInfo)
         Row {
             DarkButton(
@@ -67,7 +65,9 @@ fun ClubJoinCheckDialogTextView(userInfo: UserInfo) {
 @Preview
 @Composable
 fun ClubJoinCheckDialogPreview() {
-    DefaultDialog(title = "멤버 가입 신청입니다.", userName = "홍길동", {}) {
+    DefaultDialog(
+        header = { Header(onDismiss = {}, title = "테스트 입니다.", userName = "으아아" )}
+    ) {
         Text(text = "나이: 3 ")
         Text(text = "가입 구단 수: 3")
         Text(text = "주 포메이션: 3")

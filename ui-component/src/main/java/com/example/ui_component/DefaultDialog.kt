@@ -37,9 +37,7 @@ import com.example.ui_component.values.smallFont
 
 @Composable
 fun DefaultDialog(
-    title: String,
-    userName: String,
-    onDismiss: () -> Unit,
+    header: @Composable () -> Unit,
     content: @Composable () -> Unit
 ) {
     val config = LocalConfiguration.current
@@ -60,14 +58,23 @@ fun DefaultDialog(
                     .heightIn(min = 270.dp)
                     .height(config.screenHeightDp.dp / 3)
             ) {
-                DialogTopView(title = title, onDismiss = onDismiss)
-                Spacer(modifier = Modifier.weight(1f))
-                DialogProfileView(userName = userName)
+                header()
                 Spacer(modifier = Modifier.weight(1f))
                 content()
             }
         }
     }
+}
+
+@Composable
+fun Header(onDismiss: () -> Unit, title: String, userName: String) {
+    DialogTopView(
+        modifier = Modifier.fillMaxWidth(),
+        title = title,
+        onDismiss = onDismiss
+    )
+    VerticalSpacer(value = 10)
+    DialogProfileView(userName = userName)
 }
 
 @Composable
@@ -118,5 +125,8 @@ private fun DialogProfileView(modifier: Modifier = Modifier, userName: String) {
 @Preview
 @Composable
 fun DefaultDialogPreview() {
-    DefaultDialog("구단 가입 신청입니다.", "임성우",{}) {}
+    DefaultDialog(
+        header = { Header(onDismiss = {}, title = "구단 가입 신청입니다.", userName = "임성우") },
+        content = {  }
+    )
 }
