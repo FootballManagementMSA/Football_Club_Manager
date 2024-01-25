@@ -15,66 +15,50 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun PositionSelectView() {
-    var isSTButtonClicked by remember { mutableStateOf(false) }
-    var isMFButtonClicked by remember { mutableStateOf(false) }
-    var isDFButtonClicked by remember { mutableStateOf(false) }
-    var isGKButtonClicked by remember { mutableStateOf(false) }
+    // -1: 초기 아무것도 X, 0: ST, 1: MF, 2: DF, 3: GK
+    var selectedPositionIndex by remember { mutableStateOf(-1) }
 
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-        ,
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         SelectProfileButton(
-            isSelected = isSTButtonClicked,
+            isSelected = selectedPositionIndex == 0,
             onClick = {
-                isSTButtonClicked = !isSTButtonClicked
-                isMFButtonClicked = false
-                isDFButtonClicked = false
-                isGKButtonClicked = false
+                selectedPositionIndex = if (selectedPositionIndex == 0) -1 else 0
             },
-            contentDescription = "Striker",
+            contentDescription = "공격수",
             position = "ST",
             modifier = Modifier.weight(1f).height(30.dp)
         )
 
         SelectProfileButton(
-            isSelected = isMFButtonClicked,
+            isSelected = selectedPositionIndex == 1,
             onClick = {
-                isMFButtonClicked = !isMFButtonClicked
-                isSTButtonClicked = false
-                isDFButtonClicked = false
-                isGKButtonClicked = false
+                selectedPositionIndex = if (selectedPositionIndex == 1) -1 else 1
             },
-            contentDescription = "Midfielder",
+            contentDescription = "미드필더",
             position = "MF",
             modifier = Modifier.weight(1f).height(30.dp)
         )
 
         SelectProfileButton(
-            isSelected = isDFButtonClicked,
+            isSelected = selectedPositionIndex == 2,
             onClick = {
-                isDFButtonClicked = !isDFButtonClicked
-                isMFButtonClicked = false
-                isSTButtonClicked = false
-                isGKButtonClicked = false
+                selectedPositionIndex = if (selectedPositionIndex == 2) -1 else 2
             },
-            contentDescription = "Defender",
+            contentDescription = "수비수",
             position = "DF",
             modifier = Modifier.weight(1f).height(30.dp)
         )
 
         SelectProfileButton(
-            isSelected = isGKButtonClicked,
+            isSelected = selectedPositionIndex == 3,
             onClick = {
-                isGKButtonClicked = !isGKButtonClicked
-                isMFButtonClicked = false
-                isDFButtonClicked = false
-                isSTButtonClicked = false
+                selectedPositionIndex = if (selectedPositionIndex == 3) -1 else 3
             },
-            contentDescription = "Goalkeeper",
+            contentDescription = "골키퍼",
             position = "GK",
             modifier = Modifier.weight(1f).height(30.dp)
         )
