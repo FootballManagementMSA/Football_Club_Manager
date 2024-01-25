@@ -14,6 +14,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,8 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.feature_join.presentation.ui_component.InputView_OnlyNum
-import com.example.feature_join.presentation.ui_component.MainFootSelectView
-import com.example.feature_join.presentation.ui_component.PositionSelectView
+import com.example.feature_join.presentation.ui_component.SelectionView
 import com.example.feature_join.presentation.viewmodel.JoinViewModel
 import com.example.ui_component.CustomGradientButton_1
 import com.example.ui_component.R
@@ -33,7 +34,8 @@ import com.example.ui_component.values.mainTheme
 @Composable
 fun ProfileSettingScreen(viewModel: JoinViewModel = hiltViewModel()) {
     val scrollState = rememberScrollState()
-
+    val position = remember { listOf("공격수" to "ST", "미드필더" to "MF", "수비수" to "DF", "골키퍼" to "GK") }
+    val foot = remember { listOf("왼발잡이" to "왼발", "오른발잡이" to "오른발", "양발잡이" to "양발") }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -91,19 +93,20 @@ fun ProfileSettingScreen(viewModel: JoinViewModel = hiltViewModel()) {
             modifier = Modifier.padding(end = 200.dp)
 
         )
-        PositionSelectView()
+        SelectionView(position) {
+            viewModel.updateSelectedInfo(position = it)
+        }
         Spacer(modifier = Modifier.height(10.dp))
-
         Text(
             text = "주발",
             fontSize = 11.sp,
             color = Color.White,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(end = 230.dp)
-
         )
-        MainFootSelectView()
-
+        SelectionView(foot) {
+            viewModel.updateSelectedInfo(foot = it)
+        }
 
         Spacer(modifier = Modifier.height(20.dp))
 
