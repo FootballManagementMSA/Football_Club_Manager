@@ -3,7 +3,6 @@ package com.example.feature_dialog.presentation.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,7 +29,7 @@ fun ClubJoinDialog() {
             DarkButton(
                 buttonText = "가입 신청",
                 textColor = Color.White,
-                roundedCornerShape = RoundedCornerShape(20.dp)
+                radius = 20.dp
             ) {
 
             }

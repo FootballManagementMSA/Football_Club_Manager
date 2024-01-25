@@ -39,7 +39,7 @@ fun ClubJoinCheckDialog(
                     .align(Alignment.CenterVertically),
                 buttonText = "거절하기",
                 textColor = Color.White,
-                roundedCornerShape = RoundedCornerShape(20.dp)
+                radius = 20.dp
             ) {
                 onDismiss()
             }
@@ -80,7 +80,7 @@ fun ClubJoinCheckDialogPreview() {
                     .align(Alignment.CenterVertically),
                 buttonText = "거절하기",
                 textColor = Color.White,
-                roundedCornerShape = RoundedCornerShape(20.dp)
+                radius = 20.dp
             ) {
             }
             HorizontalSpacer(value = 15)

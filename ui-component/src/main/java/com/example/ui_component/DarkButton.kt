@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ui_component.values.mainTheme
@@ -24,7 +25,7 @@ fun DarkButton(
     modifier: Modifier = Modifier,
     buttonText: String,
     textColor: Color,
-    roundedCornerShape: RoundedCornerShape,
+    radius: Dp,
     onClick: () -> Unit
 ) {
     Column(modifier = modifier
@@ -36,7 +37,7 @@ fun DarkButton(
                 .fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = mainTheme),
             contentPadding = PaddingValues(),
-            shape = roundedCornerShape
+            shape = RoundedCornerShape(radius)
         ) {
             Box(
                 modifier = Modifier
@@ -61,7 +62,7 @@ fun DarkButtonPreview() {
     DarkButton(
         buttonText = "가입 신청",
         textColor = Color.White,
-        roundedCornerShape = RoundedCornerShape(20.dp)
+        radius = 20.dp
     ) {
     }
 }
