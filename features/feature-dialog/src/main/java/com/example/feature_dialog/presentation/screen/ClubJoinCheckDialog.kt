@@ -1,5 +1,6 @@
 package com.example.feature_dialog.presentation.screen
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -56,10 +57,12 @@ fun ClubJoinCheckDialog(
 
 @Composable
 fun ClubJoinCheckDialogTextView(userInfo: UserInfo) {
-    Text(text = "나이: ${userInfo.age} ")
-    Text(text = "가입 구단 수: ${userInfo.clubNum}")
-    Text(text = "주 포메이션: ${userInfo.formation}")
-    Text(text = "자기 소개: ${userInfo.selfInfo}")
+    Column {
+        Text(text = "나이: ${userInfo.age} ")
+        Text(text = "가입 구단 수: ${userInfo.clubNum}")
+        Text(text = "주 포메이션: ${userInfo.formation}")
+        Text(text = "자기 소개: ${userInfo.selfInfo}")
+    }
 }
 
 @Preview
