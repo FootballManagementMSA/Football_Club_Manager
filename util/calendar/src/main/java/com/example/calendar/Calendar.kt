@@ -35,10 +35,6 @@ import com.example.ui_component.values.darkButton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-//TODO 뷰모델로 이벤트 옮기기
-//TODO UI Test 작성
-
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Calendar(
     modifier: Modifier = Modifier,
@@ -48,7 +44,6 @@ fun Calendar(
     onSelect: (Date) -> Unit
 ) {
     val context = LocalContext.current
-    val pagerState = rememberPagerState { pageCount }
     val uiState = viewModel.uiState.collectAsState()
 
     LaunchedEffect(Unit) {
@@ -65,7 +60,6 @@ fun Calendar(
             CalendarContent(
                 uiState,
                 modifier,
-                pagerState,
                 scope,
                 pageCount,
                 viewModel,
@@ -81,7 +75,6 @@ fun Calendar(
 private fun CalendarContent(
     uiState: State<CalendarState>,
     modifier: Modifier,
-    pagerState: PagerState,
     scope: CoroutineScope,
     pageCount: Int,
     viewModel: CalendarViewModel,
@@ -89,6 +82,7 @@ private fun CalendarContent(
     onSelect: (Date) -> Unit
 ) {
     val calendarPages = remember { (uiState.value as CalendarState.Success).calendarPage }
+    val pagerState = rememberPagerState { pageCount }
     Column(
         modifier
             .background(Color.White)
