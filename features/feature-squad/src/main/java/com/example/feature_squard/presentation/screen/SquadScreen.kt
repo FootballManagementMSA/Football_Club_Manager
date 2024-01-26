@@ -3,18 +3,12 @@ package com.example.feature_squard.presentation.screen
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectDragGestures
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -26,26 +20,23 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.model.LocalScreen
+import com.example.core.model.MemberUiModel
+import com.example.core.model.Position
 import com.example.core.model.PositionPresetUIModel
-import com.example.core.model.PositionUiModel
 import com.example.feature_squard.presentation.SquadState
+import com.example.feature_squard.presentation.ui_component.CandidateView
+import com.example.feature_squard.presentation.ui_component.DraggableMember
 import com.example.feature_squard.presentation.viewmodel.SquadViewModel
+import com.example.ui_component.DefaultBottomSheet
 import com.example.ui_component.R
 import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.mainTheme
-import com.example.ui_component.values.subTheme
-import com.example.ui_component.values.tinyFont
-import kotlin.math.roundToInt
 
 @Composable
 fun SquadScreen(viewModel: SquadViewModel = hiltViewModel()) {
@@ -71,9 +62,13 @@ fun SquadScreen(viewModel: SquadViewModel = hiltViewModel()) {
 
 
 @Composable
-private fun SquadContent(onLoad: () -> PositionPresetUIModel, onSet: (List<PositionUiModel>) -> Unit) {
-    val positions = remember { onLoad().memberPosition.toMutableList() }
-
+private fun SquadContent(
+    onLoad: () -> PositionPresetUIModel,
+    onSet: (List<MemberUiModel>) -> Unit
+) {
+    val positions = remember { onLoad().members.toMutableList() }
+    val showSheet = remember { mutableStateOf(false) }
+    val config = LocalConfiguration.current
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -92,9 +87,14 @@ private fun SquadContent(onLoad: () -> PositionPresetUIModel, onSet: (List<Posit
             CandidateView()
         }
         positions.forEachIndexed { index, _ ->
-            DraggableMember(memberNumber = index, onLoad) { newPosition ->
-                positions[index] = newPosition
-            }
+            DraggableMember(
+                onLoad = { onLoad().members[index] to onLoad().screenSize },
+                onDrag = { newPosition ->
+                    positions[index] = newPosition
+                },
+                onSet = {
+                    showSheet.value = true
+                })
         }
         Button(
             modifier = Modifier.align(Alignment.TopEnd),
@@ -102,76 +102,14 @@ private fun SquadContent(onLoad: () -> PositionPresetUIModel, onSet: (List<Posit
             Text(text = "save preset")
         }
     }
-}
+    if (showSheet.value) {
+        DefaultBottomSheet(onDismiss = { showSheet.value = false }) {
+            Box(Modifier.fillMaxHeight()) {
 
-@Composable
-private fun CandidateView() {
-    Text(
-        text = "교체 선수",
-        fontSize = tinyFont,
-        fontWeight = FontWeight.Bold,
-        color = Color.White
-    )
-    VerticalSpacer(value = 10)
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(subTheme)
-            .wrapContentHeight()
-            .padding(10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start
-    ) {
-        Image(
-            modifier = Modifier
-                .padding(5.dp)
-                .size(20.dp),
-            painter = painterResource(id = R.drawable.cloth_icon),
-            contentDescription = ""
-        )
-    }
-}
-
-@Composable
-private fun DraggableMember(
-    memberNumber: Int,
-    onLoad: () -> PositionPresetUIModel,
-    onSet: (PositionUiModel) -> Unit
-) {
-    val loaded = remember { mutableStateOf(onLoad().memberPosition[memberNumber]) }
-    val screenSize by remember { mutableStateOf(onLoad().screenSize) }
-    val boxSize = remember { mutableStateOf(20) }
-    Image(
-        modifier = Modifier
-            .offset {
-                IntOffset(
-                    loaded.value.x
-                        .roundToInt()
-                        .coerceAtLeast(0)
-                        .coerceAtMost(screenSize.width.toInt() - boxSize.value * 2),
-                    loaded.value.y
-                        .roundToInt()
-                        .coerceAtLeast(0)
-                        .coerceAtMost(screenSize.height.toInt()),
-                )
             }
-            .size(boxSize.value.dp)
-            .pointerInput(Unit) {
-                detectDragGestures { change, dragAmount ->
-                    change.consume()
-                    loaded.value = loaded.value.copy(
-                        x = (loaded.value.x + dragAmount.x)
-                            .coerceAtLeast(0f)
-                            .coerceAtMost(screenSize.width.toFloat()),
-                        y = (loaded.value.y + dragAmount.y)
-                            .coerceAtLeast(0f)
-                            .coerceAtMost(screenSize.height.toFloat()),
-                    )
-                    onSet(loaded.value)
-                }
-            }, painter = painterResource(id = R.drawable.cloth_icon), contentDescription = "member"
-    )
+
+        }
+    }
 }
 
 @Composable
@@ -180,7 +118,15 @@ fun SquadContentPreview() {
     SquadContent(onLoad = {
         PositionPresetUIModel(
             screenSize = LocalScreen(768.0, 1280.0),
-            memberPosition = listOf(PositionUiModel(100f, 100f))
+            members = listOf(
+                MemberUiModel(
+                    id = "1",
+                    name = "홍길동",
+                    number = "11",
+                    role = "NF",
+                    position = Position(300f, 500f)
+                )
+            )
         )
     }, onSet = {})
 }

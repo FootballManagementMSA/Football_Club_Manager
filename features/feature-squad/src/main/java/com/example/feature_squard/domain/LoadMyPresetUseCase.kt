@@ -3,7 +3,6 @@ package com.example.feature_squard.domain
 import com.example.core.datasource.PositionPresetDataSource
 import com.example.core.model.LocalScreen
 import com.example.core.model.PositionPresetUIModel
-import com.example.core.model.PositionUiModel
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,10 +18,12 @@ class LoadMyPresetUseCase @Inject constructor(
         val preset = positionPresetDataSource.loadMyPreset()
         val screenFromDB = preset.screenSize
         return preset.copy(
-            memberPosition = preset.memberPosition.map { position ->
-                PositionUiModel(
-                    x = position.x * (myScreen.width / screenFromDB.width).toFloat(),
-                    y = position.y * (myScreen.height / screenFromDB.height).toFloat()
+            members = preset.members.map { member ->
+                member.copy(
+                    position = member.position.copy(
+                        x = member.position.x * (myScreen.width / screenFromDB.width).toFloat(),
+                        y = member.position.y * (myScreen.height / screenFromDB.height).toFloat()
+                    )
                 )
             }
         )

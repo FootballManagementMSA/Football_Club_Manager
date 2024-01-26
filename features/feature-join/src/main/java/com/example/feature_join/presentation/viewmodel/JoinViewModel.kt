@@ -22,11 +22,21 @@ class JoinViewModel @Inject constructor(
     private val _userGender = mutableStateOf("")
     val userGender: State<String> = _userGender
 
+    private val _userName = mutableStateOf("")
+    val userName: State<String> = _userName
+
+    private val _selectedInfo = mutableStateOf("" to "")
+    val selectedInfo: State<Pair<String,String>> get() =  _selectedInfo
+
 
     fun join() {
         viewModelScope.launch {
             joinUseCase()
         }
+    }
+
+    fun updateSelectedInfo(position: String = "",foot: String = ""){
+        _selectedInfo.value = position to foot
     }
 
     fun updateUserAge(age:String){
@@ -37,6 +47,9 @@ class JoinViewModel @Inject constructor(
     }
     fun updateUserGender(gender: String){
         _userGender.value=gender
+    }
+    fun updateUserName(name:String){
+        _userName.value=name
     }
 
 
