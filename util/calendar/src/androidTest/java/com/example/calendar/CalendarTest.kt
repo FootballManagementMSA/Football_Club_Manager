@@ -15,7 +15,6 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.printToLog
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.calendar.model.Date
 import com.example.calendar.util.CalendarUtil.currentDay
 import com.example.calendar.util.CalendarUtil.currentDayOfWeek
