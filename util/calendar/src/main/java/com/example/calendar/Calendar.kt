@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -85,6 +86,7 @@ private fun CalendarContent(
     val pagerState = rememberPagerState { pageCount }
     Column(
         modifier
+            .testTag("Calendar")
             .background(Color.White)
     ) {
         Text(text = "날짜 선택", fontSize = bigFont)
@@ -114,7 +116,7 @@ private fun CalendarContent(
         )
         VerticalSpacer(value = 10)
         HorizontalPager(
-            modifier = modifier.weight(1f), state = pagerState
+            modifier = modifier.testTag("pager").weight(1f), state = pagerState
         ) { monthIndex ->
             Month(
                 calendarPages[monthIndex].calendar,
@@ -123,7 +125,7 @@ private fun CalendarContent(
             )
         }
         DefaultRoundedButton(
-            modifier = Modifier,
+            modifier = Modifier.testTag("select"),
             cornerRadius = 32.dp,
             buttonText = "선택",
             buttonColor = darkButton

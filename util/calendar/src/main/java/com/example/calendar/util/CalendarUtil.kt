@@ -15,6 +15,8 @@ object CalendarUtil {
 
     val currentYear = calendar.get(Calendar.YEAR)
     val currentMonth = calendar.get(Calendar.MONTH) + 1
+    val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+    val currentDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
 
     fun makeCalenderPage(pageCount: Int) = List(pageCount) { pageIndex ->
         val totalMonth = currentMonth + pageIndex

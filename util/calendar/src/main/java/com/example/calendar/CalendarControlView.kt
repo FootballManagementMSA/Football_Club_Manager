@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.ui_component.HorizontalSpacer
 import kotlinx.coroutines.launch
@@ -28,16 +29,16 @@ fun CalendarControlView(
     onNext: () -> Unit
 ) {
     Row(modifier) {
-        Text(text = "$year 년 $month 월")
+        Text(modifier= Modifier.testTag("date"),text = "$year 년 $month 월")
         HorizontalSpacer(value = 10)
         Icon(
-            modifier = Modifier.clickable { onPrev() },
+            modifier = Modifier.testTag("prev").clickable { onPrev() },
             imageVector = Icons.AutoMirrored.Default.KeyboardArrowLeft,
             contentDescription = "key"
         )
         HorizontalSpacer(value = 10)
         Icon(
-            modifier = Modifier.clickable { onNext() },
+            modifier = Modifier.testTag("next").clickable { onNext() },
             imageVector = Icons.AutoMirrored.Default.KeyboardArrowRight,
             contentDescription = "key"
         )
