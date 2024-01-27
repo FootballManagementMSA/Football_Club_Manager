@@ -1,8 +1,8 @@
 package com.example.calendar.util
 
 import android.os.Build
-import com.example.calendar.model.Date
 import com.example.calendar.model.CalendarPage
+import com.example.calendar.model.Date
 import java.time.YearMonth
 import java.time.format.TextStyle
 import java.time.temporal.TemporalAdjusters
@@ -15,6 +15,8 @@ object CalendarUtil {
 
     val currentYear = calendar.get(Calendar.YEAR)
     val currentMonth = calendar.get(Calendar.MONTH) + 1
+    val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+    val currentDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
 
     fun makeCalenderPage(pageCount: Int) = List(pageCount) { pageIndex ->
         val totalMonth = currentMonth + pageIndex
