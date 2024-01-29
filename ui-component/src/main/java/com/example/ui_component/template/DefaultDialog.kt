@@ -1,4 +1,4 @@
-package com.example.ui_component
+package com.example.ui_component.template
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,6 +32,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.example.ui_component.HorizontalSpacer
+import com.example.ui_component.R
+import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.bigFont
 import com.example.ui_component.values.smallFont
 

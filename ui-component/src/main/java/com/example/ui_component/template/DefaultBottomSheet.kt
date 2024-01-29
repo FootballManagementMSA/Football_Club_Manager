@@ -1,4 +1,4 @@
-package com.example.ui_component
+package com.example.ui_component.template
 
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api

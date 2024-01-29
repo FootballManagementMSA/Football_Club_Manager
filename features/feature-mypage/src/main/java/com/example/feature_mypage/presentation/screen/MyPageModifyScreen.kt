@@ -20,7 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.feature_mypage.presentation.ui_component.ModifyProfileImageView
 import com.example.feature_mypage.presentation.ui_component.MyPageModifyInfoView
 import com.example.feature_mypage.presentation.viewmodel.MyPageViewModel
-import com.example.ui_component.CustomGradientButton
+import com.example.ui_component.buttons.CustomGradientButton
 import com.example.ui_component.values.gradientColorsList
 import com.example.ui_component.values.mainTheme
 

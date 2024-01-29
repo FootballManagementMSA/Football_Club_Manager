@@ -10,14 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.ui_component.DarkButton
-import com.example.ui_component.DefaultDialog
-import com.example.ui_component.Header
+import com.example.ui_component.buttons.DarkButton
+import com.example.ui_component.template.DefaultDialog
+import com.example.ui_component.template.Header
 
 @Composable
 fun ClubJoinDialog() {
     DefaultDialog(
-        header = { Header(onDismiss = {}, title = "구단 가입 신청입니다.", userName = "테스트")}
+        header = { Header(onDismiss = {}, title = "구단 가입 신청입니다.", userName = "테스트") }
     ) {
         Column {
             Text(text = "자기 소개 입력")

@@ -1,4 +1,4 @@
-package com.example.ui_component
+package com.example.ui_component.template
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -29,6 +29,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.ui_component.HorizontalSpacer
+import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.largeIcon
 import com.example.ui_component.values.smallFont
 import com.example.ui_component.values.verticalGradation

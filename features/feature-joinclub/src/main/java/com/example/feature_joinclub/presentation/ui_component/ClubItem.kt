@@ -27,7 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.core.model.Club
-import com.example.ui_component.DefaultItem
+import com.example.ui_component.template.DefaultItem
 import com.example.ui_component.HorizontalSpacer
 import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.horizontalGradation

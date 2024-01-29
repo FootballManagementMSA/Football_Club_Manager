@@ -12,10 +12,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.model.UserInfo
 import com.example.feature_dialog.presentation.viewmodel.DialogViewModel
-import com.example.ui_component.DarkButton
-import com.example.ui_component.DefaultDialog
-import com.example.ui_component.DialogCustomGradientButton
-import com.example.ui_component.Header
+import com.example.ui_component.buttons.DarkButton
+import com.example.ui_component.template.DefaultDialog
+import com.example.ui_component.buttons.DialogCustomGradientButton
+import com.example.ui_component.template.Header
 import com.example.ui_component.HorizontalSpacer
 import com.example.ui_component.values.gradientColorsList
 
@@ -26,7 +26,7 @@ fun ClubJoinCheckDialog(
     viewModel: DialogViewModel = hiltViewModel()
 ) {
     DefaultDialog(
-        header = { Header(onDismiss = onDismiss, title = "멤버 가입 신청입니다." , userName = userInfo.name.toString())}
+        header = { Header(onDismiss = onDismiss, title = "멤버 가입 신청입니다." , userName = userInfo.name.toString()) }
     ) {
         ClubJoinCheckDialogTextView(userInfo)
         Row {
@@ -66,7 +66,7 @@ fun ClubJoinCheckDialogTextView(userInfo: UserInfo) {
 @Composable
 fun ClubJoinCheckDialogPreview() {
     DefaultDialog(
-        header = { Header(onDismiss = {}, title = "테스트 입니다.", userName = "으아아" )}
+        header = { Header(onDismiss = {}, title = "테스트 입니다.", userName = "으아아" ) }
     ) {
         Text(text = "나이: 3 ")
         Text(text = "가입 구단 수: 3")

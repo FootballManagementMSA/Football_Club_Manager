@@ -20,11 +20,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.core.model.Club
 import com.example.core.model.ClubUiModel
-import com.example.ui_component.DefaultBottomSheet
+import com.example.ui_component.template.DefaultBottomSheet
 import com.example.feature_joinclub.presentation.ui_component.ClubContent
 import com.example.feature_joinclub.presentation.ui_component.ClubItem
 import com.example.feature_joinclub.presentation.ui_component.ClubSearchView
-import com.example.ui_component.DefaultListView
+import com.example.ui_component.template.DefaultListView
 import com.example.ui_component.values.mainTheme
 
 @Composable

@@ -33,7 +33,7 @@ import com.example.feature_squard.presentation.SquadState
 import com.example.feature_squard.presentation.ui_component.CandidateView
 import com.example.feature_squard.presentation.ui_component.DraggableMember
 import com.example.feature_squard.presentation.viewmodel.SquadViewModel
-import com.example.ui_component.DefaultBottomSheet
+import com.example.ui_component.template.DefaultBottomSheet
 import com.example.ui_component.R
 import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.mainTheme

@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.example.feature_terms.presentation.ui_component.CheckView
 import com.example.feature_terms.presentation.ui_component.TopScreenView
 import com.example.feature_terms.presentation.ui_component.TotalAgreeView
-import com.example.ui_component.CustomGradientButton
+import com.example.ui_component.buttons.CustomGradientButton
 import com.example.ui_component.values.gradientColorsList
 import com.example.ui_component.values.mainTheme
 
