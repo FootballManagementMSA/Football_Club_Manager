@@ -50,11 +50,6 @@ fun <T> AutoComplete(
         modifier = modifier
             .padding(30.dp)
             .fillMaxWidth()
-            .clickable(
-                onClick = {
-                    viewModel.updateExpandedValue(false)
-                }
-            )
     ) {
         AutoCompleteTextField(
             searchValue = searchValue,
