@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -27,9 +28,9 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -82,6 +83,8 @@ fun AutoCompleteTextField(
     placeholder: String,
     onValueChange: (String) -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
+
     Row(modifier = Modifier.fillMaxWidth()) {
         TextField(
             modifier = Modifier
@@ -98,17 +101,24 @@ fun AutoCompleteTextField(
                 color = Color.Black,
                 fontSize = 16.sp
             ),
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Done
-            ),
             placeholder = { Text(text = placeholder) },
             singleLine = true,
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    expanded()
+                    focusManager.clearFocus()
+                }
+            ),
             trailingIcon = {
-                IconButton(onClick = { expanded() }) {
+                IconButton(onClick = {
+                    expanded()
+                    focusManager.clearFocus()
+                }) {
                     Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
                 }
-
             },
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = Color.Transparent,
