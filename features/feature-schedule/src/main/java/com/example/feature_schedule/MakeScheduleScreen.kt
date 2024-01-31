@@ -2,20 +2,16 @@ package com.example.feature_schedule
 
 import android.net.Uri
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -42,7 +38,7 @@ fun MakeScheduleScreen() {
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "일정 제목")
+                Text(text = "일정 제목", color = Color.Gray)
                 DefaultEmblemSelectIconView(
                     modifier = Modifier
                         .size(60.dp)
@@ -53,7 +49,9 @@ fun MakeScheduleScreen() {
                 }
             }
             InputView(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp),
                 text = { title.value },
                 onChange = { title.value = it }, placeholder = "일정 제목을 입력해주세요."
             )
@@ -71,6 +69,7 @@ fun MakeScheduleScreenPreview() {
     MakeScheduleScreen()
 }
 
+
 @Composable
 fun InputView(
     modifier: Modifier = Modifier,
@@ -78,23 +77,15 @@ fun InputView(
     onChange: (String) -> Unit,
     placeholder: String
 ) {
-    Column {
-        BasicTextField(
-            modifier = modifier,
-            value = text(),
-            onValueChange = onChange,
-            decorationBox = {
-                if (text().isEmpty()) {
-                    Text(modifier = Modifier.padding(4.dp), text = placeholder, color = Color.Gray)
-                }
-                it()
-            }
+    TextField(
+        modifier = modifier,
+        value = text(),
+        onValueChange = onChange,
+        placeholder = { Text(text = placeholder) },
+        colors = TextFieldDefaults.colors(
+            unfocusedContainerColor = mainTheme,
+            focusedContainerColor = mainTheme
         )
-        Box(
-            modifier
-                .background(Color.White)
-                .height(1.dp)
-        )
-    }
+    )
 
 }
