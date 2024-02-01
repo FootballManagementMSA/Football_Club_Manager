@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -24,9 +26,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.ui_component.buttons.CustomGradientButton
 import com.example.ui_component.template.DefaultEmblemSelectIconView
 import com.example.ui_component.values.emblem
+import com.example.ui_component.values.gradientColorsList
 import com.example.ui_component.values.mainTheme
+import com.example.ui_component.values.middleFont
 import com.example.ui_component.values.tinyFont
 
 @Composable
@@ -43,6 +48,7 @@ fun MakeScheduleScreen() {
             .fillMaxSize()
             .padding(20.dp)
     ) {
+        Spacer(modifier = Modifier.weight(1f))
         Row(verticalAlignment = Alignment.CenterVertically) {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(text = "일정 제목", color = Color.Gray)
@@ -66,20 +72,22 @@ fun MakeScheduleScreen() {
                 onChange = { title.value = it }, placeholder = "일정 제목을 입력해주세요."
             )
         }
+        Spacer(modifier = Modifier.weight(0.4f))
         Text("일정 메모", color = Color.Gray)
         InputView(
             modifier = Modifier
                 .fillMaxWidth(),
-            text = { title.value },
-            onChange = { title.value = it }, placeholder = "일정 제목을 입력해주세요."
+            text = { memo.value },
+            onChange = { memo.value = it }, placeholder = "메모를 입력해주세요."
         )
+        Spacer(modifier = Modifier.weight(0.4f))
         Text(text = "일정 날짜", color = Color.Gray)
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             InputView(
                 modifier = Modifier
                     .weight(1f),
-                text = { title.value },
-                onChange = { title.value = it }, placeholder = "일정 제목을 입력해주세요."
+                text = { startDate.value },
+                onChange = { startDate.value = it }, placeholder = "시작 날짜를 입력해주세요."
             )
             Box(
                 modifier = Modifier
@@ -90,36 +98,38 @@ fun MakeScheduleScreen() {
             InputView(
                 modifier = Modifier
                     .weight(1f),
-                text = { title.value },
-                onChange = { title.value = it }, placeholder = "일정 제목을 입력해주세요."
+                text = { endDate.value },
+                onChange = { endDate.value = it }, placeholder = "종료 날짜를 입력해주세요."
             )
         }
+        Spacer(modifier = Modifier.weight(0.4f))
         Text("일정 장소", color = Color.Gray)
         InputView(
             modifier = Modifier
                 .fillMaxWidth(),
-            text = { title.value },
-            onChange = { title.value = it }, placeholder = "일정 제목을 입력해주세요."
+            text = { location.value },
+            onChange = { location.value = it }, placeholder = "일정 장소를 입력해주세요."
         )
+        Spacer(modifier = Modifier.weight(0.4f))
         Text("상대팀 성정", color = Color.Gray)
         Row(verticalAlignment = Alignment.CenterVertically) {
             DefaultEmblemSelectIconView(
                 modifier = Modifier
                     .clip(CircleShape)
                     .background(emblem)
-                    .size(60.dp)
+                    .size(40.dp)
                     .padding(top = 5.dp),
                 state = uri,
                 defaultIcon = com.example.ui_component.R.drawable.league_icon
             ) {
 
             }
-            Text(modifier = Modifier.padding(horizontal = 10.dp), text = "vs", color = Color.Gray)
+            Text(modifier = Modifier.padding(horizontal = 10.dp), text = "vs", color = Color.Gray, fontSize = middleFont)
             DefaultEmblemSelectIconView(
                 modifier = Modifier
                     .clip(CircleShape)
                     .background(emblem)
-                    .size(60.dp)
+                    .size(40.dp)
                     .padding(top = 5.dp),
                 state = uri,
                 defaultIcon = com.example.ui_component.R.drawable.league_icon
@@ -127,6 +137,16 @@ fun MakeScheduleScreen() {
 
             }
         }
+        Spacer(modifier = Modifier.weight(1f))
+        CustomGradientButton(
+            gradientColors = gradientColorsList,
+            cornerRadius = 8.dp,
+            buttonText = "수락하기",
+            roundedCornerShape = RoundedCornerShape(8.dp)
+        ) {
+
+        }
+        Spacer(modifier = Modifier.weight(1f))
     }
 }
 
