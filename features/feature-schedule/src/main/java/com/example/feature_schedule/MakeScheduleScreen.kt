@@ -2,6 +2,7 @@ package com.example.feature_schedule
 
 import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,7 +30,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.calendar.Calendar
 import com.example.ui_component.buttons.CustomGradientButton
+import com.example.ui_component.template.DefaultBottomSheet
 import com.example.ui_component.template.DefaultEmblemSelectIconView
 import com.example.ui_component.values.emblem
 import com.example.ui_component.values.gradientColorsList
@@ -45,6 +48,25 @@ fun MakeScheduleScreen() {
     val startDate = remember { mutableStateOf("") }
     val endDate = remember { mutableStateOf("") }
     val location = remember { mutableStateOf("") }
+    val showCalendar = remember { mutableStateOf(false) }
+    val setStart = remember { mutableStateOf(false) }
+    if (showCalendar.value) {
+        DefaultBottomSheet(onDismiss = { showCalendar.value = false }) {
+            Calendar(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .height(350.dp)
+            ) {
+                if (setStart.value) {
+                    startDate.value = "${it.year}-${it.month}-${it.day}"
+                    setStart.value = false
+                } else {
+                    endDate.value = "${it.year}-${it.month}-${it.day}"
+                }
+                showCalendar.value = false
+            }
+        }
+    }
     Column(
         Modifier
             .background(mainTheme)
@@ -93,6 +115,10 @@ fun MakeScheduleScreen() {
                 onChange = { startDate.value = it }, placeholder = "시작 날짜를 입력해주세요.",
                 leadingIcon = {
                     Icon(
+                        modifier = Modifier.clickable {
+                            showCalendar.value = true
+                            setStart.value = true
+                        },
                         imageVector = Icons.Default.DateRange,
                         contentDescription = ""
                     )
@@ -112,6 +138,9 @@ fun MakeScheduleScreen() {
 
                 leadingIcon = {
                     Icon(
+                        modifier = Modifier.clickable {
+                            showCalendar.value = true
+                        },
                         imageVector = Icons.Default.DateRange,
                         contentDescription = ""
                     )
