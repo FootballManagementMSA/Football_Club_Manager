@@ -29,6 +29,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -51,10 +52,11 @@ fun <T> AutoComplete(
         modifier = modifier
             .padding(30.dp)
             .fillMaxWidth()
+            .testTag("AutoComplete")
     ) {
         AutoCompleteTextField(
             searchValue = searchValue,
-            expanded = { viewModel.updateExpandedValue(!expanded.value)},
+            expanded = { viewModel.updateExpandedValue(!expanded.value) },
             placeholder = placeholder
         ) {
             viewModel.updateSearchValue(it)
@@ -94,7 +96,8 @@ fun AutoCompleteTextField(
                     width = 1.dp,
                     color = Color.Black,
                     shape = RoundedCornerShape(10.dp)
-                ),
+                )
+                .testTag("AutoCompleteTextField"),
             value = searchValue.value,
             onValueChange = onValueChange,
             textStyle = TextStyle(
@@ -149,7 +152,9 @@ fun <T> SearchDropdown(
             elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
         ) {
             LazyColumn(
-                modifier = Modifier.heightIn(max = 450.dp),
+                modifier = Modifier
+                    .heightIn(max = 450.dp)
+                    .testTag("SearchDropdown"),
             ) {
                 if (searchValue.value.isNotEmpty()) {
                     items(
@@ -185,6 +190,7 @@ fun <T> SearchItems(item: T, onSearchValueSelect: (T) -> Unit, content: @Composa
                 onSearchValueSelect(item)
             }
             .padding(10.dp)
+            .testTag("SearchItem")
     ) {
         content()
     }
