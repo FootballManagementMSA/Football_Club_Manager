@@ -14,6 +14,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -87,19 +90,32 @@ fun MakeScheduleScreen() {
                 modifier = Modifier
                     .weight(1f),
                 text = { startDate.value },
-                onChange = { startDate.value = it }, placeholder = "시작 날짜를 입력해주세요."
+                onChange = { startDate.value = it }, placeholder = "시작 날짜를 입력해주세요.",
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.DateRange,
+                        contentDescription = ""
+                    )
+                }
             )
             Box(
                 modifier = Modifier
                     .width(10.dp)
                     .height(1.dp)
-                    .background(Color.White)
+                    .background(Color.Gray)
             )
             InputView(
                 modifier = Modifier
                     .weight(1f),
                 text = { endDate.value },
-                onChange = { endDate.value = it }, placeholder = "종료 날짜를 입력해주세요."
+                onChange = { endDate.value = it }, placeholder = "종료 날짜를 입력해주세요.",
+
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.DateRange,
+                        contentDescription = ""
+                    )
+                }
             )
         }
         Spacer(modifier = Modifier.weight(0.4f))
@@ -124,7 +140,12 @@ fun MakeScheduleScreen() {
             ) {
 
             }
-            Text(modifier = Modifier.padding(horizontal = 10.dp), text = "vs", color = Color.Gray, fontSize = middleFont)
+            Text(
+                modifier = Modifier.padding(horizontal = 10.dp),
+                text = "vs",
+                color = Color.Gray,
+                fontSize = middleFont
+            )
             DefaultEmblemSelectIconView(
                 modifier = Modifier
                     .clip(CircleShape)
@@ -160,6 +181,7 @@ fun MakeScheduleScreenPreview() {
 @Composable
 fun InputView(
     modifier: Modifier = Modifier,
+    leadingIcon: @Composable (() -> Unit)? = null,
     text: () -> String,
     onChange: (String) -> Unit,
     placeholder: String
@@ -167,11 +189,12 @@ fun InputView(
     TextField(
         modifier = modifier.height(50.dp),
         value = text(),
+        leadingIcon = leadingIcon,
         onValueChange = onChange,
         placeholder = { Text(text = placeholder, fontSize = tinyFont) },
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = mainTheme,
-            focusedContainerColor = mainTheme
+            focusedContainerColor = mainTheme,
         )
     )
 
