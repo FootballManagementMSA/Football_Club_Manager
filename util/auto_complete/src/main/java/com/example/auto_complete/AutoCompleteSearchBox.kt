@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun <T> AutoComplete(
+fun <T> AutoCompleteSearchBox(
     modifier: Modifier = Modifier,
     placeholder: String,
     items: List<T>,

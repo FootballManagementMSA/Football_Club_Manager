@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.auto_complete.AutoComplete
+import com.example.auto_complete.AutoCompleteSearchBox
 import com.example.ui_component.DarkButton
 import com.example.ui_component.DefaultBottomSheet
 import com.example.ui_component.HorizontalSpacer
@@ -60,7 +60,7 @@ fun ClubSearchView(onDismiss: () -> Unit) {
         Header(Modifier.weight(2f), title = "상대팀 검색") {
             onDismiss()
         }
-        AutoComplete(
+        AutoCompleteSearchBox(
             modifier = Modifier.weight(8f),
             placeholder = "상대 구단을 검색해주세요.",
             items = categoryList,
