@@ -20,6 +20,7 @@ dependencies {
     implementation project(':libraries:network-api')
     implementation project(':core')
     implementation project(':features:feature-join')
+    implementation project(':features:feature-clubpage')
 
 
 }
