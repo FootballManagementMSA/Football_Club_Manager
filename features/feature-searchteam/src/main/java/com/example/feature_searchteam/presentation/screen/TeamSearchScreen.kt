@@ -33,6 +33,7 @@ import com.example.ui_component.HorizontalSpacer
 import com.example.ui_component.values.bigFont
 
 data class TempClubInfo(val name: String, val code: String)
+
 @Composable
 fun TeamSearchScreen() {
     var showSheet by remember { mutableStateOf(false) }
@@ -84,6 +85,7 @@ fun ClubSearchView(onDismiss: () -> Unit) {
         Spacer(modifier = Modifier.weight(1f))
     }
 }
+
 @Composable
 fun Header(modifier: Modifier = Modifier, title: String, onDismiss: () -> Unit) {
     Row(
@@ -106,19 +108,21 @@ fun Header(modifier: Modifier = Modifier, title: String, onDismiss: () -> Unit) 
 
 @Composable
 fun dummy(): List<TempClubInfo> {
-    val dummy = listOf(
-        TempClubInfo("Liverpool", "2221"),
-        TempClubInfo("Arsenal", "2223"),
-        TempClubInfo("Man City", "33130"),
-        TempClubInfo("Manchest United", "4678"),
-        TempClubInfo("Brighton", "7890"),
-        TempClubInfo("brentford", "36458"),
-        TempClubInfo("Burnley", "w234"),
-        TempClubInfo("luton", "wy765"),
-        TempClubInfo("Siuuu", "133252")
-    )
-    return dummy
+    return remember {
+        listOf(
+            TempClubInfo("Liverpool", "2221"),
+            TempClubInfo("Arsenal", "2223"),
+            TempClubInfo("Man City", "33130"),
+            TempClubInfo("Manchest United", "4678"),
+            TempClubInfo("Brighton", "7890"),
+            TempClubInfo("brentford", "36458"),
+            TempClubInfo("Burnley", "w234"),
+            TempClubInfo("luton", "wy765"),
+            TempClubInfo("Siuuu", "133252")
+        )
+    }
 }
+
 @Preview
 @Composable
 fun ClubSearchViewPreview() {
