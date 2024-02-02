@@ -51,7 +51,7 @@ class AutoCompleteTest {
     }
 
     @Composable
-    fun AutoCompleteTestScreen() {
+    private fun AutoCompleteTestScreen() {
         AutoComplete(
             placeholder = "상대 구단을 검색해주세요.",
             items = categoryList,
