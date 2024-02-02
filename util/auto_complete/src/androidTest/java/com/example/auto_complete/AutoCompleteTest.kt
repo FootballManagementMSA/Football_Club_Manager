@@ -25,8 +25,6 @@ class AutoCompleteTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
-    data class TempClubInfo(val name: String, val code: String)
-
     private val categoryList = listOf(
         TempClubInfo("Liverpool", "2221"),
         TempClubInfo("Arsenal", "2223"),
