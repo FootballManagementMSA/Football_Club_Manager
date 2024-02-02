@@ -26,6 +26,9 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
@@ -143,6 +146,18 @@ fun <T> SearchDropdown(
     onSearchValueSelect: (T) -> Unit,
     content: @Composable (T) -> Unit
 ) {
+    val filteredItems by remember(searchValue.value) {
+        mutableStateOf(
+            if (searchValue.value.isNotEmpty()) {
+                items.filter {
+                    itemFilter(it).lowercase().contains(searchValue.value.lowercase())
+                }.sortedBy { itemFilter(it) }
+            } else {
+                items.sortedBy { itemFilter(it) }
+            }
+        )
+    }
+
     AnimatedVisibility(visible = expanded.value) {
         Card(
             modifier = Modifier
@@ -156,24 +171,9 @@ fun <T> SearchDropdown(
                     .heightIn(max = 450.dp)
                     .testTag("SearchDropdown"),
             ) {
-                if (searchValue.value.isNotEmpty()) {
-                    items(
-                        items.filter {
-                            itemFilter(it).lowercase().contains(searchValue.value.lowercase())
-                        }
-                            .sortedBy { itemFilter(it) }
-                    ) {
-                        SearchItems(item = it, onSearchValueSelect = onSearchValueSelect) {
-                            content(it)
-                        }
-                    }
-                } else {
-                    items(
-                        items.sortedBy { itemFilter(it) }
-                    ) {
-                        SearchItems(item = it, onSearchValueSelect = onSearchValueSelect) {
-                            content(it)
-                        }
+                items(filteredItems) {
+                    SearchItems(item = it, onSearchValueSelect = onSearchValueSelect) {
+                        content(it)
                     }
                 }
             }
