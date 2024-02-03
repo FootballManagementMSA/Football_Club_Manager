@@ -1,8 +1,9 @@
-package com.example.ui_component
+package com.example.ui_component.buttons
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -13,36 +14,36 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ui_component.values.mainTheme
 
 @Composable
-fun DarkButton(
-    modifier: Modifier = Modifier,
+fun WhiteButton(
     buttonText: String,
     textColor: Color,
-    radius: Dp,
+    roundedCornerShape: RoundedCornerShape,
     onClick: () -> Unit
 ) {
-    Column(modifier = modifier
+    Column(modifier = Modifier
+        .fillMaxSize()
         .wrapContentSize(align = Alignment.Center)) {
         Button(
             onClick = onClick,
             modifier = Modifier
                 .wrapContentSize()
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = mainTheme),
-            contentPadding = PaddingValues(),
-            shape = RoundedCornerShape(radius)
+                .fillMaxWidth(0.5f),
+            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+            contentPadding = PaddingValues(15.dp),
+            shape = RoundedCornerShape(20.dp)
         ) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 4.dp),
+                    .clip(roundedCornerShape)
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
@@ -58,11 +59,11 @@ fun DarkButton(
 
 @Composable
 @Preview
-fun DarkButtonPreview() {
-    DarkButton(
-        buttonText = "가입 신청",
-        textColor = Color.White,
-        radius = 20.dp
+fun WhiteButtonPreview() {
+    WhiteButton(
+        buttonText = "preview",
+        textColor = Color.Magenta,
+        roundedCornerShape = RoundedCornerShape(20.dp)
     ) {
     }
 }

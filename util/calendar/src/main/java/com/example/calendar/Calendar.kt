@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.calendar.model.Date
 import com.example.calendar.viewmodel.CalendarViewModel
-import com.example.ui_component.DefaultRoundedButton
+import com.example.ui_component.buttons.DefaultRoundedButton
 import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.bigFont
 import com.example.ui_component.values.darkButton

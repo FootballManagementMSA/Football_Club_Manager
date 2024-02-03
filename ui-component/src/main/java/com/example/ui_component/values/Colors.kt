@@ -24,6 +24,7 @@ val transparentBrush = Brush.linearGradient(
 
 val profileInfoButton = Color(0xFFDFDFDF)
 val grayText = Color(0xFFB6BFCD)
+val emblem = Color(0xFFAEB9C8)
 val subTheme = Color(0xFF2E3D53)
 val darkGray = Color(0xFF535353)
 val semiRed = Color(0xFFDA7373)

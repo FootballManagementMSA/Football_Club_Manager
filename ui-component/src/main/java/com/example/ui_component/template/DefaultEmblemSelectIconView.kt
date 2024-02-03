@@ -1,4 +1,4 @@
-package com.example.ui_component
+package com.example.ui_component.template
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -24,10 +24,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.example.ui_component.R
 
 @Composable
 fun DefaultEmblemSelectIconView(
     modifier: Modifier = Modifier,
+    defaultIcon: Int = R.drawable.camera_profile,
     state: State<Uri?>,
     onSelect: (Uri?) -> Unit
 ) {
@@ -53,7 +55,7 @@ fun DefaultEmblemSelectIconView(
         {
             if (state.value == null) {
                 Image(
-                    painter = painterResource(id = R.drawable.camera_profile),
+                    painter = painterResource(id = defaultIcon),
                     contentDescription = "CheckIcon",
                     modifier = Modifier.size(100.dp)
                 )
@@ -77,6 +79,6 @@ fun DefaultEmblemSelectIconView(
 @Composable
 fun DefaultEmblemSelectIconViewPreview() {
     val state = remember { mutableStateOf<Uri?>(null) }
-    DefaultEmblemSelectIconView(modifier = Modifier.background(Color.White), state) {
+    DefaultEmblemSelectIconView(modifier = Modifier.background(Color.White), state = state) {
     }
 }

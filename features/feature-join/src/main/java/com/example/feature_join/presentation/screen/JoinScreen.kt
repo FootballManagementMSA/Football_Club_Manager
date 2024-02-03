@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.feature_join.presentation.ui_component.InputView_OnlyNum
 import com.example.feature_join.presentation.viewmodel.JoinViewModel
-import com.example.ui_component.CustomGradientButton_1
+import com.example.ui_component.buttons.CustomGradientButton_1
 import com.example.ui_component.values.mainTheme
 
 @Composable

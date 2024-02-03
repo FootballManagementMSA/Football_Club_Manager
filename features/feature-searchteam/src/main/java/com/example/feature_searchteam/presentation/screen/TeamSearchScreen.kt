@@ -27,9 +27,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.auto_complete.AutoCompleteSearchBox
-import com.example.ui_component.DarkButton
-import com.example.ui_component.DefaultBottomSheet
 import com.example.ui_component.HorizontalSpacer
+import com.example.ui_component.buttons.DarkButton
+import com.example.ui_component.template.DefaultBottomSheet
 import com.example.ui_component.values.bigFont
 
 data class TempClubInfo(val name: String, val code: String)

@@ -23,5 +23,6 @@ dependencies {
     implementation project(':core')
     implementation project(':features:feature-join')
     implementation project(':features:feature-dialog')
+    implementation project(':features:feature-schedule')
     implementation project(':features:feature-searchteam')
 }
