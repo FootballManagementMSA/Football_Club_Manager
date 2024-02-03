@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -44,7 +45,8 @@ import com.example.ui_component.values.tinyFont
 
 @Composable
 fun MakeScheduleScreen() {
-    val uri = remember { mutableStateOf<Uri?>(null) }
+    val myUri = remember { mutableStateOf<Uri?>(null) }
+    val otherUserUri = remember { mutableStateOf<Uri?>(null) }
     val title = remember { mutableStateOf("") }
     val memo = remember { mutableStateOf("") }
     val startDate = remember { mutableStateOf("") }
@@ -62,7 +64,7 @@ fun MakeScheduleScreen() {
             .padding(20.dp)
     ) {
         Spacer(modifier = Modifier.weight(1f))
-        ScheduleTitleView(uri, title)
+        ScheduleTitleView(myUri, title)
         Spacer(modifier = Modifier.weight(0.4f))
         ScheduleMemoView(memo)
         Spacer(modifier = Modifier.weight(0.4f))
@@ -70,8 +72,8 @@ fun MakeScheduleScreen() {
         Spacer(modifier = Modifier.weight(0.4f))
         ScheduleLocationView(location)
         Spacer(modifier = Modifier.weight(0.4f))
-        Text("상대팀 성정", color = Color.Gray)
-        SetTeamView(uri)
+        Text("상대팀 설정", color = Color.Gray)
+        SetTeamView(myUri,otherUserUri)
         Spacer(modifier = Modifier.weight(1f))
         CustomGradientButton(
             gradientColors = gradientColorsList,
@@ -86,7 +88,7 @@ fun MakeScheduleScreen() {
 }
 
 @Composable
-private fun SetTeamView(uri: MutableState<Uri?>) {
+private fun SetTeamView(myUri: MutableState<Uri?>,otherUserUri: MutableState<Uri?>) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         DefaultEmblemSelectIconView(
             modifier = Modifier
@@ -94,7 +96,7 @@ private fun SetTeamView(uri: MutableState<Uri?>) {
                 .background(emblem)
                 .size(40.dp)
                 .padding(top = 5.dp),
-            state = uri,
+            state = myUri,
             defaultIcon = R.drawable.league_icon
         ) {
 
@@ -111,7 +113,7 @@ private fun SetTeamView(uri: MutableState<Uri?>) {
                 .background(emblem)
                 .size(40.dp)
                 .padding(top = 5.dp),
-            state = uri,
+            state = otherUserUri,
             defaultIcon = R.drawable.league_icon
         ) {
 
@@ -126,7 +128,14 @@ private fun ScheduleLocationView(location: MutableState<String>) {
         modifier = Modifier
             .fillMaxWidth(),
         text = { location.value },
-        onChange = { location.value = it }, placeholder = "일정 장소를 입력해주세요."
+        onChange = { location.value = it }, placeholder = "일정 장소를 입력해주세요.",
+        leadingIcon = {
+            Icon(
+                modifier = Modifier,
+                imageVector = Icons.Default.LocationOn,
+                contentDescription = ""
+            )
+        }
     )
 }
 
