@@ -30,3 +30,6 @@ val darkGray = Color(0xFF535353)
 val lastGradientColor = Color(0xFF857FEB)
 val gradientColorsList = listOf(Color(0xFFEE6DE7), Color(0xFF857FEB))
 
+
+val purple=Color(0XFF957FEA)
+val pink=Color(0XFFE56DE2)
