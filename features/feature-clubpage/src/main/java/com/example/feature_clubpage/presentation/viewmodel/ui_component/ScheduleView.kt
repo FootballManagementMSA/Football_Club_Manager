@@ -43,6 +43,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.core.model.ClubMember
 import com.example.core.model.Schedule
 import com.example.ui_component.DefaultItem
 import com.example.ui_component.DefaultListView
@@ -60,7 +61,7 @@ import com.example.ui_component.values.veryBigFont
 import com.example.ui_component.values.veryTinyFont
 
 @Composable
-fun ScheduleView(modifier: Modifier = Modifier, currentSchedule: State<List<Schedule>>) {
+fun ScheduleView(modifier: Modifier = Modifier, currentSchedule: State<List<Schedule>>,currentClubMember:State<List<ClubMember>>) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     val tabs = listOf("일정","멤버")
@@ -138,6 +139,39 @@ fun ScheduleView(modifier: Modifier = Modifier, currentSchedule: State<List<Sche
                         }
                     }
                 }
+            }
+            1->{
+                if (currentSchedule.value.isEmpty()) {
+                    EmptyScheduleContent()
+                } else {
+                    DefaultListView(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(20.dp),
+                        listName = "현재 가입된 맴버",
+                        buttonName = "전체 보기",
+                        showButton = true,
+                        listIcon = Icons.Default.DateRange,
+                        onClick = { }) {
+                        items(currentClubMember.value) { clubmember ->
+                            DefaultItem(
+                                modifier = Modifier.padding(bottom = 12.dp),
+                                radius = 8.dp
+                            ) {
+                                CompositionLocalProvider(
+                                    LocalTextStyle provides TextStyle(color = Color.White)
+                                ) {
+                                    ClubMemberItem(
+                                        modifier = Modifier
+                                            .fillMaxSize()
+                                            .padding(15.dp), clubMember = clubmember
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
         }
     }
@@ -261,6 +295,11 @@ fun EmptyScheduleContent() {
     }
 }
 
+
+
+
+
+
 @Composable
 @Preview
 fun ScheduleItemPreview() {
@@ -279,7 +318,10 @@ fun ScheduleViewPreview() {
     val state = remember {
         mutableStateOf(generateDummyData(5))
     }
-    ScheduleView(currentSchedule = state)
+    val state1= remember {
+        mutableStateOf(generateDummyData1(5))
+    }
+    ScheduleView(currentSchedule = state, currentClubMember = state1)
 }
 
 
@@ -300,6 +342,19 @@ fun generateDummyData(count: Int): List<Schedule> {
             date = dummyDates.random(),
             team1 = dummyTeams.random(),
             team2 = dummyTeams.random()
+        )
+    }
+}
+fun generateDummyData1(count: Int): List<ClubMember> {
+    val dummyName = listOf("홍길동", "가나다", "라마바", "이순신", "ABC")
+    val dummyAge = listOf("23", "24", "25", "26", "30")
+    val dummyNumer = listOf("1", "2", "3", "4", "5")
+
+    return (1..count).map {
+        ClubMember(
+            name = dummyName.random(),
+            age = dummyAge.random(),
+            number = dummyNumer.random(),
         )
     }
 }
