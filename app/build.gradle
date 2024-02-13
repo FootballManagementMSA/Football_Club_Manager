@@ -16,10 +16,15 @@ dependencies {
     implementation project(':features:feature-terms')
     implementation project(':features:feature-joinclub')
     implementation project(':features:feature-makeclub')
+    implementation project(':features:feature-mypage')
+    implementation project(':features:feature-squad')
     implementation project(':libraries:network')
     implementation project(':libraries:network-api')
     implementation project(':core')
     implementation project(':features:feature-join')
+    implementation project(':features:feature-dialog')
+    implementation project(':features:feature-schedule')
+    implementation project(':features:feature-searchteam')
     implementation project(':features:feature-clubpage')
 
 

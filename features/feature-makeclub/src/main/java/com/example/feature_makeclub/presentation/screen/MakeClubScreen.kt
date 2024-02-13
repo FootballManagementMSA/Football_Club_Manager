@@ -18,7 +18,7 @@ import com.example.feature_makeclub.presentation.ui_component.make_club.ClubName
 import com.example.feature_makeclub.presentation.ui_component.make_club.ClubNameView
 import com.example.feature_makeclub.presentation.ui_component.make_club.MakeClubTopView
 import com.example.feature_makeclub.presentation.viewmodel.MakeClubViewModel
-import com.example.ui_component.CustomGradientButton
+import com.example.ui_component.buttons.CustomGradientButton
 import com.example.ui_component.values.gradientColorsList
 import com.example.ui_component.values.mainTheme
 

@@ -13,8 +13,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.items
@@ -46,10 +46,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.core.model.Schedule
-import com.example.ui_component.DefaultItem
-import com.example.ui_component.DefaultListView
+import com.example.ui_component.template.DefaultItem
+import com.example.ui_component.template.DefaultListView
 import com.example.ui_component.R
-import com.example.ui_component.RoundedIconButton
+import com.example.ui_component.buttons.RoundedIconButton
 import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.darkGray
 import com.example.ui_component.values.horizontalGradation

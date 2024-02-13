@@ -19,7 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ui_component.CustomGradientButton
+import com.example.ui_component.buttons.CustomGradientButton
 import com.example.ui_component.R
 import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.gradientColorsList

@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.ui_component.RoundedIconButton
+import com.example.ui_component.buttons.RoundedIconButton
 import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.hugeFont
 import com.example.ui_component.values.tinyFont

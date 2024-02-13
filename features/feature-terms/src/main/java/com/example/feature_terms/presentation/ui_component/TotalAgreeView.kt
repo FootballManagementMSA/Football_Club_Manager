@@ -21,8 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.feature_terms.R
 import com.example.ui_component.VerticalSpacer
-import com.example.ui_component.values.subTheme
 import com.example.ui_component.values.smallIcon
+import com.example.ui_component.values.subTheme
 
 @Composable
 fun TotalAgreeView(onClick:() -> Unit) {

@@ -20,7 +20,7 @@ import com.example.feature_makeclub.presentation.ui_component.emblem.EmblemSelec
 import com.example.feature_makeclub.presentation.ui_component.emblem.EmblemSelectTopView
 import com.example.feature_makeclub.presentation.viewmodel.MakeClubViewModel
 import com.example.ui_component.VerticalSpacer
-import com.example.ui_component.WhiteButton
+import com.example.ui_component.buttons.WhiteButton
 import com.example.ui_component.values.lastGradientColor
 import com.example.ui_component.values.mainTheme
 
