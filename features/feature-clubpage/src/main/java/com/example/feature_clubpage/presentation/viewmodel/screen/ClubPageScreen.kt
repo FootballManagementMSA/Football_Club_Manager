@@ -14,10 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.core.model.ClubMemberUiModel
 import com.example.core.model.ScheduleUiModel
 import com.example.feature_clubpage.presentation.ui_component.ClubInfoView
 import com.example.feature_clubpage.presentation.viewmodel.ui_component.ScheduleView
 import com.example.feature_clubpage.presentation.viewmodel.ui_component.generateDummyData
+import com.example.feature_clubpage.presentation.viewmodel.ui_component.generateDummyData1
 import com.example.ui_component.values.mainTheme
 
 @Composable
@@ -30,6 +32,14 @@ fun ClubPageScreen() {
             ).schedule
         )
     }
+    val currentClubMember = remember {
+        mutableStateOf(
+            ClubMemberUiModel(
+                clubMember = generateDummyData1(5)
+            ).clubMember
+        )
+    }
+
     val scrollState = rememberScrollState()
     Column(
         if (isScrollable(config))
@@ -52,7 +62,7 @@ fun ClubPageScreen() {
             )
             ScheduleView(
                 Modifier
-                    .weight(7f), currentSchedule
+                    .weight(7f), currentSchedule,currentClubMember
             )
         }
     }

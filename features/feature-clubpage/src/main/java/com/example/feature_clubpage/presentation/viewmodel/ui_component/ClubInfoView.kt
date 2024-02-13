@@ -71,14 +71,14 @@ fun Info(modifier: Modifier = Modifier) {
             fontSize = veryBigFont,
             style = TextStyle(color = Color.White)
         )
-        Spacer(modifier = Modifier.weight(0.05f))
+        Spacer(modifier = Modifier.weight(0.0005f))
 
         Text(
             text = "코드 : 0000",
             fontSize = tinyFont,
             style = TextStyle(color = Color.White)
         )
-        Spacer(modifier = Modifier.weight(0.1f))
+        Spacer(modifier = Modifier.weight(0.01f))
 
 
 
@@ -114,6 +114,7 @@ fun Info(modifier: Modifier = Modifier) {
                 style = TextStyle(grayText2)
             )
         }
+        Spacer(modifier = Modifier.weight(0.005f))
 
 
     }
