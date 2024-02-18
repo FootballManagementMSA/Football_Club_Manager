@@ -4,6 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.core.model.LoginModel
 import com.example.feature_login.domain.usecase.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -21,7 +22,7 @@ class LoginViewModel @Inject constructor(
 
     fun login() {
         viewModelScope.launch {
-            loginUseCase()
+            loginUseCase(LoginModel(_userId.value, _userPassword.value))
         }
     }
 
