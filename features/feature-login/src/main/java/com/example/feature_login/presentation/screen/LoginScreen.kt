@@ -26,9 +26,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.feature_login.presentation.ui_component.IconView
 import com.example.feature_login.presentation.ui_component.LoginClickableTextView
 import com.example.feature_login.presentation.viewmodel.LoginViewModel
-import com.example.ui_component.CustomGradientButton
+import com.example.ui_component.buttons.CustomGradientButton
 import com.example.ui_component.InputView
-import com.example.ui_component.WhiteButton
+import com.example.ui_component.buttons.WhiteButton
 
 val LocalLoginScreenPreviewMode: ProvidableCompositionLocal<Boolean> = compositionLocalOf { false }
 
