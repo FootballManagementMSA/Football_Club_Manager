@@ -2,6 +2,7 @@ package com.example.core.di
 
 import android.content.Context
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.example.core.BASE_URL
 import com.example.core.userDataStore
 import com.example.network_api.api.FootballManagerApi
 import dagger.Module
@@ -55,7 +56,7 @@ object NetworkModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl("http://43.203.50.18:8000")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
