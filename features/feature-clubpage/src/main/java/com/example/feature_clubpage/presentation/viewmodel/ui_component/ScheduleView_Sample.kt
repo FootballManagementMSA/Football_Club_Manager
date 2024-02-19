@@ -45,11 +45,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.core.model.ClubMember
 import com.example.core.model.Schedule
-import com.example.ui_component.DefaultItem
-import com.example.ui_component.DefaultListView
 import com.example.ui_component.R
-import com.example.ui_component.RoundedIconButton
 import com.example.ui_component.VerticalSpacer
+import com.example.ui_component.buttons.RoundedIconButton
+import com.example.ui_component.template.DefaultItem
+import com.example.ui_component.template.DefaultListView
 import com.example.ui_component.values.darkGray
 import com.example.ui_component.values.horizontalGradation
 import com.example.ui_component.values.mainTheme
@@ -61,7 +61,7 @@ import com.example.ui_component.values.veryBigFont
 import com.example.ui_component.values.veryTinyFont
 
 @Composable
-fun ScheduleView(modifier: Modifier = Modifier, currentSchedule: State<List<Schedule>>,currentClubMember:State<List<ClubMember>>) {
+fun ScheduleView_Sample(modifier: Modifier = Modifier, currentSchedule: State<List<Schedule>>,currentClubMember:State<List<ClubMember>>) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     val tabs = listOf("일정","멤버")
@@ -321,7 +321,7 @@ fun ScheduleViewPreview() {
     val state1= remember {
         mutableStateOf(generateDummyData1(5))
     }
-    ScheduleView(currentSchedule = state, currentClubMember = state1)
+    ScheduleView_Sample(currentSchedule = state, currentClubMember = state1)
 }
 
 
