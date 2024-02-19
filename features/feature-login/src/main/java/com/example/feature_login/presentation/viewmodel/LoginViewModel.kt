@@ -4,9 +4,12 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.core.LoginResult
 import com.example.core.model.LoginModel
 import com.example.feature_login.domain.usecase.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,9 +23,12 @@ class LoginViewModel @Inject constructor(
     private val _userPassword = mutableStateOf("")
     val userPassword: State<String> = _userPassword
 
+    private val _loginResult = MutableStateFlow<LoginResult?>(null)
+    val loginResult: StateFlow<LoginResult?> get() = _loginResult
+
     fun login() {
         viewModelScope.launch {
-            loginUseCase(LoginModel(_userId.value, _userPassword.value))
+            _loginResult.value = loginUseCase(LoginModel(_userId.value, _userPassword.value))
         }
     }
 

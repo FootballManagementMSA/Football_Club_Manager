@@ -1,5 +1,6 @@
 package com.example.feature_login.presentation.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,34 +13,66 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.ProvidableCompositionLocal
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.core.LoginResult
 import com.example.feature_login.presentation.ui_component.IconView
 import com.example.feature_login.presentation.ui_component.LoginClickableTextView
 import com.example.feature_login.presentation.viewmodel.LoginViewModel
-import com.example.ui_component.buttons.CustomGradientButton
 import com.example.ui_component.InputView
+import com.example.ui_component.buttons.CustomGradientButton
 import com.example.ui_component.buttons.WhiteButton
 
 val LocalLoginScreenPreviewMode: ProvidableCompositionLocal<Boolean> = compositionLocalOf { false }
 
 @Composable
 fun LoginScreen(
+    navHostController: NavHostController
 ) {
     if (LocalLoginScreenPreviewMode.current) {
         PreviewLoginScreen()
     } else {
         val viewModel: LoginViewModel = hiltViewModel()
         val scrollState = rememberScrollState()
+        val loginResult by viewModel.loginResult.collectAsState()
+        val context = LocalContext.current
+
+        LaunchedEffect(loginResult) {
+            when(loginResult) {
+                is LoginResult.Success -> {
+                    navHostController.navigate("EMBLEM_SELECT") {
+                        popUpTo("LOGIN") {
+                            inclusive = true
+                        }
+                    }
+
+                }
+                is LoginResult.Error -> {
+                    Toast.makeText(
+                        context,
+                        "로그인 실패: ${(loginResult as LoginResult.Error).errorMessage}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {}
+            }
+        }
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -169,6 +202,6 @@ fun PreviewLoginScreen() {
 @Composable
 fun LoginScreenPreview() {
     CompositionLocalProvider(LocalLoginScreenPreviewMode provides true) {
-        LoginScreen()
+        LoginScreen(navHostController = rememberNavController())
     }
 }
