@@ -55,7 +55,7 @@ fun LoginScreen(
         LaunchedEffect(loginResult) {
             when(loginResult) {
                 is LoginResult.Success -> {
-                    navHostController.navigate("EMBLEM_SELECT") {
+                    navHostController.navigate("HOME") {
                         popUpTo("LOGIN") {
                             inclusive = true
                         }
