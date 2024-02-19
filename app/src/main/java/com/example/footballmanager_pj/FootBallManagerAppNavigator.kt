@@ -29,7 +29,7 @@ fun FootBallManagerAppNavigator(
     NavHost(
         modifier = Modifier.padding(vertical = if (showBarList.contains(uiRoute.value)) 60.dp else 0.dp),
         navController = navHostController,
-        startDestination = Route.HOME
+        startDestination = Route.LOGIN
     ) {
         composable(Route.HOME) {
             onNavigate(Route.HOME)
@@ -37,7 +37,7 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.LOGIN) {
             onNavigate(Route.LOGIN)
-            LoginScreen()
+            LoginScreen(navHostController)
         }
         composable(Route.SQUAD) {
             onNavigate(Route.SQUAD)
