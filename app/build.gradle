@@ -25,4 +25,7 @@ dependencies {
     implementation project(':features:feature-dialog')
     implementation project(':features:feature-schedule')
     implementation project(':features:feature-searchteam')
+    implementation project(':features:feature-clubpage')
+
+
 }
