@@ -25,7 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.core.model.ClubMember
 import com.example.ui_component.R
-import com.example.ui_component.SampleButton
+import com.example.ui_component.buttons.CharacteristicButton
 import com.example.ui_component.values.mainTheme
 import com.example.ui_component.values.pink
 import com.example.ui_component.values.purple
@@ -95,10 +95,10 @@ fun MemberInfo(modifier: Modifier = Modifier, clubMember: ClubMember) {
             )
             Spacer(Modifier.size(4.dp))
 
-            SampleButton(onClick = {}, buttonColor = pink, textColor =Color.White, text = "NF" )
+            CharacteristicButton(onClick = {}, buttonColor = pink, textColor =Color.White, text = "NF" )
             Spacer(Modifier.size(1.dp))
 
-            SampleButton(onClick = {}, buttonColor = purple, textColor =Color.White, text = "득점왕" )
+            CharacteristicButton(onClick = {}, buttonColor = purple, textColor =Color.White, text = "득점왕" )
 
         }
 

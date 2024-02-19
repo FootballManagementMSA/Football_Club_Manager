@@ -1,4 +1,4 @@
-package com.example.ui_component
+package com.example.ui_component.buttons
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,7 +19,7 @@ import com.example.ui_component.values.pink
 
 
 @Composable
-fun SampleButton(
+fun CharacteristicButton(
     onClick: () -> Unit,
     buttonColor: Color,
     textColor: Color,
@@ -50,6 +50,6 @@ fun SampleButton(
 @Composable
 @Preview
 fun SampleButtonPreView() {
-    SampleButton(onClick = {}, buttonColor = pink, textColor = Color.Black, text = "good")
+    CharacteristicButton(onClick = {}, buttonColor = pink, textColor = Color.Black, text = "good")
 
 }
