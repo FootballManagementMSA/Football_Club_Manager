@@ -8,8 +8,9 @@ import com.example.core.LoginResult
 import com.example.core.model.LoginModel
 import com.example.feature_login.domain.usecase.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,12 +24,13 @@ class LoginViewModel @Inject constructor(
     private val _userPassword = mutableStateOf("")
     val userPassword: State<String> = _userPassword
 
-    private val _loginResult = MutableStateFlow<LoginResult?>(null)
-    val loginResult: StateFlow<LoginResult?> get() = _loginResult
+    private val _loginResult = MutableSharedFlow<LoginResult>(replay = 1)
+    val loginResult: SharedFlow<LoginResult> = _loginResult.asSharedFlow()
 
     fun login() {
         viewModelScope.launch {
-            _loginResult.value = loginUseCase(LoginModel(_userId.value, _userPassword.value))
+            val result = loginUseCase(LoginModel(_userId.value, _userPassword.value))
+            _loginResult.emit(result)
         }
     }
 

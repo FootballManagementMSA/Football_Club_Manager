@@ -15,9 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.ProvidableCompositionLocal
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.compositionLocalOf
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -49,28 +47,30 @@ fun LoginScreen(
     } else {
         val viewModel: LoginViewModel = hiltViewModel()
         val scrollState = rememberScrollState()
-        val loginResult by viewModel.loginResult.collectAsState()
         val context = LocalContext.current
 
-        LaunchedEffect(loginResult) {
-            when(loginResult) {
-                is LoginResult.Success -> {
-                    navHostController.navigate("HOME") {
-                        popUpTo("LOGIN") {
-                            inclusive = true
+        LaunchedEffect(Unit) {
+            viewModel.loginResult.collect { loginResult ->
+                when(loginResult) {
+                    is LoginResult.Success -> {
+                        navHostController.navigate("HOME") {
+                            popUpTo("LOGIN") {
+                                inclusive = true
+                            }
                         }
-                    }
 
+                    }
+                    is LoginResult.Error -> {
+                        Toast.makeText(
+                            context,
+                            "로그인 실패: ${(loginResult as LoginResult.Error).errorMessage}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    else -> {}
                 }
-                is LoginResult.Error -> {
-                    Toast.makeText(
-                        context,
-                        "로그인 실패: ${(loginResult as LoginResult.Error).errorMessage}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                else -> {}
             }
+
         }
 
         Column(
