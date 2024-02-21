@@ -6,7 +6,6 @@ import com.example.core.PreferenceKeys
 import com.example.core.userDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 internal class UserLocalDataSourceImpl @Inject constructor(
     @ApplicationContext context: Context
@@ -42,9 +41,8 @@ internal class UserLocalDataSourceImpl @Inject constructor(
         // api 요청보내기
     }
 
-    override fun getAccessToken(): String {
-        return runBlocking {
-            dataStore.data.first()[PreferenceKeys.ACCESS_TOKEN] ?: ""
-        }
+    override suspend fun getAccessToken(): String {
+        return dataStore.data.first()[PreferenceKeys.ACCESS_TOKEN] ?: ""
+
     }
 }

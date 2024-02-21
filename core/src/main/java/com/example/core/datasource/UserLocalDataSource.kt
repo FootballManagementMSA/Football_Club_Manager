@@ -7,5 +7,5 @@ interface UserLocalDataSource {
     suspend fun saveRefreshToken(refreshToken: String)
     suspend fun login()
     suspend fun join()
-    fun getAccessToken(): String
+    suspend fun getAccessToken(): String
 }
