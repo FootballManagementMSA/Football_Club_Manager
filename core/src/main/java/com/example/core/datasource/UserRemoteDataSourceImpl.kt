@@ -17,12 +17,12 @@ internal class UserRemoteDataSourceImpl @Inject constructor(
         return when (result) {
             is RespResult.Success -> {
                 with(userLocalDataSource) {
-                    saveAccessToken(result.data.data.accessToken)
-                    saveAccessToken(result.data.data.refreshToken)
+                    saveAccessToken(result.data.tokenData.accessToken)
+                    saveAccessToken(result.data.tokenData.refreshToken)
                     saveAccount(loginModel.id)
                     savePassword(loginModel.pw)
                 }
-                LoginResult.Success(result.data.data.accessToken, result.data.data.refreshToken)
+                LoginResult.Success(result.data.tokenData.accessToken, result.data.tokenData.refreshToken)
             }
             is RespResult.Error -> {
                 LoginResult.Error(result.error.errorMessage)

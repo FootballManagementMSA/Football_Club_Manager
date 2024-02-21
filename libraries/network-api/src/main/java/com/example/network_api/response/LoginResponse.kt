@@ -1,9 +1,12 @@
 package com.example.network_api.response
 
+import com.google.gson.annotations.SerializedName
+
 data class LoginResponse(
     val status: Int,
     val message: String,
-    val data: Token
+    @SerializedName("data")
+    val tokenData: Token
 )
 data class Token(
     val accessToken: String,
