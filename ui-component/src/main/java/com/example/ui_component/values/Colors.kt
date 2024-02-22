@@ -24,6 +24,7 @@ val transparentBrush = Brush.linearGradient(
 
 val profileInfoButton = Color(0xFFDFDFDF)
 val grayText = Color(0xFFB6BFCD)
+val grayText2 =Color(0xFFA5AAB2)
 val emblem = Color(0xFFAEB9C8)
 val subTheme = Color(0xFF2E3D53)
 val darkGray = Color(0xFF535353)
@@ -33,3 +34,5 @@ val darkButton = Color(0xFF212A3A)
 val lastGradientColor = Color(0xFF857FEB)
 val firstGradientColor = Color(0xFFEE6DE7)
 val gradientColorsList = listOf(Color(0xFFEE6DE7), Color(0xFF857FEB))
+val purple=Color(0XFF957FEA)
+val pink=Color(0XFFE56DE2)
