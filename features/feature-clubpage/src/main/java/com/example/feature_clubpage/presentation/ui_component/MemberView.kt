@@ -1,4 +1,4 @@
-package com.example.feature_clubpage.presentation.viewmodel.ui_component
+package com.example.feature_clubpage.presentation.ui_component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
