@@ -68,6 +68,7 @@ fun ClubPageScreen() {
     }
 
 }
+//
 
 private fun isScrollable(config: Configuration) = config.screenHeightDp.dp > 800.dp
 
