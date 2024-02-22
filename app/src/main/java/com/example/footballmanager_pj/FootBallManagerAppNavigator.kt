@@ -9,6 +9,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.feature_login.presentation.screen.LoginScreen
 import com.example.feature_makeclub.presentation.screen.CompleteClubMakingScreen
 import com.example.feature_makeclub.presentation.screen.EmblemSelectScreen
 import com.example.feature_makeclub.presentation.screen.MakeClubScreen
@@ -28,11 +29,15 @@ fun FootBallManagerAppNavigator(
     NavHost(
         modifier = Modifier.padding(vertical = if (showBarList.contains(uiRoute.value)) 60.dp else 0.dp),
         navController = navHostController,
-        startDestination = Route.HOME
+        startDestination = Route.LOGIN
     ) {
         composable(Route.HOME) {
             onNavigate(Route.HOME)
             HomeScreen(navHostController)
+        }
+        composable(Route.LOGIN) {
+            onNavigate(Route.LOGIN)
+            LoginScreen(navHostController)
         }
         composable(Route.SQUAD) {
             onNavigate(Route.SQUAD)

@@ -1,10 +1,11 @@
 package com.example.core.mapper
 
-import com.example.core.mapper.EntityMapper.mapToEntity
 import com.example.core.model.LocalScreen
-import com.example.core.model.PositionPresetUIModel
+import com.example.core.model.LoginModel
 import com.example.core.model.MemberUiModel
 import com.example.core.model.Position
+import com.example.core.model.PositionPresetUIModel
+import com.example.network_api.entity.Login
 import com.example.network_api.entity.Member
 import com.example.network_api.entity.PositionPreset
 import com.example.network_api.entity.RemoteScreen
@@ -30,4 +31,8 @@ object EntityMapper {
     )
 
     fun LocalScreen.mapToEntity() = RemoteScreen(this.width, this.height)
+    fun LoginModel.mapToEntity() = Login(
+        id = this.id,
+        pw = this.pw
+    )
 }

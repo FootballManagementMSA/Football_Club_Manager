@@ -10,6 +10,7 @@ object Route {
     const val COMPLETE_CLUB_MAKING = "COMPLETE_CLUB_MAKING"
     const val MYPAGE = "MYPAGE"
     const val MYPAGE_MODIFY = "MYPAGE_MODIFY"
+    const val LOGIN = "LOGIN"
 }
 
 val showBarList = listOf(Route.HOME, Route.SQUAD)
