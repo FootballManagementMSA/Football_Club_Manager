@@ -39,7 +39,7 @@ import com.example.ui_component.values.veryBigFont
 
 @Composable
 fun MemberInfoView(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
