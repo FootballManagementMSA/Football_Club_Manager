@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
                             }
                         },
                         bottomBar = {
-                            if (showBarList.contains(uiRoute.value)){
+                            if (uiRoute.value == "HOME" || uiRoute.value == "SQUAD" || uiRoute.value == "SETTINGS"){
                                 CustomBottomNavigation(
                                     modifier = Modifier.height(60.dp),
                                     items = listOf(

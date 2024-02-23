@@ -1,7 +1,6 @@
 package com.example.footballmanager_pj
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
@@ -45,7 +44,7 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.SETTINGS) {
             onNavigate(Route.SETTINGS)
-            Text(text = "Settings")
+            MyPageScreen()
         }
         composable(Route.MAKE_CLUB) {
             onNavigate(Route.MAKE_CLUB)
@@ -58,9 +57,6 @@ fun FootBallManagerAppNavigator(
         composable(Route.COMPLETE_CLUB_MAKING) {
             onNavigate(Route.COMPLETE_CLUB_MAKING)
             CompleteClubMakingScreen()
-        }
-        composable(Route.MYPAGE) {
-            MyPageScreen()
         }
         composable(Route.MYPAGE_MODIFY) {
             MyPageModifyScreen()
