@@ -44,7 +44,7 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.SETTINGS) {
             onNavigate(Route.SETTINGS)
-            MyPageScreen()
+            MyPageScreen(navHostController)
         }
         composable(Route.MAKE_CLUB) {
             onNavigate(Route.MAKE_CLUB)

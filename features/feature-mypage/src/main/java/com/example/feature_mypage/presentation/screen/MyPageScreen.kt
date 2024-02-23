@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.feature_mypage.presentation.ui_component.MyPageCardView
 import com.example.feature_mypage.presentation.ui_component.MyPageInfoView
 import com.example.feature_mypage.presentation.ui_component.MyPageTopView
@@ -23,7 +25,9 @@ import com.example.ui_component.values.gradientColorsList
 import com.example.ui_component.values.mainTheme
 
 @Composable
-fun MyPageScreen() {
+fun MyPageScreen(
+    navHostController: NavHostController
+) {
     Column {
         Box(
             modifier = Modifier
@@ -60,7 +64,9 @@ fun MyPageScreen() {
                             .requiredHeightIn(180.dp)
                             .weight(7f)
                             .padding(30.dp)
-                    )
+                    ) {
+                        navHostController.navigate("MYPAGE_MODIFY")
+                    }
                 }
             }
         }
@@ -70,6 +76,6 @@ fun MyPageScreen() {
 @Preview
 @Composable
 fun MyPageScreenPreview() {
-    MyPageScreen()
+    MyPageScreen(navHostController = rememberNavController())
 }
 
