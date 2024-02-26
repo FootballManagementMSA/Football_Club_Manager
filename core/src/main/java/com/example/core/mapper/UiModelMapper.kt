@@ -1,13 +1,15 @@
 package com.example.core.mapper
 
-import com.example.core.mapper.EntityMapper.mapToEntity
 import com.example.core.model.LocalScreen
-import com.example.core.model.PositionPresetUIModel
 import com.example.core.model.MemberUiModel
+import com.example.core.model.MyPageUserInfoUiModel
 import com.example.core.model.Position
+import com.example.core.model.PositionPresetUIModel
 import com.example.network_api.entity.Member
 import com.example.network_api.entity.PositionPreset
 import com.example.network_api.entity.RemoteScreen
+import com.example.network_api.response.RespResult
+import com.example.network_api.response.UserInfoResponse
 
 object UiModelMapper {
     fun PositionPreset.mapToUiModel() =
@@ -31,4 +33,24 @@ object UiModelMapper {
         number = this.number,
         position = this.position.mapToUiModel()
     )
+
+    fun RespResult<UserInfoResponse>.mapToUiModel(): MyPageUserInfoUiModel {
+        return when (this) {
+            is RespResult.Success -> {
+                MyPageUserInfoUiModel(
+                studentId = data.userData.studentId,
+                name = data.userData.name,
+                image = data.userData.image
+            )
+            }
+            is RespResult.Error -> {
+                MyPageUserInfoUiModel(
+                    studentId = "err",
+                    name = "err",
+                    image = null
+                )
+            }
+        }
+    }
+
 }
