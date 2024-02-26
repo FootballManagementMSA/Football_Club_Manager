@@ -10,24 +10,44 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.core.model.MyPageUserInfoUiModel
+import com.example.feature_mypage.presentation.UserInfoState
 import com.example.feature_mypage.presentation.ui_component.MyPageCardView
 import com.example.feature_mypage.presentation.ui_component.MyPageInfoView
 import com.example.feature_mypage.presentation.ui_component.MyPageTopView
+import com.example.feature_mypage.presentation.viewmodel.MyPageViewModel
 import com.example.ui_component.values.gradientColorsList
 import com.example.ui_component.values.mainTheme
 
 @Composable
 fun MyPageScreen(
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    viewModel: MyPageViewModel = hiltViewModel()
 ) {
+    val state by viewModel.uiState.collectAsState()
+    var userInfo: MyPageUserInfoUiModel? = null
+
+    when (state) {
+        is UserInfoState.Loading -> {
+            CircularProgressIndicator()
+        }
+
+        is UserInfoState.Success -> {
+            userInfo = (state as UserInfoState.Success).data
+        }
+    }
     Column {
         Box(
             modifier = Modifier
@@ -51,13 +71,18 @@ fun MyPageScreen(
                     .fillMaxHeight(0.75f)
             ) {
                 Column {
-                    MyPageInfoView(
-                        modifier = Modifier
-                            .fillMaxHeight()
-                            .requiredHeightIn(180.dp)
-                            .weight(2f)
-                            .align(Alignment.CenterHorizontally)
-                    )
+                    userInfo?.let {
+                        MyPageInfoView(
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .requiredHeightIn(180.dp)
+                                .weight(2f)
+                                .align(Alignment.CenterHorizontally),
+                            profileImage = it.image,
+                            name = it.name,
+                            studentId = it.studentId
+                        )
+                    }
                     MyPageCardView(
                         modifier = Modifier
                             .fillMaxWidth()
