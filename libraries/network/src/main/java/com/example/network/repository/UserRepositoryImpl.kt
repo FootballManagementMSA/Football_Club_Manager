@@ -7,6 +7,7 @@ import com.example.network_api.entity.Login
 import com.example.network_api.repository.UserRepository
 import com.example.network_api.response.LoginResponse
 import com.example.network_api.response.RespResult
+import com.example.network_api.response.UserInfoResponse
 import javax.inject.Inject
 
 internal class UserRepositoryImpl @Inject constructor(
@@ -14,6 +15,18 @@ internal class UserRepositoryImpl @Inject constructor(
 ): UserRepository{
     override suspend fun login(loginReq: Login): RespResult<LoginResponse> {
         val response = footballManagerApi.login(loginReq)
+
+        return if (response.isSuccessful) {
+            RespResult.Success(response.body()!!)
+        } else {
+            val errorBodyJson = response.errorBody()?.string() ?: ""
+            val errorBody = RespMapper.errorMapper(errorBodyJson)
+            RespResult.Error(ErrorType(errorBody.message!!, errorBody.code))
+        }
+    }
+
+    override suspend fun getUserInfo(): RespResult<UserInfoResponse> {
+        val response = footballManagerApi.getUserInfo()
 
         return if (response.isSuccessful) {
             RespResult.Success(response.body()!!)
