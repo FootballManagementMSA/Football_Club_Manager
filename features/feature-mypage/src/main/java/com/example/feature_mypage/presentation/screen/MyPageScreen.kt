@@ -11,14 +11,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -28,6 +33,12 @@ import com.example.feature_mypage.presentation.ui_component.MyPageCardView
 import com.example.feature_mypage.presentation.ui_component.MyPageInfoView
 import com.example.feature_mypage.presentation.ui_component.MyPageTopView
 import com.example.feature_mypage.presentation.viewmodel.MyPageViewModel
+import com.example.ui_component.HorizontalSpacer
+import com.example.ui_component.VerticalSpacer
+import com.example.ui_component.buttons.DarkButton
+import com.example.ui_component.buttons.DialogCustomGradientButton
+import com.example.ui_component.template.DefaultDialog
+import com.example.ui_component.template.Header
 import com.example.ui_component.values.gradientColorsList
 import com.example.ui_component.values.mainTheme
 
@@ -38,6 +49,7 @@ fun MyPageScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
     var userInfo: MyPageUserInfoUiModel? = null
+    val isDialogOpen = remember { mutableStateOf<Boolean>(false) }
 
     when (state) {
         is UserInfoState.Loading -> {
@@ -88,11 +100,47 @@ fun MyPageScreen(
                             .fillMaxWidth()
                             .requiredHeightIn(180.dp)
                             .weight(7f)
-                            .padding(30.dp)
-                    ) {
-                        navHostController.navigate("MYPAGE_MODIFY")
+                            .padding(30.dp),
+                        onClick = { navHostController.navigate("MYPAGE_MODIFY") },
+                        onLogout = { isDialogOpen.value = true }
+                    )
+                    if (isDialogOpen.value) {
+                        checkLogOutDialog(name = userInfo?.name ?: "") {
+                            isDialogOpen.value = false
+                        }
                     }
                 }
+            }
+        }
+    }
+}
+
+@Composable
+fun checkLogOutDialog(name: String, onDismiss: () -> Unit) {
+    DefaultDialog(
+        header = { Header(onDismiss = onDismiss , title = "로그아웃" , userName = name) }
+    ){
+        VerticalSpacer(value = 10)
+        Text(text = "정말 로그아웃 하시겠습니까?", fontSize = 15.sp)
+        Row() {
+            DarkButton(
+                modifier = Modifier
+                    .weight(1f)
+                    .align(Alignment.CenterVertically),
+                buttonText = "아니오",
+                textColor = Color.White,
+                radius = 20.dp
+            ) {
+                onDismiss()
+            }
+            HorizontalSpacer(value = 15)
+            DialogCustomGradientButton(
+                modifier = Modifier.weight(1f),
+                gradientColors = gradientColorsList,
+                buttonText = "네",
+                radius = 20.dp
+            ) {
+
             }
         }
     }
@@ -104,3 +152,8 @@ fun MyPageScreenPreview() {
     MyPageScreen(navHostController = rememberNavController())
 }
 
+@Preview
+@Composable
+fun checkLogOutDialogPreview() {
+    checkLogOutDialog("test") {}
+}
