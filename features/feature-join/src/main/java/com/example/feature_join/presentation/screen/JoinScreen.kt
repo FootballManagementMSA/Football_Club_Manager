@@ -26,6 +26,7 @@ import com.example.ui_component.values.mainTheme
 
 @Composable
 fun JoinScreen(viewModel: JoinViewModel = hiltViewModel()) {
+    //test
     val scrollState = rememberScrollState()
 
     Column(
