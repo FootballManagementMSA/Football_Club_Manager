@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import com.example.core.BASE_URL
 import com.example.core.userDataStore
 import com.example.network_api.api.FootballManagerApi
+import com.example.network_api.api.MainHomeApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -64,5 +65,11 @@ object NetworkModule {
     @Singleton
     fun provideFootballManagerApi(retrofit: Retrofit): FootballManagerApi {
         return retrofit.create(FootballManagerApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMainHomeApi(retrofit: Retrofit): MainHomeApi {
+        return retrofit.create(MainHomeApi::class.java)
     }
 }

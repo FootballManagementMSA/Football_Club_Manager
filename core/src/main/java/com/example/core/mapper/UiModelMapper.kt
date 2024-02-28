@@ -1,13 +1,20 @@
 package com.example.core.mapper
 
+import com.example.core.model.Data
 import com.example.core.model.LocalScreen
+import com.example.core.model.MainHomeUiModel
 import com.example.core.model.MemberUiModel
 import com.example.core.model.MyPageUserInfoUiModel
 import com.example.core.model.Position
 import com.example.core.model.PositionPresetUIModel
+import com.example.core.model.Schedule
+import com.example.core.model.Schedule2
+import com.example.core.model.Student
+import com.example.core.model.Team
 import com.example.network_api.entity.Member
 import com.example.network_api.entity.PositionPreset
 import com.example.network_api.entity.RemoteScreen
+import com.example.network_api.response.MainHomeResponse
 import com.example.network_api.response.RespResult
 import com.example.network_api.response.UserInfoResponse
 
@@ -32,6 +39,32 @@ object UiModelMapper {
         role = this.role,
         number = this.number,
         position = this.position.mapToUiModel()
+    )
+    fun MainHomeResponse.mapToUiModel() = MainHomeUiModel(
+        status = this.status,
+        code = this.code,
+        data = Data(
+            student = Student(
+                name = this.data.student.name,
+                game = this.data.student.game,
+                goal = this.data.student.goal,
+                position = this.data.student.position,
+                foot = this.data.student.foot
+            ),
+            schedule = Schedule2(
+                place = this.data.schedule.place,
+                startTime = this.data.schedule.startTime,
+                homeTeam = Team(
+                    this.data.schedule.homeTeam.name,
+                    this.data.schedule.homeTeam.emblem
+                ),
+                awayTeam = Team(
+                    this.data.schedule.awayTeam.name,
+                    this.data.schedule.awayTeam.emblem
+                ),
+            )
+        ),
+        message = this.message
     )
 
     fun RespResult<UserInfoResponse>.mapToUiModel(): MyPageUserInfoUiModel {

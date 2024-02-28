@@ -1,5 +1,7 @@
 package com.example.core.di
 
+import com.example.core.datasource.MainHomeDataSource
+import com.example.core.datasource.MainHomeDataSourceImpl
 import com.example.core.datasource.PositionPresetDataSource
 import com.example.core.datasource.PositionPresetDataSourceImpl
 import com.example.core.datasource.UserLocalDataSource
@@ -23,4 +25,7 @@ internal abstract class DataSourceModule {
 
     @Binds
     abstract fun bindsPositionPresetDataSource(positionPresetDataSourceImpl: PositionPresetDataSourceImpl): PositionPresetDataSource
+
+    @Binds
+    abstract fun bindsMainHomeDataSource(mainHomeDataSourceImpl: MainHomeDataSourceImpl): MainHomeDataSource
 }
