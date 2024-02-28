@@ -45,4 +45,10 @@ internal class UserLocalDataSourceImpl @Inject constructor(
         return dataStore.data.first()[PreferenceKeys.ACCESS_TOKEN] ?: ""
 
     }
+
+    override suspend fun clearDataStore() {
+        dataStore.edit {
+            it.clear()
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.example.feature_mypage.presentation.viewmodel
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.feature_mypage.domain.usecase.ClearDataStoreUseCase
 import com.example.feature_mypage.domain.usecase.GetUserInfoUseCase
 import com.example.feature_mypage.presentation.UserInfoState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    private val getUserInfoUseCase: GetUserInfoUseCase
+    private val getUserInfoUseCase: GetUserInfoUseCase,
+    private val clearDataStoreUseCase: ClearDataStoreUseCase
 ): ViewModel() {
     private  val _selectedImageUri = MutableStateFlow<Uri?>(null)
     val selectedImageUri: StateFlow<Uri?> = _selectedImageUri
@@ -30,6 +32,12 @@ class MyPageViewModel @Inject constructor(
     private fun loadUserInfo() {
         viewModelScope.launch {
             _uiState.value = UserInfoState.Success(getUserInfoUseCase())
+        }
+    }
+
+    fun clearDataStore() {
+        viewModelScope.launch {
+            clearDataStoreUseCase()
         }
     }
 }
