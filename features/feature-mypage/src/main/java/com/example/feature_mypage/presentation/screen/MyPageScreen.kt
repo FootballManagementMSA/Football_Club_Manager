@@ -105,7 +105,14 @@ fun MyPageScreen(
                         onLogout = { isDialogOpen.value = true }
                     )
                     if (isDialogOpen.value) {
-                        checkLogOutDialog(name = userInfo?.name ?: "") {
+                        checkLogOutDialog(
+                            name = userInfo?.name ?: "",
+                            navigateToLoginScreen = {
+                                navHostController.navigate("LOGIN") {
+                                    popUpTo("SETTING") { inclusive = true }
+                                }
+                            },
+                            onClearDataStore = { viewModel.clearDataStore() }) {
                             isDialogOpen.value = false
                         }
                     }
@@ -116,10 +123,15 @@ fun MyPageScreen(
 }
 
 @Composable
-fun checkLogOutDialog(name: String, onDismiss: () -> Unit) {
+fun checkLogOutDialog(
+    name: String,
+    navigateToLoginScreen: () -> Unit,
+    onClearDataStore: () -> Unit,
+    onDismiss: () -> Unit
+) {
     DefaultDialog(
-        header = { Header(onDismiss = onDismiss , title = "로그아웃" , userName = name) }
-    ){
+        header = { Header(onDismiss = onDismiss, title = "로그아웃", userName = name) }
+    ) {
         VerticalSpacer(value = 10)
         Text(text = "정말 로그아웃 하시겠습니까?", fontSize = 15.sp)
         Row() {
@@ -140,7 +152,8 @@ fun checkLogOutDialog(name: String, onDismiss: () -> Unit) {
                 buttonText = "네",
                 radius = 20.dp
             ) {
-
+                onClearDataStore()
+                navigateToLoginScreen()
             }
         }
     }
@@ -155,5 +168,5 @@ fun MyPageScreenPreview() {
 @Preview
 @Composable
 fun checkLogOutDialogPreview() {
-    checkLogOutDialog("test") {}
+    checkLogOutDialog("test", {}, {}, {})
 }
