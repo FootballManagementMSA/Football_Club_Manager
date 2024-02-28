@@ -27,6 +27,7 @@ class JoinViewModel @Inject constructor(
 
     private val _selectedInfo = mutableStateOf("" to "")
     val selectedInfo: State<Pair<String,String>> get() =  _selectedInfo
+    //
 
 
     fun join() {
