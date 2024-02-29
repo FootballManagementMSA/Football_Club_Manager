@@ -1,4 +1,4 @@
-package com.example.feature_clubpage.presentation.viewmodel.screen
+package com.example.feature_clubpage.presentation.screen
 
 
 import android.content.res.Configuration
@@ -17,9 +17,9 @@ import androidx.compose.ui.unit.dp
 import com.example.core.model.ClubMemberUiModel
 import com.example.core.model.ScheduleUiModel
 import com.example.feature_clubpage.presentation.ui_component.ClubInfoView
-import com.example.feature_clubpage.presentation.viewmodel.ui_component.ScheduleView_Sample
-import com.example.feature_clubpage.presentation.viewmodel.ui_component.generateDummyData
-import com.example.feature_clubpage.presentation.viewmodel.ui_component.generateDummyData1
+import com.example.feature_clubpage.presentation.ui_component.ScheduleView_Sample
+import com.example.feature_clubpage.presentation.ui_component.generateDummyData
+import com.example.feature_clubpage.presentation.ui_component.generateDummyData1
 import com.example.ui_component.values.mainTheme
 
 @Composable
@@ -68,6 +68,7 @@ fun ClubPageScreen() {
     }
 
 }
+//
 
 private fun isScrollable(config: Configuration) = config.screenHeightDp.dp > 800.dp
 
