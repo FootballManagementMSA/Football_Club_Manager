@@ -1,6 +1,5 @@
 package com.example.feature_mypage.presentation.ui_component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
@@ -12,29 +11,39 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 import com.example.ui_component.R
 import com.example.ui_component.values.darkGray
 
 @Composable
-fun MyPageInfoView(modifier: Modifier = Modifier) {
+fun MyPageInfoView(
+    modifier: Modifier = Modifier,
+    profileImage: String?,
+    name: String,
+    studentId: String
+) {
     Column(
         modifier = modifier
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.default_profile_image),
-            contentDescription = null,
+        AsyncImage(
+            model = profileImage,
+            contentDescription = "profile image",
+            error = painterResource(id = R.drawable.default_profile_image),
+            placeholder = painterResource(
+                id = R.drawable.default_profile_image
+            ),
             modifier = Modifier
                 .size(120.dp)
                 .offset(y = (-30).dp)
                 .align(Alignment.CenterHorizontally)
         )
         Text(
-            text = "홍 길 동", color = Color.White, modifier = Modifier
+            text = name, color = Color.White, modifier = Modifier
                 .offset(y = (-10).dp)
                 .align(Alignment.CenterHorizontally)
         )
         Text(
-            text = "202012345",
+            text = studentId,
             color = darkGray,
             modifier = Modifier
                 .offset(y = (-5).dp)
@@ -47,5 +56,5 @@ fun MyPageInfoView(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun MyPageInfoViewPreview() {
-    MyPageInfoView()
+    MyPageInfoView(profileImage = "test", name = "test", studentId = "test")
 }

@@ -31,7 +31,7 @@ import com.example.ui_component.values.largeIcon
 import com.example.ui_component.values.subTheme
 
 @Composable
-fun MyPageCardView(modifier: Modifier = Modifier) {
+fun MyPageCardView(modifier: Modifier = Modifier, onClick: () -> Unit, onLogout: () -> Unit) {
     Column(modifier = modifier) {
         MyPageCardItem(radius = 8.dp) {
             Image(
@@ -56,7 +56,7 @@ fun MyPageCardView(modifier: Modifier = Modifier) {
                     .size(largeIcon)
                     .align(Alignment.CenterHorizontally)
                     .padding(end = 15.dp)
-                    .clickable { }
+                    .clickable { onClick() }
             )
         }
         VerticalSpacer(value = 20)
@@ -83,7 +83,7 @@ fun MyPageCardView(modifier: Modifier = Modifier) {
                     .size(largeIcon)
                     .align(Alignment.CenterHorizontally)
                     .padding(end = 15.dp)
-                    .clickable { }
+                    .clickable { onLogout() }
             )
 
         }
@@ -120,7 +120,7 @@ fun MyPageCardItem(
             .clip(RoundedCornerShape(radius))
             .background(color)
             .fillMaxWidth()
-            .heightIn(min =60.dp, max = 150.dp)
+            .heightIn(min = 60.dp, max = 150.dp)
             .height(config.screenHeightDp.dp / 10)
     ) {
         content()
@@ -130,5 +130,5 @@ fun MyPageCardItem(
 @Preview
 @Composable
 fun MyPageCardViewPreview() {
-    MyPageCardView()
+    MyPageCardView(onClick = {}) {}
 }

@@ -8,4 +8,5 @@ interface UserLocalDataSource {
     suspend fun login()
     suspend fun join()
     suspend fun getAccessToken(): String
+    suspend fun clearDataStore()
 }

@@ -61,7 +61,7 @@ import com.example.ui_component.values.veryBigFont
 import com.example.ui_component.values.veryTinyFont
 
 @Composable
-fun ScheduleView_Sample(modifier: Modifier = Modifier, currentSchedule: State<List<Schedule>>,currentClubMember:State<List<ClubMember>>) {
+fun ScheduleView_Sample(modifier: Modifier = Modifier, currentSchedule: State<List<Schedule>>, currentClubMember:State<List<ClubMember>>) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
 
     val tabs = listOf("일정","멤버")
