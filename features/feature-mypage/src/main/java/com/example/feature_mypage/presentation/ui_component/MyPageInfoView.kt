@@ -3,11 +3,14 @@ package com.example.feature_mypage.presentation.ui_component
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,6 +39,8 @@ fun MyPageInfoView(
                 .size(120.dp)
                 .offset(y = (-30).dp)
                 .align(Alignment.CenterHorizontally)
+                .clip(CircleShape),
+            contentScale = ContentScale.Crop
         )
         Text(
             text = name, color = Color.White, modifier = Modifier
