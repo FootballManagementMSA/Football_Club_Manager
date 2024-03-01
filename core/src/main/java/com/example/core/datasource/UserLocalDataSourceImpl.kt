@@ -2,8 +2,8 @@ package com.example.core.datasource
 
 import android.content.Context
 import androidx.datastore.preferences.core.edit
-import com.example.core.PreferenceKeys
-import com.example.core.userDataStore
+import com.example.core.util.PreferenceKeys
+import com.example.core.util.userDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
