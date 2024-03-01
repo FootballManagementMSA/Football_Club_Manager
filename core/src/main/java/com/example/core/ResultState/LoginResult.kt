@@ -1,4 +1,4 @@
-package com.example.core
+package com.example.core.ResultState
 
 sealed class LoginResult {
     data class Success(val accessToken: String, val refreshToken: String) : LoginResult()
