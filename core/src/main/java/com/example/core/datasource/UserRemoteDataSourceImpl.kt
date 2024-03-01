@@ -1,11 +1,16 @@
 package com.example.core.datasource
 
-import com.example.core.LoginResult
+import android.util.Log
+import com.example.core.ResultState.BaseResult
+import com.example.core.ResultState.LoginResult
 import com.example.core.mapper.EntityMapper.mapToEntity
 import com.example.core.mapper.UiModelMapper.mapToUiModel
 import com.example.core.model.LoginModel
+import com.example.core.model.ModifyUserInfoModel
 import com.example.core.model.MyPageUserInfoUiModel
 import com.example.core.model.UserInfo
+import com.example.core.util.FormDataUtil.mapToMultipart
+import com.example.core.util.FormDataUtil.mapToRequestBody
 import com.example.network_api.repository.UserRepository
 import com.example.network_api.response.RespResult
 import javax.inject.Inject
@@ -24,8 +29,12 @@ internal class UserRemoteDataSourceImpl @Inject constructor(
                     saveAccount(loginModel.id)
                     savePassword(loginModel.pw)
                 }
-                LoginResult.Success(result.data.tokenData.accessToken, result.data.tokenData.refreshToken)
+                LoginResult.Success(
+                    result.data.tokenData.accessToken,
+                    result.data.tokenData.refreshToken
+                )
             }
+
             is RespResult.Error -> {
                 LoginResult.Error(result.error.errorMessage)
             }
@@ -34,12 +43,44 @@ internal class UserRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun sendClubInfoData() {
     }
+
     //레포지토리에서 가져오도록 수정
     override suspend fun getJoinClubUserInfo(): List<UserInfo> {
-        return listOf(UserInfo("임성우","133333", "3", "st", "erer"), UserInfo("테스트","26","5","GK","안녕하세요 테스트입니다."))
+        return listOf(
+            UserInfo("임성우", "133333", "3", "st", "erer"),
+            UserInfo("테스트", "26", "5", "GK", "안녕하세요 테스트입니다.")
+        )
     }
 
     override suspend fun getUserInfo(): MyPageUserInfoUiModel {
         return userRepository.getUserInfo().mapToUiModel()
+    }
+
+    override suspend fun modifyUserInfo(modifyUserInfoModel: ModifyUserInfoModel): BaseResult {
+        val requestName = mapToRequestBody(modifyUserInfoModel.name)
+        val requestAge = mapToRequestBody(modifyUserInfoModel.age.toString())
+        val requestHeight = mapToRequestBody(modifyUserInfoModel.height.toString())
+        val requestSex = mapToRequestBody(modifyUserInfoModel.sex)
+        val requestPosition = mapToRequestBody(modifyUserInfoModel.position)
+        val requestFoot = mapToRequestBody(modifyUserInfoModel.foot)
+        val result = userRepository.modifyUserInfo(
+            requestName,
+            requestAge,
+            requestHeight,
+            requestSex,
+            requestPosition,
+            requestFoot,
+            mapToMultipart("image", modifyUserInfoModel.image)
+        )
+        return when (result) {
+            is RespResult.Success -> {
+                BaseResult.Success
+            }
+
+            is RespResult.Error -> {
+                Log.e("tt", "${result.error.errorMessage} ${result.error.code}")
+                BaseResult.Error(result.error.errorMessage)
+            }
+        }
     }
 }
