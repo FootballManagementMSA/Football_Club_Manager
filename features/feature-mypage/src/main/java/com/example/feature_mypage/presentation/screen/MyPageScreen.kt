@@ -47,7 +47,9 @@ import com.example.ui_component.values.mainTheme
 @Composable
 fun MyPageScreen(
     navHostController: NavHostController,
-    viewModel: MyPageViewModel = hiltViewModel()
+    viewModel: MyPageViewModel = hiltViewModel(),
+    onNavigateToLogin: () ->  Unit,
+    onNavigateToMyPageModify: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsState()
     var userInfo: MyPageUserInfoUiModel? = null
@@ -109,16 +111,14 @@ fun MyPageScreen(
                             .requiredHeightIn(180.dp)
                             .weight(7f)
                             .padding(30.dp),
-                        onClick = { navHostController.navigate("MYPAGE_MODIFY") },
+                        onClick = { onNavigateToMyPageModify() },
                         onLogout = { isDialogOpen.value = true }
                     )
                     if (isDialogOpen.value) {
                         checkLogOutDialog(
                             name = userInfo?.name ?: "",
                             navigateToLoginScreen = {
-                                navHostController.navigate("LOGIN") {
-                                    popUpTo("SETTING") { inclusive = true }
-                                }
+                                onNavigateToLogin()
                             },
                             onClearDataStore = { viewModel.clearDataStore() }) {
                             isDialogOpen.value = false
@@ -170,7 +170,7 @@ fun checkLogOutDialog(
 @Preview
 @Composable
 fun MyPageScreenPreview() {
-    MyPageScreen(navHostController = rememberNavController())
+    MyPageScreen(navHostController = rememberNavController(), onNavigateToLogin = {}, onNavigateToMyPageModify = {})
 }
 
 @Preview

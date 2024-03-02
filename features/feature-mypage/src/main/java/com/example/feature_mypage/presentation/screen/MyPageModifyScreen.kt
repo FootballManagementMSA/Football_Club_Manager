@@ -33,14 +33,15 @@ import com.example.ui_component.values.mainTheme
 @Composable
 fun MyPageModifyScreen(
     navHostController: NavHostController,
-    viewModel: MyPageViewModel = hiltViewModel()
+    viewModel: MyPageViewModel = hiltViewModel(),
+    onNavigateToMyPage: () -> Unit
 ) {
     val scrollState = rememberScrollState()
     val config = LocalConfiguration.current
     val context = LocalContext.current
     LaunchedEffect(Unit) {
         viewModel.modifyUserInfoResult.collect {
-            when(it) {
+            when (it) {
                 is BaseResult.Success -> {
                     Toast.makeText(
                         context,
@@ -48,6 +49,7 @@ fun MyPageModifyScreen(
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+
                 is BaseResult.Error -> {
                     Toast.makeText(
                         context,
@@ -77,7 +79,13 @@ fun MyPageModifyScreen(
                 modifier = Modifier
                     .requiredHeightIn(min = 200.dp)
                     .weight(2f),
-                viewModel.selectedImageUri.collectAsState()
+                viewModel.selectedImageUri.collectAsState(),
+                onBack = {
+                    onNavigateToMyPage()
+                },
+                onDesroy = {
+                    onNavigateToMyPage()
+                }
             ) {
                 viewModel.updateSelectedImageUri(it)
             }
@@ -112,5 +120,5 @@ private fun isScrollable(config: Configuration) = config.screenHeightDp.dp > 950
 @Preview
 @Composable
 fun MyPageModifyScreenPreview() {
-    MyPageModifyScreen(navHostController = rememberNavController())
+    MyPageModifyScreen(navHostController = rememberNavController(), onNavigateToMyPage = {})
 }

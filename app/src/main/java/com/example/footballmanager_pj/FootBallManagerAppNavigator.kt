@@ -47,7 +47,16 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.SETTINGS) {
             onNavigate(Route.SETTINGS)
-            MyPageScreen(navHostController, myPageViewModel)
+            MyPageScreen(
+                navHostController,
+                myPageViewModel,
+                onNavigateToLogin = {
+                    navHostController.navigate("LOGIN") {
+                        popUpTo("SETTINGS") { inclusive = true }
+                    }
+                },
+                onNavigateToMyPageModify = { navHostController.navigate("MYPAGE_MODIFY") }
+            )
         }
         composable(Route.MAKE_CLUB) {
             onNavigate(Route.MAKE_CLUB)
@@ -62,7 +71,14 @@ fun FootBallManagerAppNavigator(
             CompleteClubMakingScreen()
         }
         composable(Route.MYPAGE_MODIFY) {
-            MyPageModifyScreen(navHostController, myPageViewModel)
+            MyPageModifyScreen(
+                navHostController,
+                myPageViewModel,
+                onNavigateToMyPage = {
+                    navHostController.navigate("SETTINGS") {
+                        popUpTo("MYPAGE_MODIFY")
+                    }
+                })
         }
     }
 }

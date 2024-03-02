@@ -18,6 +18,8 @@ import com.example.ui_component.template.DefaultEmblemSelectIconView
 fun ModifyProfileImageView(
     modifier: Modifier = Modifier,
     state: State<Uri?>,
+    onBack: () -> Unit,
+    onDesroy: () -> Unit,
     onSelect: (Uri?) -> Unit
 ) {
     Column(modifier.padding(top = 40.dp)) {
@@ -26,7 +28,9 @@ fun ModifyProfileImageView(
                 .requiredHeightIn(min = 100.dp)
                 .weight(4f),
             title = "마이페이지",
-            onBack = {}) {}
+            onBack = onBack,
+            onDesroy = onDesroy
+        )
         DefaultEmblemSelectIconView(
             modifier = Modifier
                 .requiredHeightIn(min = 100.dp)
@@ -43,5 +47,5 @@ fun ModifyProfileImageView(
 @Composable
 fun ModifyProfileImageViewPreview() {
     val state = remember { mutableStateOf<Uri?>(null) }
-    ModifyProfileImageView(state = state) {}
+    ModifyProfileImageView(state = state, onDesroy = {}, onBack = {}) {}
 }
