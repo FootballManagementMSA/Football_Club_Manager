@@ -44,7 +44,7 @@ class MyPageViewModel @Inject constructor(
         _selectedImageUri.value = uri
     }
 
-    private fun loadUserInfo() {
+    fun loadUserInfo() {
         viewModelScope.launch {
             _uiState.value = UserInfoState.Success(getUserInfoUseCase())
         }
