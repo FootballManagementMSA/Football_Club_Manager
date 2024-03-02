@@ -1,5 +1,6 @@
 package com.example.feature_mypage.presentation.screen
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -50,6 +52,11 @@ fun MyPageScreen(
     val state by viewModel.uiState.collectAsState()
     var userInfo: MyPageUserInfoUiModel? = null
     val isDialogOpen = remember { mutableStateOf<Boolean>(false) }
+    val selectedImageUri by viewModel.selectedImageUri.collectAsState()
+
+    LaunchedEffect(selectedImageUri) {
+        viewModel.loadUserInfo()
+    }
 
     when (state) {
         is UserInfoState.Loading -> {
