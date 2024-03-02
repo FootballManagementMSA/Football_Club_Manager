@@ -35,7 +35,7 @@ class MyPageViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<UserInfoState>(UserInfoState.Loading)
     val uiState get() = _uiState
 
-    private val _modifyUserInfoResult = MutableSharedFlow<BaseResult>(replay = 1)
+    private val _modifyUserInfoResult = MutableSharedFlow<BaseResult>(replay = 0)
     val modifyUserInfoResult: SharedFlow<BaseResult> = _modifyUserInfoResult.asSharedFlow()
     init {
         loadUserInfo()
