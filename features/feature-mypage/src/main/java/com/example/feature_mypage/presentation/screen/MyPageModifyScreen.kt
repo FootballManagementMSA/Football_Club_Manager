@@ -20,6 +20,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.core.ResultState.BaseResult
 import com.example.feature_mypage.presentation.ui_component.ModifyProfileImageView
 import com.example.feature_mypage.presentation.ui_component.MyPageModifyInfoView
@@ -30,6 +32,7 @@ import com.example.ui_component.values.mainTheme
 
 @Composable
 fun MyPageModifyScreen(
+    navHostController: NavHostController,
     viewModel: MyPageViewModel = hiltViewModel()
 ) {
     val scrollState = rememberScrollState()
@@ -109,5 +112,5 @@ private fun isScrollable(config: Configuration) = config.screenHeightDp.dp > 950
 @Preview
 @Composable
 fun MyPageModifyScreenPreview() {
-    MyPageModifyScreen()
+    MyPageModifyScreen(navHostController = rememberNavController())
 }
