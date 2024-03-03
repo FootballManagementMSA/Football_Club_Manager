@@ -13,6 +13,7 @@ import com.example.feature_mypage.domain.usecase.GetUserInfoUseCase
 import com.example.feature_mypage.domain.usecase.ModifyUserInfoUseCase
 import com.example.feature_mypage.presentation.UserInfoState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -37,6 +38,8 @@ class MyPageViewModel @Inject constructor(
 
     private val _modifyUserInfoResult = MutableSharedFlow<BaseResult>(replay = 0)
     val modifyUserInfoResult: SharedFlow<BaseResult> = _modifyUserInfoResult.asSharedFlow()
+
+    private val ioDispatcher = Dispatchers.IO
     init {
         loadUserInfo()
     }
@@ -57,7 +60,7 @@ class MyPageViewModel @Inject constructor(
     }
     @SuppressLint("Recycle", "Range")
     fun modifyUserInfo() {
-        viewModelScope.launch {
+        viewModelScope.launch(ioDispatcher) {
             if (_selectedImageUri.value != null) {
                 val cursor = contentResolver.query(_selectedImageUri.value!!, null, null, null, null)
                 cursor?.moveToNext()
