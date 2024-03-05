@@ -58,8 +58,16 @@ class JoinViewModel @Inject constructor(
     fun join() {
         viewModelScope.launch {
 
-            Log.d("test","joinviewModel_join_function_test")
-            val result=joinUseCase(JoinModel("18011771","chanhue467","a","b","c",1,2))
+            Log.d("test_joinViewModel_join","joinviewModel_join_function_test")
+
+           // Log.d("test_position",_userPosition.value)
+           // Log.d("test_foot",_userFoot.value)
+            Log.d("test_gender",_userGender.value)
+            Log.d("test_age",_userAge.value)
+            Log.d("test_height",_userHeight.value)
+
+            val result=joinUseCase(JoinModel("18011771","chanhue467","a","b",_userGender.value,_userAge.value.toInt(),_userHeight.value.toInt()))
+            Log.d("test_result",result.toString())
             _JoinResult.emit(result)
         }
     }

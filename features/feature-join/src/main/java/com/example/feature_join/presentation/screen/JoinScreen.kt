@@ -1,7 +1,6 @@
 package com.example.feature_join.presentation.screen
 
 import GenderView
-import android.graphics.Paint.Join
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -91,7 +90,9 @@ fun JoinScreen(navHostController: NavHostController) {
 
         //
 
-        GenderView()
+        GenderView(onGenderSelected = { gender ->
+            viewModel.updateUserGender(gender)
+        })
         Spacer(modifier = Modifier.height(10.dp))
 
 

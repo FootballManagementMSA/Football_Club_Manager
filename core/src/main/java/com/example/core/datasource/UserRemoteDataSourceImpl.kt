@@ -3,8 +3,12 @@ package com.example.core.datasource
 import android.util.Log
 import com.example.core.ResultState.BaseResult
 import com.example.core.ResultState.LoginResult
+import android.util.Log
+import com.example.core.JoinResult
+import com.example.core.LoginResult
 import com.example.core.mapper.EntityMapper.mapToEntity
 import com.example.core.mapper.UiModelMapper.mapToUiModel
+import com.example.core.model.JoinModel
 import com.example.core.model.LoginModel
 import com.example.core.model.ModifyUserInfoModel
 import com.example.core.model.MyPageUserInfoUiModel
@@ -19,6 +23,25 @@ internal class UserRemoteDataSourceImpl @Inject constructor(
     private val userRepository: UserRepository,
     private val userLocalDataSource: UserLocalDataSource
 ) : UserRemoteDataSource {
+
+
+    override suspend fun join(joinModel: JoinModel): JoinResult {
+        val result=userRepository.join(joinModel.mapToEntity())
+        return when(result){
+            is RespResult.Success ->{
+                JoinResult.Success(result.data.message)
+
+            }
+            is RespResult.Error ->{
+                JoinResult.Error(result.error.errorMessage)
+
+            }
+        }
+
+
+    }
+
+
     override suspend fun login(loginModel: LoginModel): LoginResult {
         val result = userRepository.login(loginModel.mapToEntity())
         return when (result) {
@@ -83,4 +106,6 @@ internal class UserRemoteDataSourceImpl @Inject constructor(
             }
         }
     }
+
+
 }
