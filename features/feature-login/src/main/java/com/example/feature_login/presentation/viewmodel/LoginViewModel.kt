@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.LoginResult
+import com.example.core.ResultState.LoginResult
 import com.example.core.model.LoginModel
 import com.example.feature_login.domain.usecase.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

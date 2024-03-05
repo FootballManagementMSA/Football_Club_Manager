@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.core.LoginResult
+import com.example.core.ResultState.LoginResult
 import com.example.feature_login.presentation.ui_component.IconView
 import com.example.feature_login.presentation.ui_component.LoginClickableTextView
 import com.example.feature_login.presentation.viewmodel.LoginViewModel

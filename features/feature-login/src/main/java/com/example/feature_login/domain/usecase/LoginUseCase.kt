@@ -1,6 +1,6 @@
 package com.example.feature_login.domain.usecase
 
-import com.example.core.LoginResult
+import com.example.core.ResultState.LoginResult
 import com.example.core.datasource.UserRemoteDataSource
 import com.example.core.model.LoginModel
 import javax.inject.Inject

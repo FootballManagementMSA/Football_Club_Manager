@@ -2,8 +2,8 @@ package com.example.core.di
 
 import android.content.Context
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.example.core.BASE_URL
-import com.example.core.userDataStore
+import com.example.core.util.BASE_URL
+import com.example.core.util.userDataStore
 import com.example.network_api.api.FootballManagerApi
 import com.example.network_api.api.MainHomeApi
 import dagger.Module

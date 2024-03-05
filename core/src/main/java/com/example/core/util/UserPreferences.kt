@@ -1,4 +1,4 @@
-package com.example.core
+package com.example.core.util
 
 import android.content.Context
 import androidx.datastore.preferences.core.stringPreferencesKey

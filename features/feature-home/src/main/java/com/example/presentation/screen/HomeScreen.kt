@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -31,9 +30,9 @@ fun HomeScreen(
     navHostController: NavHostController,
     mainHomeViewModel: MainHomeViewModel = hiltViewModel()
 ) {
-    LaunchedEffect(Unit){
-        mainHomeViewModel.getResponse()
-    }
+//    LaunchedEffect(Unit){
+//        mainHomeViewModel.getResponse()
+//    }
     val config = LocalConfiguration.current
     val currentSchedule = remember {
         mutableStateOf(

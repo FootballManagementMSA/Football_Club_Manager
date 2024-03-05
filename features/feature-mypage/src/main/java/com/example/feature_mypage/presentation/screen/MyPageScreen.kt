@@ -1,5 +1,6 @@
 package com.example.feature_mypage.presentation.screen
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,11 +47,18 @@ import com.example.ui_component.values.mainTheme
 @Composable
 fun MyPageScreen(
     navHostController: NavHostController,
-    viewModel: MyPageViewModel = hiltViewModel()
+    viewModel: MyPageViewModel = hiltViewModel(),
+    onNavigateToLogin: () ->  Unit,
+    onNavigateToMyPageModify: () -> Unit
 ) {
     val state by viewModel.uiState.collectAsState()
     var userInfo: MyPageUserInfoUiModel? = null
     val isDialogOpen = remember { mutableStateOf<Boolean>(false) }
+    val selectedImageUri by viewModel.selectedImageUri.collectAsState()
+
+    LaunchedEffect(selectedImageUri) {
+        viewModel.loadUserInfo()
+    }
 
     when (state) {
         is UserInfoState.Loading -> {
@@ -58,6 +67,7 @@ fun MyPageScreen(
 
         is UserInfoState.Success -> {
             userInfo = (state as UserInfoState.Success).data
+            viewModel.updateSelectedImageUri(Uri.parse(userInfo.image))
         }
     }
     Column {
@@ -101,16 +111,14 @@ fun MyPageScreen(
                             .requiredHeightIn(180.dp)
                             .weight(7f)
                             .padding(30.dp),
-                        onClick = { navHostController.navigate("MYPAGE_MODIFY") },
+                        onClick = { onNavigateToMyPageModify() },
                         onLogout = { isDialogOpen.value = true }
                     )
                     if (isDialogOpen.value) {
                         checkLogOutDialog(
                             name = userInfo?.name ?: "",
                             navigateToLoginScreen = {
-                                navHostController.navigate("LOGIN") {
-                                    popUpTo("SETTING") { inclusive = true }
-                                }
+                                onNavigateToLogin()
                             },
                             onClearDataStore = { viewModel.clearDataStore() }) {
                             isDialogOpen.value = false
@@ -162,7 +170,7 @@ fun checkLogOutDialog(
 @Preview
 @Composable
 fun MyPageScreenPreview() {
-    MyPageScreen(navHostController = rememberNavController())
+    MyPageScreen(navHostController = rememberNavController(), onNavigateToLogin = {}, onNavigateToMyPageModify = {})
 }
 
 @Preview

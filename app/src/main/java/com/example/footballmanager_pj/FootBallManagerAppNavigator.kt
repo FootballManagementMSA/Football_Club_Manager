@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,6 +15,7 @@ import com.example.feature_makeclub.presentation.screen.EmblemSelectScreen
 import com.example.feature_makeclub.presentation.screen.MakeClubScreen
 import com.example.feature_mypage.presentation.screen.MyPageModifyScreen
 import com.example.feature_mypage.presentation.screen.MyPageScreen
+import com.example.feature_mypage.presentation.viewmodel.MyPageViewModel
 import com.example.feature_navigation.Route
 import com.example.feature_navigation.showBarList
 import com.example.feature_squard.presentation.screen.SquadScreen
@@ -25,6 +27,7 @@ fun FootBallManagerAppNavigator(
     uiRoute: State<String>,
     onNavigate: (String) -> Unit
 ) {
+    val myPageViewModel: MyPageViewModel = hiltViewModel()
     NavHost(
         modifier = Modifier.padding(vertical = if (showBarList.contains(uiRoute.value)) 60.dp else 0.dp),
         navController = navHostController,
@@ -44,7 +47,16 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.SETTINGS) {
             onNavigate(Route.SETTINGS)
-            MyPageScreen(navHostController)
+            MyPageScreen(
+                navHostController,
+                myPageViewModel,
+                onNavigateToLogin = {
+                    navHostController.navigate("LOGIN") {
+                        popUpTo("SETTINGS") { inclusive = true }
+                    }
+                },
+                onNavigateToMyPageModify = { navHostController.navigate("MYPAGE_MODIFY") }
+            )
         }
         composable(Route.MAKE_CLUB) {
             onNavigate(Route.MAKE_CLUB)
@@ -59,7 +71,14 @@ fun FootBallManagerAppNavigator(
             CompleteClubMakingScreen()
         }
         composable(Route.MYPAGE_MODIFY) {
-            MyPageModifyScreen()
+            MyPageModifyScreen(
+                navHostController,
+                myPageViewModel,
+                onNavigateToMyPage = {
+                    navHostController.navigate("SETTINGS") {
+                        popUpTo("MYPAGE_MODIFY")
+                    }
+                })
         }
     }
 }

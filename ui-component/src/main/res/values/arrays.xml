@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="positions">
+        <item>ST</item>
+        <item>LS</item>
+        <item>RS</item>
+        <item>LWF</item>
+        <item>CF</item>
+        <item>RWF</item>
+        <item>LAM</item>
+        <item>LCAM</item>
+        <item>CAM</item>
+        <item>RCAM</item>
+        <item>RAM</item>
+        <item>LWM</item>
+        <item>LM</item>
+        <item>LCM</item>
+        <item>CM</item>
+        <item>RCM</item>
+        <item>RM</item>
+        <item>RWM</item>
+        <item>LDM</item>
+        <item>LCDM</item>
+        <item>CDM</item>
+        <item>RCDM</item>
+        <item>RDM</item>
+        <item>LWB</item>
+        <item>LB</item>
+        <item>LCB</item>
+        <item>CB</item>
+        <item>RCB</item>
+        <item>RB</item>
+        <item>RWB</item>
+        <item>GK</item>
+    </array>
+
+    <array name="sex">
+        <item>남성</item>
+        <item>여성</item>
+    </array>
+
+    <array name="foot">
+        <item>왼발</item>
+        <item>오른발</item>
+    </array>
+</resources>
