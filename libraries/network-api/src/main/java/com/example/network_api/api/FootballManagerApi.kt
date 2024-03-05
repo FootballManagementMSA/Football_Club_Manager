@@ -1,6 +1,8 @@
 package com.example.network_api.api
 
+import com.example.network_api.entity.Join
 import com.example.network_api.entity.Login
+import com.example.network_api.response.JoinResponse
 import com.example.network_api.response.LoginResponse
 import com.example.network_api.response.ModifyUserInfoResponse
 import com.example.network_api.response.UserInfoResponse
@@ -19,6 +21,12 @@ interface FootballManagerApi {
     suspend fun login(
         @Body loginReq: Login
     ): Response<LoginResponse>
+
+    @POST("/api/user-service/register")
+    suspend fun Join(
+        @Body JoinReq:Join
+    ):Response<JoinResponse>
+
 
     @GET("/api/user-service/users")
     suspend fun getUserInfo(): Response<UserInfoResponse>
