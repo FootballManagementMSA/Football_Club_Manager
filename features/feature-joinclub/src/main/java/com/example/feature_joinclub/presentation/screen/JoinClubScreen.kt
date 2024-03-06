@@ -20,17 +20,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.core.model.Club
 import com.example.core.model.ClubUiModel
-import com.example.ui_component.template.DefaultBottomSheet
 import com.example.feature_joinclub.presentation.ui_component.ClubContent
 import com.example.feature_joinclub.presentation.ui_component.ClubItem
 import com.example.feature_joinclub.presentation.ui_component.ClubSearchView
+import com.example.ui_component.template.DefaultBottomSheet
 import com.example.ui_component.template.DefaultListView
 import com.example.ui_component.values.mainTheme
 
 @Composable
-fun JoinClubScreen() {
+fun JoinClubScreen(onNavigateToMakeClub: () -> Unit) {
     val showSheet = remember {
-        mutableStateOf(false)
+        mutableStateOf(true)
     }
     val teamList = remember {
         mutableStateOf(
@@ -71,7 +71,7 @@ fun JoinClubScreen() {
                 .requiredHeightIn(min = 300.dp)
                 .weight(2f)
         ){
-            showSheet.value = !showSheet.value
+            onNavigateToMakeClub()
         }
         Box(
             modifier = Modifier
@@ -85,7 +85,7 @@ fun JoinClubScreen() {
 @Composable
 @Preview
 fun JoinClubScreenPreview() {
-    JoinClubScreen()
+    JoinClubScreen({})
 }
 
 fun dummyClub() = ClubUiModel(

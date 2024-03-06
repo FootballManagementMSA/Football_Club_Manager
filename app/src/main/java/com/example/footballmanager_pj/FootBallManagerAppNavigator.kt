@@ -9,6 +9,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.feature_joinclub.presentation.screen.JoinClubScreen
 import com.example.feature_login.presentation.screen.LoginScreen
 import com.example.feature_makeclub.presentation.screen.CompleteClubMakingScreen
 import com.example.feature_makeclub.presentation.screen.EmblemSelectScreen
@@ -79,6 +80,11 @@ fun FootBallManagerAppNavigator(
                         popUpTo("MYPAGE_MODIFY")
                     }
                 })
+        }
+        composable(Route.JOIN_CLUB) {
+            JoinClubScreen(onNavigateToMakeClub = {
+                navHostController.navigate("MAKE_CLUB")
+            })
         }
     }
 }
