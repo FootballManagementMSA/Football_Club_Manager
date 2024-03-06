@@ -31,7 +31,11 @@ import com.example.ui_component.values.lastGradientColor
 import com.example.ui_component.values.mainTheme
 
 @Composable
-fun EmblemSelectScreen(viewModel: MakeClubViewModel = hiltViewModel(), onNavigateToCompleteClubMake: () -> Unit) {
+fun EmblemSelectScreen(
+    viewModel: MakeClubViewModel = hiltViewModel(),
+    onNavigateToCompleteClubMake: () -> Unit,
+    onNavigateToMakeClub: () -> Unit
+) {
     val scrollState = rememberScrollState()
     val state by viewModel.uiState.collectAsState()
     val context = LocalContext.current
@@ -51,9 +55,11 @@ fun EmblemSelectScreen(viewModel: MakeClubViewModel = hiltViewModel(), onNavigat
                 Toast.LENGTH_SHORT
             ).show()
         }
+
         is MakeClubResult.Loading -> {
             CircularProgressIndicator()
         }
+
         is MakeClubResult.Initial -> {
 
         }
@@ -67,12 +73,14 @@ fun EmblemSelectScreen(viewModel: MakeClubViewModel = hiltViewModel(), onNavigat
             .background(color = mainTheme)
             .padding(40.dp)
     ) {
-        EmblemSelectTopView()
+        EmblemSelectTopView() {
+            onNavigateToMakeClub()
+        }
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            EmblemSelectIconView(viewModel.selectedImageUri.collectAsState()){
+            EmblemSelectIconView(viewModel.selectedImageUri.collectAsState()) {
                 viewModel.updateSelectedImageUri(it)
             }
         }
@@ -94,5 +102,5 @@ fun EmblemSelectScreen(viewModel: MakeClubViewModel = hiltViewModel(), onNavigat
 @Preview
 @Composable
 fun EmblemSelectScreenPrevew() {
-    EmblemSelectScreen(onNavigateToCompleteClubMake = {})
+    EmblemSelectScreen(onNavigateToCompleteClubMake = {}, onNavigateToMakeClub = {})
 }

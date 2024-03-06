@@ -69,15 +69,25 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.EMBLEM_SELECT) {
             onNavigate(Route.EMBLEM_SELECT)
-            EmblemSelectScreen(makeClubViewModel, onNavigateToCompleteClubMake = {
-                navHostController.navigate("COMPLETE_CLUB_MAKING")
-            })
+            EmblemSelectScreen(
+                makeClubViewModel,
+                onNavigateToCompleteClubMake = {
+                    navHostController.navigate("COMPLETE_CLUB_MAKING")
+                },
+                onNavigateToMakeClub = {
+                    navHostController.navigate("MAKE_CLUB") {
+                        popUpTo("EMBLEM_SELECT") { inclusive = true }
+                    }
+                }
+            )
         }
         composable(Route.COMPLETE_CLUB_MAKING) {
             onNavigate(Route.COMPLETE_CLUB_MAKING)
             CompleteClubMakingScreen(onNavigateToJoinClub = {
-                navHostController.navigate("JOIN_CLUB") {
-                    popUpTo("COMPLETE_CLUB_MAKING")
+                navHostController.navigate("HOME") {
+                    popUpTo("HOME") { inclusive = true }
+                    popUpTo("EMBLEM_SELECT") { inclusive = true }
+                    popUpTo("MAKE_CLUB") { inclusive = true }
                 }
             })
         }

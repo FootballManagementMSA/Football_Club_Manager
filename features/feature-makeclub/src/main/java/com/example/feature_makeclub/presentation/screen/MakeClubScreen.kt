@@ -1,5 +1,6 @@
 package com.example.feature_makeclub.presentation.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,6 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -29,6 +31,7 @@ fun MakeClubScreen(
 ) {
     val scrollState = rememberScrollState()
     val clubName = viewModel.clubName.collectAsState("")
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -37,7 +40,13 @@ fun MakeClubScreen(
             .background(color = mainTheme)
             .padding(40.dp)
     ) {
-        MakeClubTopView()
+        MakeClubTopView() {
+            if (clubName.value.isNotEmpty()) {
+                onNavigateToEmblemSelect()
+            } else {
+                Toast.makeText(context, "구단명을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
         ClubNameView()
         ClubNameInputField(
             state = clubName,
@@ -49,7 +58,12 @@ fun MakeClubScreen(
             buttonText = "다음",
             roundedCornerShape = RoundedCornerShape(20.dp)
         ) {
-            onNavigateToEmblemSelect()
+            if (clubName.value.isNotEmpty()) {
+                onNavigateToEmblemSelect()
+            } else {
+                Toast.makeText(context, "구단명을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 }
