@@ -1,5 +1,6 @@
 package com.example.feature_makeclub.presentation.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,13 +9,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.core.ResultState.MakeClubResult
 import com.example.feature_makeclub.presentation.ui_component.emblem.EmblemInfoBox
 import com.example.feature_makeclub.presentation.ui_component.emblem.EmblemSelectIconView
 import com.example.feature_makeclub.presentation.ui_component.emblem.EmblemSelectTopView
@@ -25,8 +31,35 @@ import com.example.ui_component.values.lastGradientColor
 import com.example.ui_component.values.mainTheme
 
 @Composable
-fun EmblemSelectScreen(viewModel: MakeClubViewModel = hiltViewModel()) {
+fun EmblemSelectScreen(viewModel: MakeClubViewModel = hiltViewModel(), onNavigateToCompleteClubMake: () -> Unit) {
     val scrollState = rememberScrollState()
+    val state by viewModel.uiState.collectAsState()
+    val context = LocalContext.current
+
+    if (state is MakeClubResult.Success) {
+        LaunchedEffect(key1 = state) {
+            viewModel.handleSuccess()
+            onNavigateToCompleteClubMake()
+        }
+    }
+
+    when (state) {
+        is MakeClubResult.Error -> {
+            Toast.makeText(
+                context,
+                "구단 생성 실패: ${(state as MakeClubResult.Error).errorMessage}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        is MakeClubResult.Loading -> {
+            CircularProgressIndicator()
+        }
+        is MakeClubResult.Initial -> {
+
+        }
+
+        else -> {}
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -53,7 +86,7 @@ fun EmblemSelectScreen(viewModel: MakeClubViewModel = hiltViewModel()) {
             textColor = lastGradientColor,
             roundedCornerShape = RoundedCornerShape(20.dp)
         ) {
-            viewModel.sendClubInfoData()
+            viewModel.sendClubInfoData(context)
         }
     }
 }
@@ -61,5 +94,5 @@ fun EmblemSelectScreen(viewModel: MakeClubViewModel = hiltViewModel()) {
 @Preview
 @Composable
 fun EmblemSelectScreenPrevew() {
-    EmblemSelectScreen()
+    EmblemSelectScreen(onNavigateToCompleteClubMake = {})
 }
