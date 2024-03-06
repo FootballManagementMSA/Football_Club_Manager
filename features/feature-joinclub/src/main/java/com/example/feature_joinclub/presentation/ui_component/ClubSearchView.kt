@@ -24,13 +24,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.ui_component.buttons.RoundedIconButton
 import com.example.ui_component.VerticalSpacer
+import com.example.ui_component.buttons.RoundedIconButton
 import com.example.ui_component.values.hugeFont
 import com.example.ui_component.values.tinyFont
 
 @Composable
-fun ClubSearchView(modifier: Modifier = Modifier, showSheet: () -> Unit) {
+fun ClubSearchView(modifier: Modifier = Modifier, showSheet: () -> Unit, onNavigateToMakeClub: () -> Unit) {
     Column(
         modifier
     ) {
@@ -83,6 +83,7 @@ fun ClubSearchView(modifier: Modifier = Modifier, showSheet: () -> Unit) {
                 content = "구단 제작",
             ) {
                 showSheet()
+                onNavigateToMakeClub()
             }
         }
         Spacer(modifier = Modifier.weight(1f))
@@ -114,7 +115,8 @@ fun ClubSearchViewPreview() {
     }
     ClubSearchView(
         Modifier
-            .height(300.dp)
+            .height(300.dp),
+        {}
     ) {
         showSheet.value = !showSheet.value
     }

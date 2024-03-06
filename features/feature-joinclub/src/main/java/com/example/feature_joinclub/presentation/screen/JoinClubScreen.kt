@@ -69,7 +69,8 @@ fun JoinClubScreen(onNavigateToMakeClub: () -> Unit) {
         ClubSearchView(
             Modifier
                 .requiredHeightIn(min = 300.dp)
-                .weight(2f)
+                .weight(2f),
+            showSheet= { }
         ){
             onNavigateToMakeClub()
         }
