@@ -24,7 +24,8 @@ import com.example.ui_component.values.mainTheme
 
 @Composable
 fun MakeClubScreen(
-    viewModel: MakeClubViewModel = hiltViewModel()
+    viewModel: MakeClubViewModel = hiltViewModel(),
+    onNavigateToEmblemSelect: () -> Unit
 ) {
     val scrollState = rememberScrollState()
     val clubName = viewModel.clubName.collectAsState("")
@@ -48,6 +49,7 @@ fun MakeClubScreen(
             buttonText = "다음",
             roundedCornerShape = RoundedCornerShape(20.dp)
         ) {
+            onNavigateToEmblemSelect()
         }
     }
 }
@@ -55,5 +57,5 @@ fun MakeClubScreen(
 @Preview
 @Composable
 fun MakeClubScreenPreview() {
-    MakeClubScreen()
+    MakeClubScreen(onNavigateToEmblemSelect = {})
 }
