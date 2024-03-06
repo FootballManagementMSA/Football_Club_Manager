@@ -3,9 +3,7 @@ package com.example.core.datasource
 import android.util.Log
 import com.example.core.ResultState.BaseResult
 import com.example.core.ResultState.LoginResult
-import android.util.Log
 import com.example.core.JoinResult
-import com.example.core.LoginResult
 import com.example.core.mapper.EntityMapper.mapToEntity
 import com.example.core.mapper.UiModelMapper.mapToUiModel
 import com.example.core.model.JoinModel
