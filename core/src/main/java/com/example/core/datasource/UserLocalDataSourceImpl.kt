@@ -35,6 +35,12 @@ internal class UserLocalDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun saveUniqueNumber(uniqueNumber: String) {
+        dataStore.edit {
+            it[PreferenceKeys.UNIQUE_NUMBER] = uniqueNumber
+        }
+    }
+
     override suspend fun login() {
     }
     override suspend fun join(){

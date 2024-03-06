@@ -5,6 +5,7 @@ interface UserLocalDataSource {
     suspend fun saveAccount(account: String)
     suspend fun savePassword(password: String)
     suspend fun saveRefreshToken(refreshToken: String)
+    suspend fun saveUniqueNumber(uniqueNumber: String)
     suspend fun login()
     suspend fun join()
     suspend fun getAccessToken(): String
