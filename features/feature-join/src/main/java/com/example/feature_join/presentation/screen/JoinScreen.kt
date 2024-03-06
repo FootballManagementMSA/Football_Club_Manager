@@ -25,21 +25,23 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import com.example.core.JoinResult
-import com.example.core.LoginResult
 import com.example.feature_join.presentation.ui_component.InputView_OnlyNum
 import com.example.feature_join.presentation.viewmodel.JoinViewModel
 import com.example.ui_component.buttons.CustomGradientButton_1
 import com.example.ui_component.values.mainTheme
 
 @Composable
-fun JoinScreen(navHostController: NavHostController) {
+fun JoinScreen(
+    navHostController: NavHostController,
+    viewModel: JoinViewModel = hiltViewModel(),
+    onNavigateToProfileSettingScreen: () -> Unit,
+) {
     val scrollState = rememberScrollState()
-    val viewModel: JoinViewModel = hiltViewModel()
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
         viewModel.JoinResult.collect { JoinResult ->
-            when(JoinResult) {
+            when (JoinResult) {
                 is JoinResult.Success -> {
                     Toast.makeText(
                         context,
@@ -49,6 +51,7 @@ fun JoinScreen(navHostController: NavHostController) {
 
 
                 }
+
                 is JoinResult.Error -> {
                     Toast.makeText(
                         context,
@@ -56,6 +59,7 @@ fun JoinScreen(navHostController: NavHostController) {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
+
                 else -> {}
             }
         }
@@ -73,8 +77,7 @@ fun JoinScreen(navHostController: NavHostController) {
             .fillMaxSize()
             .verticalScroll(scrollState)
             .background(color = mainTheme)
-            .padding(40.dp)
-        , horizontalAlignment = Alignment.CenterHorizontally
+            .padding(40.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         Spacer(modifier = Modifier.height(40.dp))
@@ -120,7 +123,7 @@ fun JoinScreen(navHostController: NavHostController) {
             roundedCornerShape = RoundedCornerShape(20.dp)
 
         ) {
-            viewModel.join()
+            onNavigateToProfileSettingScreen()
         }
 
     }

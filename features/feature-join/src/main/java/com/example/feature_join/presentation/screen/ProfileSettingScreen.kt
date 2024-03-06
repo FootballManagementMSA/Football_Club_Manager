@@ -31,7 +31,10 @@ import com.example.ui_component.R
 import com.example.ui_component.values.mainTheme
 
 @Composable
-fun ProfileSettingScreen(viewModel: JoinViewModel = hiltViewModel()) {
+fun ProfileSettingScreen(
+    viewModel: JoinViewModel = hiltViewModel(),
+    onNavigateToJoinSuccessScreen: () -> Unit
+) {
     val scrollState = rememberScrollState()
     val position = remember { listOf("공격수" to "ST", "미드필더" to "MF", "수비수" to "DF", "골키퍼" to "GK") }
     val foot = remember { listOf("왼발잡이" to "왼발", "오른발잡이" to "오른발", "양발잡이" to "양발") }
@@ -117,6 +120,9 @@ fun ProfileSettingScreen(viewModel: JoinViewModel = hiltViewModel()) {
             roundedCornerShape = RoundedCornerShape(20.dp)
 
         ) {
+            viewModel.join()
+            onNavigateToJoinSuccessScreen()
+
 
         }
 
