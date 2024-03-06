@@ -9,6 +9,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.feature_join.presentation.screen.JoinScreen
+import com.example.feature_join.presentation.screen.JoinSuccessScreen
+import com.example.feature_join.presentation.screen.ProfileSettingScreen
+import com.example.feature_join.presentation.viewmodel.JoinViewModel
 import com.example.feature_login.presentation.screen.LoginScreen
 import com.example.feature_makeclub.presentation.screen.CompleteClubMakingScreen
 import com.example.feature_makeclub.presentation.screen.EmblemSelectScreen
@@ -28,10 +32,11 @@ fun FootBallManagerAppNavigator(
     onNavigate: (String) -> Unit
 ) {
     val myPageViewModel: MyPageViewModel = hiltViewModel()
+    val joinViewModel: JoinViewModel = hiltViewModel()
     NavHost(
         modifier = Modifier.padding(vertical = if (showBarList.contains(uiRoute.value)) 60.dp else 0.dp),
         navController = navHostController,
-        startDestination = Route.LOGIN
+        startDestination = Route.JOIN
     ) {
         composable(Route.HOME) {
             onNavigate(Route.HOME)
@@ -40,6 +45,24 @@ fun FootBallManagerAppNavigator(
         composable(Route.LOGIN) {
             onNavigate(Route.LOGIN)
             LoginScreen(navHostController)
+        }
+        composable(Route.JOIN) {
+            JoinScreen(
+                navHostController, joinViewModel,
+                onNavigateToProfileSettingScreen = {
+                    navHostController.navigate("PROFILE_SETTING")
+                },
+            )
+        }
+        composable(Route.PROFILE_SETTING) {
+            onNavigate(Route.PROFILE_SETTING)
+            ProfileSettingScreen(
+                joinViewModel,
+                onNavigateToJoinSuccessScreen = { navHostController.navigate("JOIN_SUCCESS") })
+        }
+        composable(Route.JOIN_SUCCESS) {
+            onNavigate(Route.JOIN_SUCCESS)
+            JoinSuccessScreen()
         }
         composable(Route.SQUAD) {
             onNavigate(Route.SQUAD)
