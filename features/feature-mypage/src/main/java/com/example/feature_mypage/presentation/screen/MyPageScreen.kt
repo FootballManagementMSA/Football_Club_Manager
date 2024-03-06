@@ -67,7 +67,9 @@ fun MyPageScreen(
 
         is UserInfoState.Success -> {
             userInfo = (state as UserInfoState.Success).data
-            viewModel.updateSelectedImageUri(Uri.parse(userInfo.image))
+            if (userInfo.image != null) {
+                viewModel.updateSelectedImageUri(Uri.parse(userInfo.image))
+            }
         }
     }
     Column {
