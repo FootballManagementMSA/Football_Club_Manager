@@ -14,6 +14,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,7 +26,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import com.example.core.JoinResult
 import com.example.feature_join.presentation.ui_component.InputView_OnlyNum
@@ -38,6 +41,12 @@ fun JoinScreen(
 ) {
     val scrollState = rememberScrollState()
     val context = LocalContext.current
+
+    var isGenderSelected by remember { mutableStateOf(false) }
+    var isAgeEntered by remember { mutableStateOf(false) }
+    var isHeightEntered by remember { mutableStateOf(false) }
+
+
 
     LaunchedEffect(Unit) {
         viewModel.JoinResult.collect { JoinResult ->
@@ -91,10 +100,10 @@ fun JoinScreen(
         )
         Spacer(modifier = Modifier.height(40.dp))
 
-        //
-
         GenderView(onGenderSelected = { gender ->
             viewModel.updateUserGender(gender)
+            isGenderSelected = true
+
         })
         Spacer(modifier = Modifier.height(10.dp))
 
@@ -103,7 +112,10 @@ fun JoinScreen(
             state = viewModel.userAge,
             label = "나이(출생년도)",
             placeholder = "나이를 입력해주세요.",
-            onValueChanges = { viewModel.updateUserAge(it) })
+            onValueChanges = {
+                viewModel.updateUserAge(it)
+                isAgeEntered = it.isNotEmpty()
+            })
 
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -111,7 +123,11 @@ fun JoinScreen(
             state = viewModel.userHeight,
             label = "키(cm)",
             placeholder = "키를 입력해주세요.",
-            onValueChanges = { viewModel.updateUserHeight(it) })
+            onValueChanges = {
+                viewModel.updateUserHeight(it)
+                isHeightEntered = it.isNotEmpty()
+
+            })
 
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -123,7 +139,22 @@ fun JoinScreen(
             roundedCornerShape = RoundedCornerShape(20.dp)
 
         ) {
-            onNavigateToProfileSettingScreen()
+            if (isGenderSelected && isAgeEntered && isHeightEntered) {
+                onNavigateToProfileSettingScreen()
+            } else {
+                val message = when {
+                    !isGenderSelected -> "성별을 선택해주세요."
+                    !isAgeEntered -> "나이(출생년도)를 입력해주세요."
+                    !isHeightEntered-> "키(cm)를 입력해주세요."
+                    else -> {"입력이 완료되지 않았습니다."}
+                }
+                Toast.makeText(
+                    context,
+                    message,
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }
         }
 
     }
