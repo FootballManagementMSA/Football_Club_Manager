@@ -55,7 +55,7 @@ fun JoinScreen(
                 is JoinResult.Error -> {
                     Toast.makeText(
                         context,
-                        "로그인 실패: ${(JoinResult as JoinResult.Error).errorMessage}",
+                        "회원가입 실패: ${(JoinResult as JoinResult.Error).errorMessage}",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
