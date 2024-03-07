@@ -73,13 +73,6 @@ class JoinViewModel @Inject constructor(
                 )
             )
             _JoinResult.emit(result)
-            Log.d("test_result", result.toString())
-            Log.d("test_gender", _userGender.value)
-            Log.d("test_age", _userAge.value)
-            Log.d("test_height", _userHeight.value)
-            Log.d("test_foot", _userFoot.value)
-            Log.d("test_position", _userPosition.value)
-            Log.d("test_name", _userName.value)
         }
     }
 
