@@ -62,7 +62,9 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.JOIN_SUCCESS) {
             onNavigate(Route.JOIN_SUCCESS)
-            JoinSuccessScreen()
+            JoinSuccessScreen(onNavigateToLoginScreen = {
+                navHostController.navigate("LOGIN")
+            })
         }
         composable(Route.SQUAD) {
             onNavigate(Route.SQUAD)
