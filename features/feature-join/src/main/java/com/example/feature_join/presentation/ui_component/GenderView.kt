@@ -26,26 +26,30 @@ fun GenderView(onGenderSelected: (String) -> Unit) {
         GenderButton(
             isSelected = isMaleButtonClicked,
             onClick = {
-                isMaleButtonClicked = !isMaleButtonClicked
-                isFemaleButtonClicked = false
-                onGenderSelected("male")
-
+                if (!isMaleButtonClicked) {
+                    isMaleButtonClicked = true
+                    isFemaleButtonClicked = false
+                    onGenderSelected("male")
+                }
             },
             imageResId = com.example.ui_component.R.drawable.only_male_image,
             contentDescription = "join_male_image",
-            gender = "남성")
+            gender = "남성"
+        )
         Spacer(modifier = Modifier.width(20.dp))
 
         GenderButton(
             isSelected = isFemaleButtonClicked,
             onClick = {
-                isFemaleButtonClicked = !isFemaleButtonClicked
-                isMaleButtonClicked = false
-                onGenderSelected("female")
-
+                if (!isFemaleButtonClicked) {
+                    isFemaleButtonClicked = true
+                    isMaleButtonClicked = false
+                    onGenderSelected("female")
+                }
             },
             imageResId = com.example.ui_component.R.drawable.only_female_image,
             contentDescription = "join_female_image",
-            gender = "여성")
+            gender = "여성"
+        )
     }
 }
