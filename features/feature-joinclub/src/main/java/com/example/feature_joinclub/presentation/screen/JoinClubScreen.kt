@@ -18,17 +18,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.model.Club
-import com.example.core.model.ClubUiModel
-import com.example.ui_component.template.DefaultBottomSheet
+import com.example.core.model.ClubData
+import com.example.core.model.ClubInfo
 import com.example.feature_joinclub.presentation.ui_component.ClubContent
 import com.example.feature_joinclub.presentation.ui_component.ClubItem
 import com.example.feature_joinclub.presentation.ui_component.ClubSearchView
+import com.example.feature_joinclub.presentation.viewmodel.ClubSearchViewModel
+import com.example.ui_component.template.DefaultBottomSheet
 import com.example.ui_component.template.DefaultListView
 import com.example.ui_component.values.mainTheme
 
 @Composable
-fun JoinClubScreen() {
+fun JoinClubScreen(
+    viewModel: ClubSearchViewModel = hiltViewModel(),
+    onNavigateToClubSearch: () -> Unit
+) {
     val showSheet = remember {
         mutableStateOf(false)
     }
@@ -38,7 +44,7 @@ fun JoinClubScreen() {
         )
     }
     if (showSheet.value) {
-        DefaultBottomSheet(onDismiss = {showSheet.value = false}) {
+        DefaultBottomSheet(onDismiss = { showSheet.value = false }) {
             val selectedIndex = remember {
                 mutableStateOf(-1)
             }
@@ -53,7 +59,9 @@ fun JoinClubScreen() {
                 showButton = true,
                 onClick = { },
                 listContent = {
-                    itemsIndexed(teamList.value.club, key = { _, item -> item.name }) { index, club ->
+                    itemsIndexed(
+                        teamList.value.data.team,
+                        key = { _, item -> item.name }) { index, club ->
                         ClubItem(selectedIndex, index) { ClubContent(club = club) }
                     }
                 }
@@ -87,49 +95,19 @@ fun JoinClubScreen() {
 @Composable
 @Preview
 fun JoinClubScreenPreview() {
-    JoinClubScreen()
+    JoinClubScreen() {}
 }
 
-fun dummyClub() = ClubUiModel(
-    club =
-    listOf(
-        Club(
-            name = "a", "14",
-            "hello"
-        ),
-        Club(
-            name = "b", "18",
-            "world"
-        ), Club(
-            name = "c", "18",
-            "world"
-        ),
-        Club(
-            name = "d", "18",
-            "world"
-        ),
-        Club(
-            name = "e", "18",
-            "world"
-        ),
-        Club(
-            name = "f", "14",
-            "hello"
-        ),
-        Club(
-            name = "g", "18",
-            "world"
-        ), Club(
-            name = "h", "18",
-            "world"
-        ),
-        Club(
-            name = "i", "18",
-            "world"
-        ),
-        Club(
-            name = "j", "18",
-            "world"
+fun dummyClub() = Club(
+    status = 1,
+    code = "code",
+    message = "message",
+    data = ClubData(
+        team = listOf(
+            ClubInfo(id = "id", name = "구단명", memberNum = "20", star = 3),
+            ClubInfo(id = "id", name = "구단명2", memberNum = "20", star = 3),
+            ClubInfo(id = "id", name = "구단명3", memberNum = "20", star = 3),
+            ClubInfo(id = "id", name = "구단명4", memberNum = "20", star = 3)
         )
     )
 )
