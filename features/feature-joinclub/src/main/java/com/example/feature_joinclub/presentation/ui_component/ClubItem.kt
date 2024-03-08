@@ -26,10 +26,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.core.model.Club
-import com.example.ui_component.template.DefaultItem
+import com.example.core.model.ClubInfo
 import com.example.ui_component.HorizontalSpacer
 import com.example.ui_component.VerticalSpacer
+import com.example.ui_component.template.DefaultItem
 import com.example.ui_component.values.horizontalGradation
 import com.example.ui_component.values.tinyFont
 import com.example.ui_component.values.veryBigFont
@@ -69,7 +69,7 @@ fun ClubItem(
 }
 
 @Composable
-fun ClubContent(club: Club) {
+fun ClubContent(club: ClubInfo) {
     Row(
         Modifier
             .padding(20.dp)
@@ -82,13 +82,13 @@ fun ClubContent(club: Club) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(imageVector = Icons.Default.Person, contentDescription = "")
                 HorizontalSpacer(value = 5)
-                Text(text = "${club.person} 명", fontSize = tinyFont)
+                Text(text = "${club.memberNum} 명", fontSize = tinyFont)
             }
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(imageVector = Icons.Default.Person, contentDescription = "")
-                HorizontalSpacer(value = 5)
-                Text(text = club.introduction, fontSize = tinyFont)
-            }
+//            Row(verticalAlignment = Alignment.CenterVertically) {
+//                Icon(imageVector = Icons.Default.Person, contentDescription = "")
+//                HorizontalSpacer(value = 5)
+//                Text(text = club.introduction, fontSize = tinyFont)
+//            }
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
@@ -111,6 +111,6 @@ fun ClubContent(club: Club) {
 @Preview
 fun ClubItemPreview() {
     ClubItem(selectedIndex = mutableStateOf(1), index = 1) {
-        ClubContent(club = Club("a", "12", "hi"))
+        ClubContent(club = ClubInfo("a", "12", "3",3))
     }
 }
