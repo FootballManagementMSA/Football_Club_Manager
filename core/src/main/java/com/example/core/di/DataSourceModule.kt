@@ -1,5 +1,7 @@
 package com.example.core.di
 
+import com.example.core.datasource.ClubDataSource
+import com.example.core.datasource.ClubDataSourceImpl
 import com.example.core.datasource.MainHomeDataSource
 import com.example.core.datasource.MainHomeDataSourceImpl
 import com.example.core.datasource.PositionPresetDataSource
@@ -28,4 +30,7 @@ internal abstract class DataSourceModule {
 
     @Binds
     abstract fun bindsMainHomeDataSource(mainHomeDataSourceImpl: MainHomeDataSourceImpl): MainHomeDataSource
+
+    @Binds
+    abstract fun bindsClubDataSource(clubDataSourceImpl: ClubDataSourceImpl): ClubDataSource
 }

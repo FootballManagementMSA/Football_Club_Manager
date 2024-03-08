@@ -1,5 +1,6 @@
 package com.example.feature_makeclub.presentation.ui_component.emblem
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
@@ -18,9 +19,9 @@ import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.largeIcon
 
 @Composable
-fun EmblemSelectTopView() {
+fun EmblemSelectTopView(onClick: () -> Unit) {
     Column {
-        BackArrowImageView()
+        BackArrowImageView(onClick)
         VerticalSpacer(value = 48)
         EmblemSelectText()
         VerticalSpacer(value = 30)
@@ -28,7 +29,7 @@ fun EmblemSelectTopView() {
 }
 
 @Composable
-fun BackArrowImageView() {
+fun BackArrowImageView(onClick: () -> Unit) {
     Column {
         Box(
             modifier = Modifier
@@ -39,7 +40,10 @@ fun BackArrowImageView() {
                 contentDescription = null,
                 modifier = Modifier
                     .size(largeIcon)
-                    .align(Alignment.TopStart),
+                    .align(Alignment.TopStart)
+                    .clickable {
+                        onClick()
+                    },
                 tint = Color.White
             )
         }
@@ -59,5 +63,5 @@ fun EmblemSelectText() {
 @Composable
 @Preview
 fun EmblemSelectPreview() {
-    EmblemSelectTopView()
+    EmblemSelectTopView({})
 }

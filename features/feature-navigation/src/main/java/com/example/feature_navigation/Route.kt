@@ -14,4 +14,4 @@ object Route {
     const val CLUB_SEARCH = "CLUB_SEARCH"
 }
 
-val showBarList = listOf(Route.HOME, Route.SQUAD)
+val showBarList = listOf(Route.HOME)

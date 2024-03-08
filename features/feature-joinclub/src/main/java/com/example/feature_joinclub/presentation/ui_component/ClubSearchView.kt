@@ -34,7 +34,8 @@ import com.example.ui_component.values.tinyFont
 fun ClubSearchView(
     modifier: Modifier = Modifier,
     showSheet: () -> Unit,
-    onIconClick: (String) -> Unit
+    onIconClick: (String) -> Unit,
+    onNavigateToMakeClub: () -> Unit
 ) {
     Column(
         modifier
@@ -90,6 +91,7 @@ fun ClubSearchView(
                 content = "구단 제작",
             ) {
                 showSheet()
+                onNavigateToMakeClub()
             }
         }
         Spacer(modifier = Modifier.weight(1f))
@@ -125,8 +127,8 @@ fun ClubSearchViewPreview() {
     ClubSearchView(
         Modifier
             .height(300.dp),
-        showSheet = {showSheet.value = !showSheet.value}
+        showSheet = {},
+        onIconClick = {},
     ) {
-
     }
 }

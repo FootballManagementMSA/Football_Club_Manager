@@ -33,10 +33,11 @@ import com.example.ui_component.values.mainTheme
 @Composable
 fun JoinClubScreen(
     viewModel: ClubSearchViewModel = hiltViewModel(),
+    onNavigateToMakeClub: () -> Unit,
     onNavigateToClubSearch: () -> Unit
 ) {
     val showSheet = remember {
-        mutableStateOf(false)
+        mutableStateOf(true)
     }
     val teamList = remember {
         mutableStateOf(
@@ -78,7 +79,8 @@ fun JoinClubScreen(
             Modifier
                 .requiredHeightIn(min = 300.dp)
                 .weight(2f),
-            showSheet = { showSheet.value = !showSheet.value }
+            showSheet = { showSheet.value = !showSheet.value },
+            onNavigateToMakeClub= onNavigateToMakeClub()
         ) {
             viewModel.searchClub(it)
             onNavigateToClubSearch()
@@ -95,7 +97,7 @@ fun JoinClubScreen(
 @Composable
 @Preview
 fun JoinClubScreenPreview() {
-    JoinClubScreen() {}
+    JoinClubScreen(onNavigateToMakeClub = {}) {}
 }
 
 fun dummyClub() = Club(

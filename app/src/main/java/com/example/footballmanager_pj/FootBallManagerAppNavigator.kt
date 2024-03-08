@@ -9,6 +9,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.feature_joinclub.presentation.screen.JoinClubScreen
 import com.example.feature_joinclub.presentation.screen.ClubSearchScreen
 import com.example.feature_joinclub.presentation.screen.JoinClubScreen
 import com.example.feature_joinclub.presentation.viewmodel.ClubSearchViewModel
@@ -16,6 +17,7 @@ import com.example.feature_login.presentation.screen.LoginScreen
 import com.example.feature_makeclub.presentation.screen.CompleteClubMakingScreen
 import com.example.feature_makeclub.presentation.screen.EmblemSelectScreen
 import com.example.feature_makeclub.presentation.screen.MakeClubScreen
+import com.example.feature_makeclub.presentation.viewmodel.MakeClubViewModel
 import com.example.feature_mypage.presentation.screen.MyPageModifyScreen
 import com.example.feature_mypage.presentation.screen.MyPageScreen
 import com.example.feature_mypage.presentation.viewmodel.MyPageViewModel
@@ -32,6 +34,7 @@ fun FootBallManagerAppNavigator(
 ) {
     val myPageViewModel: MyPageViewModel = hiltViewModel()
     val clubSearchViewModel: ClubSearchViewModel = hiltViewModel()
+    val makeClubViewModel: MakeClubViewModel = hiltViewModel()
     NavHost(
         modifier = Modifier.padding(vertical = if (showBarList.contains(uiRoute.value)) 60.dp else 0.dp),
         navController = navHostController,
@@ -64,15 +67,33 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.MAKE_CLUB) {
             onNavigate(Route.MAKE_CLUB)
-            MakeClubScreen()
+            MakeClubScreen(makeClubViewModel, onNavigateToEmblemSelect = {
+                navHostController.navigate("EMBLEM_SELECT")
+            })
         }
         composable(Route.EMBLEM_SELECT) {
             onNavigate(Route.EMBLEM_SELECT)
-            EmblemSelectScreen()
+            EmblemSelectScreen(
+                makeClubViewModel,
+                onNavigateToCompleteClubMake = {
+                    navHostController.navigate("COMPLETE_CLUB_MAKING")
+                },
+                onNavigateToMakeClub = {
+                    navHostController.navigate("MAKE_CLUB") {
+                        popUpTo("EMBLEM_SELECT") { inclusive = true }
+                    }
+                }
+            )
         }
         composable(Route.COMPLETE_CLUB_MAKING) {
             onNavigate(Route.COMPLETE_CLUB_MAKING)
-            CompleteClubMakingScreen()
+            CompleteClubMakingScreen(onNavigateToJoinClub = {
+                navHostController.navigate("HOME") {
+                    popUpTo("HOME") { inclusive = true }
+                    popUpTo("EMBLEM_SELECT") { inclusive = true }
+                    popUpTo("MAKE_CLUB") { inclusive = true }
+                }
+            })
         }
         composable(Route.MYPAGE_MODIFY) {
             onNavigate(Route.MYPAGE_MODIFY)
@@ -89,6 +110,9 @@ fun FootBallManagerAppNavigator(
             onNavigate(Route.JOIN_CLUB)
             JoinClubScreen(
                 viewModel = clubSearchViewModel,
+                onNavigateToMakeClub = {
+                    navHostController.navigate("MAKE_CLUB")
+                },
                 onNavigateToClubSearch = {
                     navHostController.navigate("CLUB_SEARCH")
                 }
