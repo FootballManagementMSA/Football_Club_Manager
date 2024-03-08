@@ -9,6 +9,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.feature_joinclub.presentation.screen.ClubSearchScreen
+import com.example.feature_joinclub.presentation.screen.JoinClubScreen
+import com.example.feature_joinclub.presentation.viewmodel.ClubSearchViewModel
 import com.example.feature_login.presentation.screen.LoginScreen
 import com.example.feature_makeclub.presentation.screen.CompleteClubMakingScreen
 import com.example.feature_makeclub.presentation.screen.EmblemSelectScreen
@@ -28,6 +31,7 @@ fun FootBallManagerAppNavigator(
     onNavigate: (String) -> Unit
 ) {
     val myPageViewModel: MyPageViewModel = hiltViewModel()
+    val clubSearchViewModel: ClubSearchViewModel = hiltViewModel()
     NavHost(
         modifier = Modifier.padding(vertical = if (showBarList.contains(uiRoute.value)) 60.dp else 0.dp),
         navController = navHostController,
@@ -71,6 +75,7 @@ fun FootBallManagerAppNavigator(
             CompleteClubMakingScreen()
         }
         composable(Route.MYPAGE_MODIFY) {
+            onNavigate(Route.MYPAGE_MODIFY)
             MyPageModifyScreen(
                 navHostController,
                 myPageViewModel,
@@ -79,6 +84,19 @@ fun FootBallManagerAppNavigator(
                         popUpTo("MYPAGE_MODIFY")
                     }
                 })
+        }
+        composable(Route.JOIN_CLUB) {
+            onNavigate(Route.JOIN_CLUB)
+            JoinClubScreen(
+                viewModel = clubSearchViewModel,
+                onNavigateToClubSearch = {
+                    navHostController.navigate("CLUB_SEARCH")
+                }
+            )
+        }
+        composable(Route.CLUB_SEARCH) {
+            onNavigate(Route.CLUB_SEARCH)
+            ClubSearchScreen(viewModel = clubSearchViewModel)
         }
     }
 }
