@@ -80,11 +80,12 @@ fun JoinClubScreen(
                 .requiredHeightIn(min = 300.dp)
                 .weight(2f),
             showSheet = { showSheet.value = !showSheet.value },
-            onNavigateToMakeClub= onNavigateToMakeClub()
-        ) {
-            viewModel.searchClub(it)
-            onNavigateToClubSearch()
-        }
+            onSearchIconClick = {
+                viewModel.searchClub(it)
+                onNavigateToClubSearch()
+            },
+            onNavigateToMakeClub = { onNavigateToMakeClub() }
+        )
         Box(
             modifier = Modifier
                 .fillMaxWidth()

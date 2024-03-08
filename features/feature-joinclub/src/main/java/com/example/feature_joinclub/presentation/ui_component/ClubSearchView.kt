@@ -34,7 +34,7 @@ import com.example.ui_component.values.tinyFont
 fun ClubSearchView(
     modifier: Modifier = Modifier,
     showSheet: () -> Unit,
-    onIconClick: (String) -> Unit,
+    onSearchIconClick: (String) -> Unit,
     onNavigateToMakeClub: () -> Unit
 ) {
     Column(
@@ -72,7 +72,7 @@ fun ClubSearchView(
             Modifier
                 .fillMaxWidth()
         ) {
-            onIconClick(it)
+            onSearchIconClick(it)
         }
         Spacer(modifier = Modifier.weight(1f))
         Row(
@@ -128,7 +128,7 @@ fun ClubSearchViewPreview() {
         Modifier
             .height(300.dp),
         showSheet = {},
-        onIconClick = {},
+        onSearchIconClick = {},
     ) {
     }
 }
