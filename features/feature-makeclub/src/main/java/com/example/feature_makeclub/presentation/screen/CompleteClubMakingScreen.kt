@@ -16,7 +16,7 @@ import com.example.feature_makeclub.presentation.ui_component.CompleteView
 import com.example.ui_component.values.mainTheme
 
 @Composable
-fun CompleteClubMakingScreen() {
+fun CompleteClubMakingScreen(onNavigateToJoinClub: () -> Unit) {
     val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
@@ -27,12 +27,14 @@ fun CompleteClubMakingScreen() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-        CompleteView(buttonText = "확인", {})
+        CompleteView(buttonText = "확인") {
+            onNavigateToJoinClub()
+        }
     }
 }
 
 @Preview
 @Composable
 fun CompleteClubMakingScreenPreview() {
-    CompleteClubMakingScreen()
+    CompleteClubMakingScreen(onNavigateToJoinClub = {})
 }
