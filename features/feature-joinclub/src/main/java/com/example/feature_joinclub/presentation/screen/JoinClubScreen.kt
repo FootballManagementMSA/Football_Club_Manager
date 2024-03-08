@@ -69,9 +69,11 @@ fun JoinClubScreen() {
         ClubSearchView(
             Modifier
                 .requiredHeightIn(min = 300.dp)
-                .weight(2f)
-        ){
-            showSheet.value = !showSheet.value
+                .weight(2f),
+            showSheet = { showSheet.value = !showSheet.value }
+        ) {
+            viewModel.searchClub(it)
+            onNavigateToClubSearch()
         }
         Box(
             modifier = Modifier
