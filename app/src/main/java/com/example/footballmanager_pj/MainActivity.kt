@@ -57,7 +57,7 @@ class MainActivity : ComponentActivity() {
                             }
                         },
                         bottomBar = {
-                            if (uiRoute.value == "HOME" || uiRoute.value == "SQUAD" || uiRoute.value == "SETTINGS"){
+                            if (uiRoute.value == "HOME" || uiRoute.value == "JOIN_CLUB" || uiRoute.value == "SETTINGS"){
                                 CustomBottomNavigation(
                                     modifier = Modifier.height(60.dp),
                                     items = listOf(
@@ -68,8 +68,8 @@ class MainActivity : ComponentActivity() {
                                         ),
                                         BottomNavItem(
                                             icon = Icons.Default.Favorite,
-                                            route = Route.SQUAD,
-                                            configuration = Route.SQUAD
+                                            route = Route.JOIN_CLUB,
+                                            configuration = Route.JOIN_CLUB
                                         ),
                                         BottomNavItem(
                                             icon = Icons.Default.Settings,
