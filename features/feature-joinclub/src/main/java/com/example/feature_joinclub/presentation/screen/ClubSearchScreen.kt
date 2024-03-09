@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -22,9 +23,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.core.model.Club
-import com.example.core.model.ClubData
-import com.example.core.model.ClubInfo
 import com.example.feature_joinclub.presentation.ui_component.ClubContent
 import com.example.feature_joinclub.presentation.ui_component.ClubItem
 import com.example.feature_joinclub.presentation.viewmodel.ClubSearchViewModel
@@ -35,11 +33,7 @@ import com.example.ui_component.values.tinyFont
 
 @Composable
 fun ClubSearchScreen(viewModel: ClubSearchViewModel = hiltViewModel()) {
-    val teamList = remember {
-        mutableStateOf(
-            dummyClub2()
-        )
-    }
+    val teamList = viewModel.searchedClub.collectAsState()
     val selectedIndex = remember {
         mutableStateOf(-1)
     }
@@ -79,7 +73,7 @@ fun ClubSearchScreen(viewModel: ClubSearchViewModel = hiltViewModel()) {
         VerticalSpacer(value = 20)
         LazyColumn(Modifier.fillMaxSize()) {
             itemsIndexed(
-                teamList.value.data.team,
+                teamList.value,
                 key = { _, item -> item.name }) { index, club ->
                 ClubItem(selectedIndex, index) { ClubContent(club = club) }
             }
@@ -94,18 +88,3 @@ fun ClubSearchScreen(viewModel: ClubSearchViewModel = hiltViewModel()) {
 fun ClubSearchScreenPreview() {
     ClubSearchScreen()
 }
-
-
-fun dummyClub2() = Club(
-    status = 1,
-    code = "code",
-    message = "message",
-    data = ClubData(
-        team = listOf(
-            ClubInfo(id = "id", name = "구단명", memberNum = "20", star = 3),
-            ClubInfo(id = "id", name = "구단명2", memberNum = "20", star = 3),
-            ClubInfo(id = "id", name = "구단명3", memberNum = "20", star = 3),
-            ClubInfo(id = "id", name = "구단명4", memberNum = "20", star = 3)
-        )
-    )
-)

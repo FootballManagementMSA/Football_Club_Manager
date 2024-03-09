@@ -20,7 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.model.Club
-import com.example.core.model.ClubData
 import com.example.core.model.ClubInfo
 import com.example.feature_joinclub.presentation.ui_component.ClubContent
 import com.example.feature_joinclub.presentation.ui_component.ClubItem
@@ -61,7 +60,7 @@ fun JoinClubScreen(
                 onClick = { },
                 listContent = {
                     itemsIndexed(
-                        teamList.value.data.team,
+                        teamList.value.data,
                         key = { _, item -> item.name }) { index, club ->
                         ClubItem(selectedIndex, index) { ClubContent(club = club) }
                     }
@@ -105,13 +104,11 @@ fun dummyClub() = Club(
     status = 1,
     code = "code",
     message = "message",
-    data = ClubData(
-        team = listOf(
-            ClubInfo(id = "id", name = "구단명", memberNum = "20", star = 3),
-            ClubInfo(id = "id", name = "구단명2", memberNum = "20", star = 3),
-            ClubInfo(id = "id", name = "구단명3", memberNum = "20", star = 3),
-            ClubInfo(id = "id", name = "구단명4", memberNum = "20", star = 3)
-        )
+    data = listOf(
+        ClubInfo(id = "id", name = "구단명", memberNum = "20", star = 3),
+        ClubInfo(id = "id", name = "구단명2", memberNum = "20", star = 3),
+        ClubInfo(id = "id", name = "구단명3", memberNum = "20", star = 3),
+        ClubInfo(id = "id", name = "구단명4", memberNum = "20", star = 3)
     )
 )
 
