@@ -1,6 +1,8 @@
 package com.example.core.datasource
 
 import com.example.core.ResultState.MakeClubResult
+import com.example.core.mapper.UiModelMapper.mapToUiModel
+import com.example.core.model.ClubInfo
 import com.example.core.model.MakeClubModel
 import com.example.core.util.FormDataUtil
 import com.example.network_api.repository.ClubRepository
@@ -24,5 +26,9 @@ class ClubDataSourceImpl @Inject constructor(
                 MakeClubResult.Error(result.error.errorMessage)
             }
         }
+    }
+
+    override suspend fun searchClub(code: String): List<ClubInfo> {
+        return clubRepository.searchClub(code).mapToUiModel().data
     }
 }
