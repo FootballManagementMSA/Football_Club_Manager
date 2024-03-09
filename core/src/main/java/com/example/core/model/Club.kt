@@ -4,11 +4,7 @@ data class Club(
     val status: Int,
     val code: String,
     val message: String,
-    val data: ClubData,
-)
-
-data class ClubData(
-    val team: List<ClubInfo>
+    val data: List<ClubInfo>,
 )
 
 data class ClubInfo(
