@@ -19,8 +19,8 @@ interface ClubApi {
         @Part emblem: MultipartBody.Part
     ): Response<MakeClubResponse>
     
-    @GET("/api/team-service/teams")
+    @GET("/api/team-service/team/search")
     suspend fun searchClub(
-        @Query("code") code: String
+        @Query("search") code: String
     ): Response<SearchClubResponse>
 }
