@@ -102,13 +102,12 @@ fun JoinClubScreenPreview() {
 
 fun dummyClub() = Club(
     status = 1,
-    code = "code",
     message = "message",
     data = listOf(
-        ClubInfo(id = "id", name = "구단명", memberNum = "20", star = 3),
-        ClubInfo(id = "id", name = "구단명2", memberNum = "20", star = 3),
-        ClubInfo(id = "id", name = "구단명3", memberNum = "20", star = 3),
-        ClubInfo(id = "id", name = "구단명4", memberNum = "20", star = 3)
+        ClubInfo(teamId = 3, teamName = "구단명", totalMemberCnt = 20, uniqueNum = "3da", emblem = "emblem_uri"),
+        ClubInfo(teamId = 3, teamName = "구단명2", totalMemberCnt = 20, uniqueNum = "3db", emblem = "emblem_uri"),
+        ClubInfo(teamId = 3, teamName = "구단명3", totalMemberCnt = 20, uniqueNum = "3dc", emblem = "emblem_uri"),
+        ClubInfo(teamId = 3, teamName = "구단명4", totalMemberCnt = 20, uniqueNum = "3de", emblem = "emblem_uri"),
     )
 )
 
