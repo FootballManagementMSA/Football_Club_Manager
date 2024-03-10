@@ -1,6 +1,5 @@
 package com.example.core.mapper
 
-import android.util.Log
 import com.example.core.model.Club
 import com.example.core.model.ClubInfo
 import com.example.core.model.Data
@@ -44,6 +43,7 @@ object UiModelMapper {
         number = this.number,
         position = this.position.mapToUiModel()
     )
+
     fun MainHomeResponse.mapToUiModel() = MainHomeUiModel(
         status = this.status,
         code = this.code,
@@ -80,6 +80,7 @@ object UiModelMapper {
                     image = data.userData.image
                 )
             }
+
             is RespResult.Error -> {
                 MyPageUserInfoUiModel(
                     studentId = "err",
@@ -95,29 +96,35 @@ object UiModelMapper {
             is RespResult.Success -> {
                 Club(
                     status = data.status,
-                    code = data.code,
                     message = data.message,
                     data = data.data.map { it.mapToUiModel() }
                 )
             }
 
             is RespResult.Error -> {
-                Log.e("test","${error.errorMessage}, ${error.code}")
                 Club(
                     status = 0,
-                    code = this.error.code ?: "error",
                     message = this.error.errorMessage,
-                    data = listOf(ClubInfo(id = "err", name = "err", memberNum = "err", star = 0))
+                    data = listOf(
+                        ClubInfo(
+                            teamId = -1,
+                            teamName = "err",
+                            totalMemberCnt = 0,
+                            uniqueNum = "err",
+                            emblem = ""
+                        )
+                    )
                 )
             }
         }
     }
 
     fun ClubInfoResponse.mapToUiModel() = ClubInfo(
-        id = this.id,
-        name = this.name,
-        memberNum = this.memberNum,
-        star = this.star
+        teamId = this.teamId,
+        teamName = this.teamName,
+        totalMemberCnt = this.totalMemberCnt,
+        uniqueNum = this.uniqueNum,
+        emblem = this.emblem
     )
 
 }
