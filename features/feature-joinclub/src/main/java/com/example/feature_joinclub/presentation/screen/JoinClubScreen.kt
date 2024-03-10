@@ -61,7 +61,7 @@ fun JoinClubScreen(
                 listContent = {
                     itemsIndexed(
                         teamList.value.data,
-                        key = { _, item -> item.name }) { index, club ->
+                        key = { _, item -> item.uniqueNum }) { index, club ->
                         ClubItem(selectedIndex, index) { ClubContent(club = club) }
                     }
                 }

@@ -74,7 +74,7 @@ fun ClubSearchScreen(viewModel: ClubSearchViewModel = hiltViewModel()) {
         LazyColumn(Modifier.fillMaxSize()) {
             itemsIndexed(
                 teamList.value,
-                key = { _, item -> item.name }) { index, club ->
+                key = { _, item -> item.uniqueNum }) { index, club ->
                 ClubItem(selectedIndex, index) { ClubContent(club = club) }
             }
         }
