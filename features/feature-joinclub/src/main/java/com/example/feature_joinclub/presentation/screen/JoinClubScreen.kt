@@ -18,20 +18,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.core.model.Club
 import com.example.core.model.ClubInfo
 import com.example.feature_joinclub.presentation.ui_component.ClubContent
 import com.example.feature_joinclub.presentation.ui_component.ClubItem
 import com.example.feature_joinclub.presentation.ui_component.ClubSearchView
-import com.example.feature_joinclub.presentation.viewmodel.ClubSearchViewModel
 import com.example.ui_component.template.DefaultBottomSheet
 import com.example.ui_component.template.DefaultListView
 import com.example.ui_component.values.mainTheme
 
 @Composable
 fun JoinClubScreen(
-    viewModel: ClubSearchViewModel = hiltViewModel(),
+    onSearchIconClick: (String) -> Unit,
     onNavigateToMakeClub: () -> Unit,
     onNavigateToClubSearch: () -> Unit
 ) {
@@ -80,7 +78,7 @@ fun JoinClubScreen(
                 .weight(2f),
             showSheet = { showSheet.value = !showSheet.value },
             onSearchIconClick = {
-                viewModel.searchClub(it)
+                onSearchIconClick(it)
                 onNavigateToClubSearch()
             },
             onNavigateToMakeClub = { onNavigateToMakeClub() }
@@ -97,7 +95,7 @@ fun JoinClubScreen(
 @Composable
 @Preview
 fun JoinClubScreenPreview() {
-    JoinClubScreen(onNavigateToMakeClub = {}) {}
+    JoinClubScreen(onSearchIconClick = {}, onNavigateToMakeClub = {}) {}
 }
 
 fun dummyClub() = Club(

@@ -13,7 +13,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -22,18 +22,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.core.model.ClubInfo
 import com.example.feature_joinclub.presentation.ui_component.ClubContent
 import com.example.feature_joinclub.presentation.ui_component.ClubItem
-import com.example.feature_joinclub.presentation.viewmodel.ClubSearchViewModel
 import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.hugeFont
 import com.example.ui_component.values.mainTheme
 import com.example.ui_component.values.tinyFont
 
 @Composable
-fun ClubSearchScreen(viewModel: ClubSearchViewModel = hiltViewModel()) {
-    val teamList = viewModel.searchedClub.collectAsState()
+fun ClubSearchScreen(
+    teamList: State<List<ClubInfo>>,
+    value: String,
+    ) {
     val selectedIndex = remember {
         mutableStateOf(-1)
     }
@@ -52,7 +53,7 @@ fun ClubSearchScreen(viewModel: ClubSearchViewModel = hiltViewModel()) {
             )
         }
         Text(
-            text = viewModel.searchValue.value,
+            text = value,
             fontWeight = FontWeight.Bold,
             fontSize = hugeFont,
             color = Color.White
@@ -86,5 +87,13 @@ fun ClubSearchScreen(viewModel: ClubSearchViewModel = hiltViewModel()) {
 @Composable
 @Preview
 fun ClubSearchScreenPreview() {
-    ClubSearchScreen()
+    val sampleClubList = listOf(
+        ClubInfo(teamId = 3, teamName = "Test", totalMemberCnt = 10, uniqueNum = "bcd", emblem = ""),
+        ClubInfo(teamId = 3, teamName = "Test", totalMemberCnt = 10, uniqueNum = "bcd2", emblem = "")
+    )
+
+    ClubSearchScreen(
+        teamList = remember { mutableStateOf(sampleClubList) },
+        value = "Test"
+    )
 }

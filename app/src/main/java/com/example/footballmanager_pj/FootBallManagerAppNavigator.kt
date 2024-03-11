@@ -3,13 +3,13 @@ package com.example.footballmanager_pj
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.feature_joinclub.presentation.screen.JoinClubScreen
 import com.example.feature_joinclub.presentation.screen.ClubSearchScreen
 import com.example.feature_joinclub.presentation.screen.JoinClubScreen
 import com.example.feature_joinclub.presentation.viewmodel.ClubSearchViewModel
@@ -109,7 +109,9 @@ fun FootBallManagerAppNavigator(
         composable(Route.JOIN_CLUB) {
             onNavigate(Route.JOIN_CLUB)
             JoinClubScreen(
-                viewModel = clubSearchViewModel,
+                onSearchIconClick = {
+                    clubSearchViewModel.searchClub(it)
+                },
                 onNavigateToMakeClub = {
                     navHostController.navigate("MAKE_CLUB")
                 },
@@ -120,7 +122,7 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.CLUB_SEARCH) {
             onNavigate(Route.CLUB_SEARCH)
-            ClubSearchScreen(viewModel = clubSearchViewModel)
+            ClubSearchScreen(clubSearchViewModel.searchedClub.collectAsState(), clubSearchViewModel.searchValue.value)
         }
     }
 }
