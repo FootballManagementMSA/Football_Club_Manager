@@ -13,4 +13,5 @@ object PreferenceKeys {
     val REFRESH_TOKEN = stringPreferencesKey("REFRESH_TOKEN")
     val ACCOUNT = stringPreferencesKey("ACCOUNT")
     val PASSWORD = stringPreferencesKey("PASSWORD")
+    val UNIQUE_NUMBER = stringPreferencesKey("UNIQUE_NUMBER")
 }

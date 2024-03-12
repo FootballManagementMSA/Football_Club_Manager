@@ -13,6 +13,9 @@ object Route {
     const val JOIN="JOIN"
     const val JOIN_SUCCESS="JOIN_SUCCESS"
     const val PROFILE_SETTING="PROFILE_SETTING"
+
+    const val JOIN_CLUB = "JOIN_CLUB"
+    const val CLUB_SEARCH = "CLUB_SEARCH"
 }
 
-val showBarList = listOf(Route.HOME, Route.SQUAD)
+val showBarList = listOf(Route.HOME)

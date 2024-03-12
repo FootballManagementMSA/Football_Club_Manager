@@ -2,9 +2,11 @@ package com.example.network.di
 
 import com.example.network.network.TestApi
 import com.example.network.network.TestApiImpl
+import com.example.network.repository.ClubRepositoryImpl
 import com.example.network.repository.TempSquadRepositoryImpl
 import com.example.network.repository.TestRepositoryImpl
 import com.example.network.repository.UserRepositoryImpl
+import com.example.network_api.repository.ClubRepository
 import com.example.network_api.repository.TempSquadRepository
 import com.example.network_api.repository.TestRepository
 import com.example.network_api.repository.UserRepository
@@ -27,4 +29,7 @@ internal abstract class DummyApiModule {
 
     @Binds
     abstract fun bindsUserRepository(userRepositoryImpl: UserRepositoryImpl): UserRepository
+
+    @Binds
+    abstract fun bindsClubRepository(clubRepositoryImpl: ClubRepositoryImpl): ClubRepository
 }

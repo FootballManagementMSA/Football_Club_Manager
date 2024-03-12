@@ -1,5 +1,6 @@
 package com.example.feature_makeclub.presentation.ui_component.make_club
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,9 +20,9 @@ import com.example.ui_component.R
 import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.largeIcon
 @Composable
-fun MakeClubTopView() {
+fun MakeClubTopView(onClick: () -> Unit) {
     Column {
-        NextArrowImageView()
+        NextArrowImageView(onClick)
         VerticalSpacer(value = 48)
         TermsAgreeText()
         VerticalSpacer(value = 70)
@@ -29,7 +30,7 @@ fun MakeClubTopView() {
 }
 
 @Composable
-fun NextArrowImageView() {
+fun NextArrowImageView(onClick: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -40,7 +41,8 @@ fun NextArrowImageView() {
             contentDescription = null,
             modifier = Modifier
                 .size(largeIcon)
-                .align(Alignment.TopEnd),
+                .align(Alignment.TopEnd)
+                .clickable { onClick() },
             tint = Color.White
         )
     }
@@ -60,5 +62,5 @@ fun TermsAgreeText() {
 @Composable
 @Preview
 fun TopScreenPreview() {
-    MakeClubTopView()
+    MakeClubTopView({})
 }
