@@ -7,9 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,10 +21,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ui_component.R
+import com.example.ui_component.buttons.CustomGradientButton_1
 import com.example.ui_component.values.mainTheme
 
 @Composable
-fun JoinSuccessScreen() {
+fun JoinSuccessScreen(
+    onNavigateToLoginScreen: () -> Unit
+) {
 
 
     val scrollState = rememberScrollState()
@@ -36,7 +39,7 @@ fun JoinSuccessScreen() {
             .background(color = mainTheme)
             .padding(40.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(80.dp))
+        Spacer(modifier = Modifier.weight(0.15f))
 
         Row(
             modifier = Modifier.fillMaxSize(),
@@ -51,7 +54,7 @@ fun JoinSuccessScreen() {
             )
 
         }
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.weight(0.05f))
 
         Text(
             text = "회원가입이",
@@ -65,6 +68,20 @@ fun JoinSuccessScreen() {
             color = Color.White,
             fontWeight = FontWeight.Bold
         )
+
+
+        Spacer(modifier = Modifier.weight(0.4f))
+
+
+        CustomGradientButton_1(
+            gradientColors = listOf(Color(0xFFEE6DE7), Color(0xFF857FEB)),
+            cornerRadius = 16.dp,
+            buttonText = "확인",
+            roundedCornerShape = RoundedCornerShape(20.dp)
+
+        ) {
+            onNavigateToLoginScreen()
+        }
     }
 
 }

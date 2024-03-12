@@ -1,5 +1,6 @@
 package com.example.feature_join.presentation.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,10 +15,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -31,10 +36,20 @@ import com.example.ui_component.R
 import com.example.ui_component.values.mainTheme
 
 @Composable
-fun ProfileSettingScreen(viewModel: JoinViewModel = hiltViewModel()) {
+fun ProfileSettingScreen(
+    viewModel: JoinViewModel = hiltViewModel(),
+    onNavigateToJoinSuccessScreen: () -> Unit
+) {
     val scrollState = rememberScrollState()
     val position = remember { listOf("공격수" to "ST", "미드필더" to "MF", "수비수" to "DF", "골키퍼" to "GK") }
     val foot = remember { listOf("왼발잡이" to "왼발", "오른발잡이" to "오른발", "양발잡이" to "양발") }
+
+    var isNameEntered by remember { mutableStateOf(false) }
+    var isPositionSelected by remember { mutableStateOf(false) }
+    var isFootSelected by remember { mutableStateOf(false) }
+
+    val context = LocalContext.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -80,7 +95,11 @@ fun ProfileSettingScreen(viewModel: JoinViewModel = hiltViewModel()) {
             state = viewModel.userName,
             label = "이름(닉네임)",
             placeholder = "이름을 입력해주세요.",
-            onValueChanges = { viewModel.updateUserName(it) })
+            onValueChanges = {
+                viewModel.updateUserName(it)
+                isNameEntered = it.isNotEmpty()
+
+            })
 
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -94,6 +113,7 @@ fun ProfileSettingScreen(viewModel: JoinViewModel = hiltViewModel()) {
         )
         SelectionView(position) {
             viewModel.updateSelectedInfo(position = it)
+            isPositionSelected=true
         }
         Spacer(modifier = Modifier.height(10.dp))
         Text(
@@ -105,6 +125,7 @@ fun ProfileSettingScreen(viewModel: JoinViewModel = hiltViewModel()) {
         )
         SelectionView(foot) {
             viewModel.updateSelectedInfo(foot = it)
+            isFootSelected=true
         }
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -117,6 +138,24 @@ fun ProfileSettingScreen(viewModel: JoinViewModel = hiltViewModel()) {
             roundedCornerShape = RoundedCornerShape(20.dp)
 
         ) {
+
+            if (isNameEntered && isPositionSelected && isFootSelected) {
+                viewModel.join()
+                onNavigateToJoinSuccessScreen()
+            } else {
+                val message = when {
+                    !isNameEntered -> "이름을 입력해주세요."
+                    !isPositionSelected-> "주포메이션을 선택해주세요"
+                    !isFootSelected-> "주발을 선택해주세요."
+                    else -> {"입력이 완료되지 않았습니다."}
+                }
+                Toast.makeText(
+                    context,
+                    message,
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }
 
         }
 

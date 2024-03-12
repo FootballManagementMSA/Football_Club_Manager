@@ -10,11 +10,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun GenderView() {
+fun GenderView(onGenderSelected: (String) -> Unit) {
     var isMaleButtonClicked by remember { mutableStateOf(false) }
     var isFemaleButtonClicked by remember { mutableStateOf(false) }
 
@@ -27,8 +26,11 @@ fun GenderView() {
         GenderButton(
             isSelected = isMaleButtonClicked,
             onClick = {
-                isMaleButtonClicked = !isMaleButtonClicked
-                isFemaleButtonClicked = false
+                if (!isMaleButtonClicked) {
+                    isMaleButtonClicked = true
+                    isFemaleButtonClicked = false
+                    onGenderSelected("male")
+                }
             },
             imageResId = com.example.ui_component.R.drawable.only_male_image,
             contentDescription = "join_male_image",
@@ -39,18 +41,15 @@ fun GenderView() {
         GenderButton(
             isSelected = isFemaleButtonClicked,
             onClick = {
-                isFemaleButtonClicked = !isFemaleButtonClicked
-                isMaleButtonClicked = false
+                if (!isFemaleButtonClicked) {
+                    isFemaleButtonClicked = true
+                    isMaleButtonClicked = false
+                    onGenderSelected("female")
+                }
             },
             imageResId = com.example.ui_component.R.drawable.only_female_image,
             contentDescription = "join_female_image",
             gender = "여성"
         )
     }
-}
-
-@Composable
-@Preview
-fun GenderPreview() {
-    GenderView()
 }

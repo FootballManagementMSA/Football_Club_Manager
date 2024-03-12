@@ -1,6 +1,8 @@
 package com.example.network_api.repository
 
+import com.example.network_api.entity.Join
 import com.example.network_api.entity.Login
+import com.example.network_api.response.JoinResponse
 import com.example.network_api.response.LoginResponse
 import com.example.network_api.response.ModifyUserInfoResponse
 import com.example.network_api.response.RespResult
@@ -10,6 +12,9 @@ import okhttp3.RequestBody
 
 interface UserRepository {
     suspend fun login(loginReq: Login): RespResult<LoginResponse>
+    suspend fun join(joinReq: Join): RespResult<JoinResponse>
+
+
     suspend fun getUserInfo(): RespResult<UserInfoResponse>
     suspend fun modifyUserInfo(
         name: RequestBody,
