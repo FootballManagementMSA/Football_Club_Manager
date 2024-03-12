@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.core.model.Club
-import com.example.core.model.ClubUiModel
+import com.example.core.model.ClubInfo
 import com.example.feature_joinclub.presentation.ui_component.ClubContent
 import com.example.feature_joinclub.presentation.ui_component.ClubItem
 import com.example.feature_joinclub.presentation.ui_component.ClubSearchView
@@ -28,7 +28,11 @@ import com.example.ui_component.template.DefaultListView
 import com.example.ui_component.values.mainTheme
 
 @Composable
-fun JoinClubScreen(onNavigateToMakeClub: () -> Unit) {
+fun JoinClubScreen(
+    onSearchIconClick: (String) -> Unit,
+    onNavigateToMakeClub: () -> Unit,
+    onNavigateToClubSearch: () -> Unit
+) {
     val showSheet = remember {
         mutableStateOf(true)
     }
@@ -38,7 +42,7 @@ fun JoinClubScreen(onNavigateToMakeClub: () -> Unit) {
         )
     }
     if (showSheet.value) {
-        DefaultBottomSheet(onDismiss = {showSheet.value = false}) {
+        DefaultBottomSheet(onDismiss = { showSheet.value = false }) {
             val selectedIndex = remember {
                 mutableStateOf(-1)
             }
@@ -53,7 +57,9 @@ fun JoinClubScreen(onNavigateToMakeClub: () -> Unit) {
                 showButton = true,
                 onClick = { },
                 listContent = {
-                    itemsIndexed(teamList.value.club, key = { _, item -> item.name }) { index, club ->
+                    itemsIndexed(
+                        teamList.value.data,
+                        key = { _, item -> item.uniqueNum }) { index, club ->
                         ClubItem(selectedIndex, index) { ClubContent(club = club) }
                     }
                 }
@@ -70,10 +76,13 @@ fun JoinClubScreen(onNavigateToMakeClub: () -> Unit) {
             Modifier
                 .requiredHeightIn(min = 300.dp)
                 .weight(2f),
-            showSheet= { }
-        ){
-            onNavigateToMakeClub()
-        }
+            showSheet = { showSheet.value = !showSheet.value },
+            onSearchIconClick = {
+                onSearchIconClick(it)
+                onNavigateToClubSearch()
+            },
+            onNavigateToMakeClub = { onNavigateToMakeClub() }
+        )
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -86,50 +95,17 @@ fun JoinClubScreen(onNavigateToMakeClub: () -> Unit) {
 @Composable
 @Preview
 fun JoinClubScreenPreview() {
-    JoinClubScreen({})
+    JoinClubScreen(onSearchIconClick = {}, onNavigateToMakeClub = {}) {}
 }
 
-fun dummyClub() = ClubUiModel(
-    club =
-    listOf(
-        Club(
-            name = "a", "14",
-            "hello"
-        ),
-        Club(
-            name = "b", "18",
-            "world"
-        ), Club(
-            name = "c", "18",
-            "world"
-        ),
-        Club(
-            name = "d", "18",
-            "world"
-        ),
-        Club(
-            name = "e", "18",
-            "world"
-        ),
-        Club(
-            name = "f", "14",
-            "hello"
-        ),
-        Club(
-            name = "g", "18",
-            "world"
-        ), Club(
-            name = "h", "18",
-            "world"
-        ),
-        Club(
-            name = "i", "18",
-            "world"
-        ),
-        Club(
-            name = "j", "18",
-            "world"
-        )
+fun dummyClub() = Club(
+    status = 1,
+    message = "message",
+    data = listOf(
+        ClubInfo(teamId = 3, teamName = "구단명", totalMemberCnt = 20, uniqueNum = "3da", emblem = "emblem_uri"),
+        ClubInfo(teamId = 3, teamName = "구단명2", totalMemberCnt = 20, uniqueNum = "3db", emblem = "emblem_uri"),
+        ClubInfo(teamId = 3, teamName = "구단명3", totalMemberCnt = 20, uniqueNum = "3dc", emblem = "emblem_uri"),
+        ClubInfo(teamId = 3, teamName = "구단명4", totalMemberCnt = 20, uniqueNum = "3de", emblem = "emblem_uri"),
     )
 )
 

@@ -1,12 +1,12 @@
-package com.example.core.model
+package com.example.network_api.response
 
-data class Club(
+data class SearchClubResponse(
     val status: Int,
     val message: String,
-    val data: List<ClubInfo>,
+    val data: List<ClubInfoResponse>,
 )
 
-data class ClubInfo(
+data class ClubInfoResponse(
     val teamId: Int,
     val teamName: String,
     val totalMemberCnt: Int,

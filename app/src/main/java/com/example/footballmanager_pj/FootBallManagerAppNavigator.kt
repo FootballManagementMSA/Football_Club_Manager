@@ -3,13 +3,16 @@ package com.example.footballmanager_pj
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.feature_joinclub.presentation.screen.ClubSearchScreen
 import com.example.feature_joinclub.presentation.screen.JoinClubScreen
+import com.example.feature_joinclub.presentation.viewmodel.ClubSearchViewModel
 import com.example.feature_login.presentation.screen.LoginScreen
 import com.example.feature_makeclub.presentation.screen.CompleteClubMakingScreen
 import com.example.feature_makeclub.presentation.screen.EmblemSelectScreen
@@ -30,6 +33,7 @@ fun FootBallManagerAppNavigator(
     onNavigate: (String) -> Unit
 ) {
     val myPageViewModel: MyPageViewModel = hiltViewModel()
+    val clubSearchViewModel: ClubSearchViewModel = hiltViewModel()
     val makeClubViewModel: MakeClubViewModel = hiltViewModel()
     NavHost(
         modifier = Modifier.padding(vertical = if (showBarList.contains(uiRoute.value)) 60.dp else 0.dp),
@@ -92,6 +96,7 @@ fun FootBallManagerAppNavigator(
             })
         }
         composable(Route.MYPAGE_MODIFY) {
+            onNavigate(Route.MYPAGE_MODIFY)
             MyPageModifyScreen(
                 navHostController,
                 myPageViewModel,
@@ -102,9 +107,22 @@ fun FootBallManagerAppNavigator(
                 })
         }
         composable(Route.JOIN_CLUB) {
-            JoinClubScreen(onNavigateToMakeClub = {
-                navHostController.navigate("MAKE_CLUB")
-            })
+            onNavigate(Route.JOIN_CLUB)
+            JoinClubScreen(
+                onSearchIconClick = {
+                    clubSearchViewModel.searchClub(it)
+                },
+                onNavigateToMakeClub = {
+                    navHostController.navigate("MAKE_CLUB")
+                },
+                onNavigateToClubSearch = {
+                    navHostController.navigate("CLUB_SEARCH")
+                }
+            )
+        }
+        composable(Route.CLUB_SEARCH) {
+            onNavigate(Route.CLUB_SEARCH)
+            ClubSearchScreen(clubSearchViewModel.searchedClub.collectAsState(), clubSearchViewModel.searchValue.value)
         }
     }
 }
