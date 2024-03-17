@@ -3,20 +3,20 @@ package com.example.core.model
 import com.google.gson.annotations.SerializedName
 import java.time.LocalDateTime
 
-data class MainHomeUiModel(
+data class MainHomeStudentDataUiModel(
     val status: Int,
     val code: String,
     val message: String,
-    val data: Data
+    val data: StudentUiModel
 )
 
 data class Data(
-    @SerializedName("student") val student: Student,
+    @SerializedName("student") val student: StudentUiModel,
     @SerializedName("schedule") val schedule: Schedule2
 )
 
-data class Student(
-    val name: Int,
+data class StudentUiModel(
+    val name: String,
     val game: Int,
     val goal: Int,
     val position: String,
