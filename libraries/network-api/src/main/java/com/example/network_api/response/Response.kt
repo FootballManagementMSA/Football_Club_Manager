@@ -10,11 +10,6 @@ data class MainHomeStudentDataResponse(
     val data: Student
 )
 
-data class Data(
-    @SerializedName("student") val student: Student,
-    @SerializedName("schedule") val schedule: Schedule
-)
-
 data class Student(
     val name: String,
     val game: Int,
@@ -23,14 +18,23 @@ data class Student(
     val foot: String
 )
 
-data class Schedule(
+data class MainHomeScheduleResponse(
+    val status: Int,
+    val code: String,
+    val message: String,
+    val data: ScheduleDataResponse
+)
+data class ScheduleDataResponse(
+    val schedule: MainScheduleResponse
+)
+data class MainScheduleResponse(
     val place: String,
     val startTime: LocalDateTime,
-    @SerializedName("HomeTeam") val homeTeam: Team,
-    @SerializedName("AwayTeam") val awayTeam: Team
+    @SerializedName("HomeTeam") val homeTeam: TeamResponse,
+    @SerializedName("AwayTeam") val awayTeam: TeamResponse
 )
 
-data class Team(
+data class TeamResponse(
     val name: String,
     val emblem: String
 )
