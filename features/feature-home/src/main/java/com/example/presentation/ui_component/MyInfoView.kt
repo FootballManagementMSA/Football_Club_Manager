@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredWidthIn
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
@@ -29,7 +28,6 @@ import com.example.ui_component.CircleShapeClickableIcon
 import com.example.ui_component.HorizontalSpacer
 import com.example.ui_component.R
 import com.example.ui_component.VerticalSpacer
-import com.example.ui_component.values.bigFont
 import com.example.ui_component.values.horizontalGradation
 import com.example.ui_component.values.largeIcon
 import com.example.ui_component.values.mainTheme
@@ -46,7 +44,7 @@ fun MyInfoView(
 
     Column(
         modifier = modifier
-            .padding(20.dp)
+            .padding(30.dp)
             .fillMaxWidth()
     ) {
         Row(
@@ -55,7 +53,7 @@ fun MyInfoView(
         ) {
             Info(
                 Modifier
-                    .requiredWidthIn(150.dp)
+                    .requiredWidthIn(130.dp)
                     .weight(2f)
                     .fillMaxSize(),
                 studentName
@@ -63,6 +61,7 @@ fun MyInfoView(
             ProfileImage(
                 Modifier
                     .weight(3f)
+                    .padding(top = 10.dp)
             )
         }
     }
@@ -72,6 +71,7 @@ fun MyInfoView(
 @Composable
 fun Info(modifier: Modifier = Modifier, studentName: String) {
     Column(modifier) {
+        VerticalSpacer(value = 10)
         CircleShapeClickableIcon(
             size = largeIcon,
             background = profileInfoButton,
@@ -88,17 +88,6 @@ fun Info(modifier: Modifier = Modifier, studentName: String) {
 
         }
         Spacer(modifier = Modifier.weight(1f))
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                modifier = Modifier.size(largeIcon),
-                painter = painterResource(id = R.drawable.cloth_icon),
-                contentDescription = "cloth"
-            )
-            HorizontalSpacer(value = 10)
-            Text(text = "07", fontSize = bigFont, style = TextStyle(color = Color.White))
-        }
         VerticalSpacer(value = 10)
         Row(
             verticalAlignment = Alignment.Bottom

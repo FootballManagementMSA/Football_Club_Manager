@@ -29,6 +29,7 @@ import com.example.presentation.ui_component.ScheduleView
 import com.example.presentation.ui_component.StatusView
 import com.example.presentation.ui_component.generateDummyData
 import com.example.presentation.viewmodel.MainHomeViewModel
+import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.mainTheme
 
 @Composable
@@ -87,6 +88,7 @@ fun HomeScreen(
                     studentData = studentData
                 )
             }
+            VerticalSpacer(value = 60)
             ScheduleView(
                 Modifier
                     .requiredHeightIn(min = 400.dp)
