@@ -3,11 +3,11 @@ package com.example.network_api.response
 import com.google.gson.annotations.SerializedName
 import java.time.LocalDateTime
 
-data class MainHomeResponse(
+data class MainHomeStudentDataResponse(
     val status: Int,
     val code: String,
     val message: String,
-    val data: Data
+    val data: Student
 )
 
 data class Data(
@@ -16,7 +16,7 @@ data class Data(
 )
 
 data class Student(
-    val name: Int,
+    val name: String,
     val game: Int,
     val goal: Int,
     val position: String,
