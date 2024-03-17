@@ -1,8 +1,7 @@
 package com.example.core.datasource
 
-import com.example.core.model.MainHomeUiModel
-import com.example.network_api.response.MainHomeResponse
+import com.example.core.model.MainHomeStudentDataUiModel
 
 interface MainHomeDataSource {
-    suspend fun loadData() : MainHomeUiModel
+    suspend fun loadStudentData() : MainHomeStudentDataUiModel
 }
