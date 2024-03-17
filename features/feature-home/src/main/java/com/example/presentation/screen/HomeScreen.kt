@@ -1,13 +1,17 @@
 package com.example.presentation.screen
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.requiredHeightIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -18,6 +22,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.core.model.ScheduleUiModel
+import com.example.core.model.StudentUiModel
+import com.example.presentation.StudentDataState
 import com.example.presentation.ui_component.MyInfoView
 import com.example.presentation.ui_component.ScheduleView
 import com.example.presentation.ui_component.StatusView
@@ -30,9 +36,22 @@ fun HomeScreen(
     navHostController: NavHostController,
     mainHomeViewModel: MainHomeViewModel = hiltViewModel()
 ) {
-//    LaunchedEffect(Unit){
-//        mainHomeViewModel.getResponse()
-//    }
+    val uiState = mainHomeViewModel.uiState.collectAsState()
+    var studentData: StudentUiModel?= null
+
+    LaunchedEffect(Unit){
+        mainHomeViewModel.getResponse()
+    }
+
+    when (uiState.value) {
+        is StudentDataState.Loading -> {
+            CircularProgressIndicator()
+        }
+        is StudentDataState.Success -> {
+            studentData = (uiState.value as StudentDataState.Success).data
+            Log.e("test", studentData.toString())
+        }
+    }
     val config = LocalConfiguration.current
     val currentSchedule = remember {
         mutableStateOf(
@@ -59,12 +78,15 @@ fun HomeScreen(
                     .requiredHeightIn(650.dp)
                     .background(mainTheme)
         ) {
-            ProfileView(
-                modifier = Modifier
-                    .requiredHeightIn(min = 250.dp)
-                    .weight(4f),
-                navHostController = navHostController
-            )
+            if (studentData != null) {
+                ProfileView(
+                    modifier = Modifier
+                        .requiredHeightIn(min = 250.dp)
+                        .weight(4f),
+                    navHostController = navHostController,
+                    studentData = studentData
+                )
+            }
             ScheduleView(
                 Modifier
                     .requiredHeightIn(min = 400.dp)
@@ -80,19 +102,22 @@ private fun isFixed(config: Configuration) = config.screenHeightDp.dp > 650.dp
 @Composable
 private fun ProfileView(
     modifier: Modifier = Modifier,
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    studentData: StudentUiModel
 ) {
     Column(modifier) {
         MyInfoView(
             Modifier
                 .requiredHeightIn(200.dp)
-                .weight(5f), navHostController
+                .weight(5f), navHostController,
+            studentName = studentData.name
         )
         StatusView(
             Modifier
                 .requiredHeightIn(min = 100.dp)
                 .weight(2f)
-                .heightIn(max = 150.dp)
+                .heightIn(max = 150.dp),
+            studentUiModel = studentData
         )
     }
 }

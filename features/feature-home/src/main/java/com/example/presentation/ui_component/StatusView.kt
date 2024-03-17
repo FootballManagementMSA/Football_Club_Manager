@@ -12,12 +12,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.core.model.StudentUiModel
 import com.example.ui_component.InfoItem
 import com.example.ui_component.VerticalLine
 import com.example.ui_component.values.subTheme
 
 @Composable
-fun StatusView(modifier: Modifier = Modifier) {
+fun StatusView(modifier: Modifier = Modifier, studentUiModel: StudentUiModel) {
     Row(
         modifier
             .fillMaxWidth()
@@ -29,18 +30,18 @@ fun StatusView(modifier: Modifier = Modifier) {
     ) {
         InfoItem(title = "나이", content = "25")
         VerticalLine()
-        InfoItem(title = "게임 수", content = "70")
+        InfoItem(title = "게임 수", content = studentUiModel.game.toString())
         VerticalLine()
-        InfoItem(title = "골 수", content = "35")
+        InfoItem(title = "골 수", content = studentUiModel.goal.toString())
         VerticalLine()
-        InfoItem(title = "주 포메이션", content = "NF")
+        InfoItem(title = "주 포메이션", content = studentUiModel.position)
         VerticalLine()
-        InfoItem(title = "주발", content = "L")
+        InfoItem(title = "주발", content = studentUiModel.foot)
     }
 }
 
 @Composable
 @Preview
 fun MyInfoViewPreview() {
-    StatusView()
+    StatusView(studentUiModel = StudentUiModel("name", 3,3,"st","r"))
 }

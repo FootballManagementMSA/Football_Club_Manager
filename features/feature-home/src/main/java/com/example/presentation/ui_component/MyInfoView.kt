@@ -40,7 +40,8 @@ import com.example.ui_component.values.veryBigFont
 @Composable
 fun MyInfoView(
     modifier: Modifier = Modifier,
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    studentName: String
 ) {
 
     Column(
@@ -57,6 +58,7 @@ fun MyInfoView(
                     .requiredWidthIn(150.dp)
                     .weight(2f)
                     .fillMaxSize(),
+                studentName
             )
             ProfileImage(
                 Modifier
@@ -68,7 +70,7 @@ fun MyInfoView(
 }
 
 @Composable
-fun Info(modifier: Modifier = Modifier) {
+fun Info(modifier: Modifier = Modifier, studentName: String) {
     Column(modifier) {
         CircleShapeClickableIcon(
             size = largeIcon,
@@ -102,7 +104,7 @@ fun Info(modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.Bottom
         ) {
             Text(
-                text = "홍길동",
+                text = studentName,
                 fontSize = veryBigFont,
                 style = TextStyle(color = Color.White)
             )
@@ -144,6 +146,7 @@ fun ProfileViewPreview() {
                 Modifier
                     .weight(1f)
                     .fillMaxSize(),
+                studentName = "홍길동"
             )
             ProfileImage(
                 Modifier
@@ -160,7 +163,8 @@ fun ProfileInfoPreview() {
     Info(
         modifier = Modifier
             .height(300.dp)
-            .background(mainTheme)
+            .background(mainTheme),
+        studentName = "홍길동"
     )
 }
 
