@@ -7,12 +7,9 @@ data class MainHomeScheduleUiModel(
     val status: Int,
     val code: String,
     val message: String,
-    val data: ScheduleData
+    val data: List<MainSchedule?>
 )
 
-data class ScheduleData(
-    val schedule: MainSchedule
-)
 data class MainSchedule(
     val place: String,
     val startTime: LocalDateTime,
