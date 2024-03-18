@@ -10,6 +10,10 @@ object Route {
     const val COMPLETE_CLUB_MAKING = "COMPLETE_CLUB_MAKING"
     const val MYPAGE_MODIFY = "MYPAGE_MODIFY"
     const val LOGIN = "LOGIN"
+    const val JOIN="JOIN"
+    const val JOIN_SUCCESS="JOIN_SUCCESS"
+    const val PROFILE_SETTING="PROFILE_SETTING"
+
     const val JOIN_CLUB = "JOIN_CLUB"
     const val CLUB_SEARCH = "CLUB_SEARCH"
 }
