@@ -22,11 +22,9 @@ data class MainHomeScheduleResponse(
     val status: Int,
     val code: String,
     val message: String,
-    val data: ScheduleDataResponse
+    val data: List<MainScheduleResponse?>
 )
-data class ScheduleDataResponse(
-    val schedule: MainScheduleResponse
-)
+
 data class MainScheduleResponse(
     val place: String,
     val startTime: LocalDateTime,
