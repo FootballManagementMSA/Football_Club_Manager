@@ -1,6 +1,7 @@
 package com.example.core.datasource
 
 import com.example.core.mapper.UiModelMapper.mapToUiModel
+import com.example.core.model.MainHomeScheduleUiModel
 import com.example.core.model.MainHomeStudentDataUiModel
 import com.example.network_api.repository.MainHomeRepository
 import javax.inject.Inject
@@ -10,5 +11,9 @@ class MainHomeDataSourceImpl @Inject constructor(
 ) : MainHomeDataSource {
     override suspend fun loadStudentData(): MainHomeStudentDataUiModel {
         return mainHomeRepository.loadData().mapToUiModel()
+    }
+
+    override suspend fun loadSchedule(): MainHomeScheduleUiModel {
+        return mainHomeRepository.loadSchedule().mapToUiModel()
     }
 }
