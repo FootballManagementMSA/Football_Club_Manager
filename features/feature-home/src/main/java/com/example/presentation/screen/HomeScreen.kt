@@ -1,7 +1,6 @@
 package com.example.presentation.screen
 
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.heightIn
@@ -13,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,13 +19,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.core.model.ScheduleUiModel
+import com.example.core.model.MainSchedule
 import com.example.core.model.StudentUiModel
+import com.example.presentation.ScheduleDataState
 import com.example.presentation.StudentDataState
 import com.example.presentation.ui_component.MyInfoView
 import com.example.presentation.ui_component.ScheduleView
 import com.example.presentation.ui_component.StatusView
-import com.example.presentation.ui_component.generateDummyData
 import com.example.presentation.viewmodel.MainHomeViewModel
 import com.example.ui_component.VerticalSpacer
 import com.example.ui_component.values.mainTheme
@@ -38,10 +36,13 @@ fun HomeScreen(
     mainHomeViewModel: MainHomeViewModel = hiltViewModel()
 ) {
     val uiState = mainHomeViewModel.uiState.collectAsState()
+    val scheduleUiState = mainHomeViewModel.scheduleUiState.collectAsState()
     var studentData: StudentUiModel?= null
+    var scheduleData: List<MainSchedule?> = emptyList()
 
     LaunchedEffect(Unit){
         mainHomeViewModel.getResponse()
+        mainHomeViewModel.getScheduleData()
     }
 
     when (uiState.value) {
@@ -50,17 +51,18 @@ fun HomeScreen(
         }
         is StudentDataState.Success -> {
             studentData = (uiState.value as StudentDataState.Success).data
-            Log.e("test", studentData.toString())
+        }
+    }
+
+    when (scheduleUiState.value) {
+        is ScheduleDataState.Loading -> {
+            CircularProgressIndicator()
+        }
+        is ScheduleDataState.Success -> {
+            scheduleData = (scheduleUiState.value as ScheduleDataState.Success).data
         }
     }
     val config = LocalConfiguration.current
-    val currentSchedule = remember {
-        mutableStateOf(
-            ScheduleUiModel(
-                schedule = generateDummyData(5)
-            ).schedule
-        )
-    }
     val scrollState = rememberScrollState()
     Column(
         if (isFixed(config))
@@ -92,7 +94,7 @@ fun HomeScreen(
             ScheduleView(
                 Modifier
                     .requiredHeightIn(min = 400.dp)
-                    .weight(7f), currentSchedule
+                    .weight(7f), mutableStateOf(scheduleData)
             )
         }
     }
