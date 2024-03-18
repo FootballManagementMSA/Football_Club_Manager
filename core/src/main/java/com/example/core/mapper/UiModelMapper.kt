@@ -3,20 +3,26 @@ package com.example.core.mapper
 import com.example.core.model.Club
 import com.example.core.model.ClubInfo
 import com.example.core.model.LocalScreen
+import com.example.core.model.MainHomeScheduleUiModel
 import com.example.core.model.MainHomeStudentDataUiModel
+import com.example.core.model.MainSchedule
 import com.example.core.model.MemberUiModel
 import com.example.core.model.MyPageUserInfoUiModel
 import com.example.core.model.Position
 import com.example.core.model.PositionPresetUIModel
 import com.example.core.model.StudentUiModel
+import com.example.core.model.Team
 import com.example.network_api.entity.Member
 import com.example.network_api.entity.PositionPreset
 import com.example.network_api.entity.RemoteScreen
 import com.example.network_api.response.ClubInfoResponse
+import com.example.network_api.response.MainHomeScheduleResponse
 import com.example.network_api.response.MainHomeStudentDataResponse
+import com.example.network_api.response.MainScheduleResponse
 import com.example.network_api.response.RespResult
 import com.example.network_api.response.SearchClubResponse
 import com.example.network_api.response.Student
+import com.example.network_api.response.TeamResponse
 import com.example.network_api.response.UserInfoResponse
 
 object UiModelMapper {
@@ -136,4 +142,37 @@ object UiModelMapper {
         emblem = this.emblem
     )
 
+    fun MainScheduleResponse.mapToUiModel() = MainSchedule(
+        place = this.place,
+        startTime = this.startTime,
+        homeTeam = this.homeTeam.mapToUiModel(),
+        awayTeam = this.awayTeam.mapToUiModel()
+    )
+
+    fun TeamResponse.mapToUiModel() = Team(
+        name = this.name,
+        emblem = this.emblem
+    )
+
+    fun RespResult<MainHomeScheduleResponse>.mapToUiModel(): MainHomeScheduleUiModel {
+        return when (this) {
+            is RespResult.Success -> {
+                MainHomeScheduleUiModel(
+                    status = data.status,
+                    code = data.code ?: "",
+                    message = data.message,
+                    data = data.data.map { it?.mapToUiModel() }
+                )
+            }
+
+            is RespResult.Error -> {
+                MainHomeScheduleUiModel(
+                    status = -1,
+                    code = this.error.code ?: "Unknown code",
+                    message = this.error.errorMessage,
+                    data = emptyList()
+                )
+            }
+        }
+    }
 }
