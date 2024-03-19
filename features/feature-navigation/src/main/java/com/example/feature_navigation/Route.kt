@@ -11,6 +11,7 @@ object Route {
     const val MYPAGE_MODIFY = "MYPAGE_MODIFY"
     const val LOGIN = "LOGIN"
     const val JOIN_CLUB = "JOIN_CLUB"
+    const val CLUB_PAGE="CLUB_PAGE"
 }
 
 val showBarList = listOf(Route.HOME)

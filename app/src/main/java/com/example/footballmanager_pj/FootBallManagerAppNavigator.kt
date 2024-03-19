@@ -9,6 +9,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.feature_clubpage.presentation.screen.ClubPageScreen
 import com.example.feature_joinclub.presentation.screen.JoinClubScreen
 import com.example.feature_login.presentation.screen.LoginScreen
 import com.example.feature_makeclub.presentation.screen.CompleteClubMakingScreen
@@ -34,11 +35,15 @@ fun FootBallManagerAppNavigator(
     NavHost(
         modifier = Modifier.padding(vertical = if (showBarList.contains(uiRoute.value)) 60.dp else 0.dp),
         navController = navHostController,
-        startDestination = Route.LOGIN
+        startDestination = Route.CLUB_PAGE
     ) {
         composable(Route.HOME) {
             onNavigate(Route.HOME)
             HomeScreen(navHostController)
+        }
+        composable(Route.CLUB_PAGE){
+            onNavigate(Route.CLUB_PAGE)
+            ClubPageScreen()
         }
         composable(Route.LOGIN) {
             onNavigate(Route.LOGIN)
