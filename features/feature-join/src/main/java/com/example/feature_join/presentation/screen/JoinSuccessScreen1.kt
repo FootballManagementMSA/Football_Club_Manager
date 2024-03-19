@@ -24,8 +24,9 @@ import com.example.ui_component.R
 import com.example.ui_component.buttons.CustomGradientButton_1
 import com.example.ui_component.values.mainTheme
 
+
 @Composable
-fun JoinSuccessScreen(
+fun JoinSuccessScreen1(
     onNavigateToLoginScreen: () -> Unit
 ) {
 
@@ -83,5 +84,4 @@ fun JoinSuccessScreen(
             onNavigateToLoginScreen()
         }
     }
-
 }

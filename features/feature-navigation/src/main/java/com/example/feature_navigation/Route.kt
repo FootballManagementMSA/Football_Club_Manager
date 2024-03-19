@@ -15,6 +15,7 @@ object Route {
     const val PROFILE_SETTING="PROFILE_SETTING"
 
     const val JOIN_CLUB = "JOIN_CLUB"
+    const val CLUB_PAGE="CLUB_PAGE"
     const val CLUB_SEARCH = "CLUB_SEARCH"
 }
 
