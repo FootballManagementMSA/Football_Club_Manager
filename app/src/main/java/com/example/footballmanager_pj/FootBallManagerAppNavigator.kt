@@ -11,7 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.feature_join.presentation.screen.JoinScreen
-import com.example.feature_join.presentation.screen.JoinSuccessScreen
+import com.example.feature_join.presentation.screen.JoinSuccessScreen1
 import com.example.feature_join.presentation.screen.ProfileSettingScreen
 import com.example.feature_join.presentation.viewmodel.JoinViewModel
 import com.example.feature_joinclub.presentation.screen.ClubSearchScreen
@@ -69,7 +69,7 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.JOIN_SUCCESS) {
             onNavigate(Route.JOIN_SUCCESS)
-            JoinSuccessScreen(onNavigateToLoginScreen = {
+            JoinSuccessScreen1 (onNavigateToLoginScreen = {
                 navHostController.navigate("LOGIN")
             })
         }
@@ -147,7 +147,7 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.CLUB_SEARCH) {
             onNavigate(Route.CLUB_SEARCH)
-            ClubSearchScreen(clubSearchViewModel.searchedClub.collectAsState(), clubSearchViewModel.searchValue.value)
+            ClubSearchScreen(clubSearchViewModel.searchedClub.collectAsState(), clubSearchViewModel.searchValue.collectAsState().value)
         }
     }
 }
