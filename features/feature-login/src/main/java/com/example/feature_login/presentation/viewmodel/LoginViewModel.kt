@@ -29,11 +29,11 @@ class LoginViewModel @Inject constructor(
 
     fun login() {
         viewModelScope.launch {
+            _loginResult.emit(LoginResult.Loading)
             val result = loginUseCase(LoginModel(_userId.value, _userPassword.value))
             _loginResult.emit(result)
         }
     }
-
     fun updateUserId(userId: String) {
         _userId.value = userId
     }
