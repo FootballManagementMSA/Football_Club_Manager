@@ -48,6 +48,7 @@ class MakeClubViewModel @Inject constructor(
     @SuppressLint("Recycle", "Range")
     fun sendClubInfoData(context: Context) {
         viewModelScope.launch {
+            _uiState.emit(MakeClubResult.Loading)
             val file: File = if (_selectedImageUri.value != null) {
                 val cursor = contentResolver.query(_selectedImageUri.value!!, null, null, null, null)
                 cursor?.moveToNext()
