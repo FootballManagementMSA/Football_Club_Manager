@@ -147,7 +147,7 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.CLUB_SEARCH) {
             onNavigate(Route.CLUB_SEARCH)
-            //ClubSearchScreen(clubSearchViewModel.searchedClub.collectAsState(), clubSearchViewModel.searchValue.value)
+            ClubSearchScreen(clubSearchViewModel.searchedClub.collectAsState(), clubSearchViewModel.searchValue.collectAsState().value)
         }
     }
 }
