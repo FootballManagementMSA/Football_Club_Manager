@@ -114,7 +114,8 @@ private fun ProfileView(
             Modifier
                 .requiredHeightIn(200.dp)
                 .weight(5f), navHostController,
-            studentName = studentData.name
+            studentName = studentData.name,
+            profileImage = studentData.image
         )
         StatusView(
             Modifier

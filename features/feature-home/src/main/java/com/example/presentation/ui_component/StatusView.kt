@@ -28,7 +28,7 @@ fun StatusView(modifier: Modifier = Modifier, studentUiModel: StudentUiModel) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        InfoItem(title = "나이", content = "25")
+        InfoItem(title = "나이", content = studentUiModel.age.toString())
         VerticalLine()
         InfoItem(title = "게임 수", content = studentUiModel.game.toString())
         VerticalLine()
@@ -43,5 +43,5 @@ fun StatusView(modifier: Modifier = Modifier, studentUiModel: StudentUiModel) {
 @Composable
 @Preview
 fun MyInfoViewPreview() {
-    StatusView(studentUiModel = StudentUiModel("name", 3,3,"st","r"))
+    StatusView(studentUiModel = StudentUiModel("name", 3,3,"st","r","",0))
 }
