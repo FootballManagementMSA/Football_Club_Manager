@@ -15,7 +15,9 @@ data class Student(
     val game: Int,
     val goal: Int,
     val position: String,
-    val foot: String
+    val foot: String,
+    val image: String,
+    val age: Int
 )
 
 data class MainHomeScheduleResponse(
