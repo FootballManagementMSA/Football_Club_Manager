@@ -41,6 +41,12 @@ internal class UserLocalDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun saveUserId(userId: Long) {
+        dataStore.edit {
+            it[PreferenceKeys.USER_ID] = userId
+        }
+    }
+
     override suspend fun login() {
     }
     override suspend fun join(){
