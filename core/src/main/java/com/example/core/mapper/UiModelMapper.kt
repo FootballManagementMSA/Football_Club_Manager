@@ -69,7 +69,9 @@ object UiModelMapper {
                         game = 0,
                         goal = 0,
                         position = "error",
-                        foot = "0"
+                        foot = "0",
+                        image = "",
+                        age = 0
                     )
                 )
             }
@@ -82,7 +84,9 @@ object UiModelMapper {
         game = this.game,
         goal = this.goal,
         position = this.position,
-        foot = this.foot
+        foot = this.foot,
+        image = this.image,
+        age = this.age
     )
 
 
