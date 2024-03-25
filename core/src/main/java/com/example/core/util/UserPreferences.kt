@@ -1,6 +1,7 @@
 package com.example.core.util
 
 import android.content.Context
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 
@@ -14,4 +15,5 @@ object PreferenceKeys {
     val ACCOUNT = stringPreferencesKey("ACCOUNT")
     val PASSWORD = stringPreferencesKey("PASSWORD")
     val UNIQUE_NUMBER = stringPreferencesKey("UNIQUE_NUMBER")
+    val USER_ID = longPreferencesKey("USER_ID")
 }
