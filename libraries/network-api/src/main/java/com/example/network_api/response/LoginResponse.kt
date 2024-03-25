@@ -9,6 +9,7 @@ data class LoginResponse(
     val tokenData: Token
 )
 data class Token(
+    val userId: Long,
     val accessToken: String,
     val refreshToken: String
 )
