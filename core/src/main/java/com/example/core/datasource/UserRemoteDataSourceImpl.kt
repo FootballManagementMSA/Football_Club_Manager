@@ -1,9 +1,9 @@
 package com.example.core.datasource
 
 import android.util.Log
+import com.example.core.JoinResult
 import com.example.core.ResultState.BaseResult
 import com.example.core.ResultState.LoginResult
-import com.example.core.JoinResult
 import com.example.core.mapper.EntityMapper.mapToEntity
 import com.example.core.mapper.UiModelMapper.mapToUiModel
 import com.example.core.model.JoinModel
@@ -49,6 +49,7 @@ internal class UserRemoteDataSourceImpl @Inject constructor(
                     saveAccessToken(result.data.tokenData.refreshToken)
                     saveAccount(loginModel.id)
                     savePassword(loginModel.pw)
+                    saveUserId(result.data.tokenData.userId)
                 }
                 LoginResult.Success(
                     result.data.tokenData.accessToken,
