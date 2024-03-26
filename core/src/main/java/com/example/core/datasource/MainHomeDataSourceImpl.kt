@@ -1,15 +1,19 @@
 package com.example.core.datasource
 
 import com.example.core.mapper.UiModelMapper.mapToUiModel
-import com.example.core.model.MainHomeUiModel
+import com.example.core.model.MainHomeScheduleUiModel
+import com.example.core.model.MainHomeStudentDataUiModel
 import com.example.network_api.repository.MainHomeRepository
-import com.example.network_api.response.MainHomeResponse
 import javax.inject.Inject
 
 class MainHomeDataSourceImpl @Inject constructor(
     private val mainHomeRepository: MainHomeRepository
 ) : MainHomeDataSource {
-    override suspend fun loadData(): MainHomeUiModel {
+    override suspend fun loadStudentData(): MainHomeStudentDataUiModel {
         return mainHomeRepository.loadData().mapToUiModel()
+    }
+
+    override suspend fun loadSchedule(): MainHomeScheduleUiModel {
+        return mainHomeRepository.loadSchedule().mapToUiModel()
     }
 }
