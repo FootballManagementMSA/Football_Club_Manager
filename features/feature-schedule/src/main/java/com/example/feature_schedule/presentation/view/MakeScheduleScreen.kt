@@ -1,4 +1,4 @@
-package com.example.feature_schedule
+package com.example.feature_schedule.presentation.view
 
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -44,7 +44,9 @@ import com.example.ui_component.values.middleFont
 import com.example.ui_component.values.tinyFont
 
 @Composable
-fun MakeScheduleScreen() {
+fun MakeScheduleScreen(
+    onMake: () -> Unit
+) {
     val myUri = remember { mutableStateOf<Uri?>(null) }
     val otherUserUri = remember { mutableStateOf<Uri?>(null) }
     val title = remember { mutableStateOf("") }
@@ -73,7 +75,7 @@ fun MakeScheduleScreen() {
         ScheduleLocationView(location)
         Spacer(modifier = Modifier.weight(0.4f))
         Text("상대팀 설정", color = Color.Gray)
-        SetTeamView(myUri,otherUserUri)
+        SetTeamView(myUri, otherUserUri)
         Spacer(modifier = Modifier.weight(1f))
         CustomGradientButton(
             gradientColors = gradientColorsList,
@@ -81,14 +83,14 @@ fun MakeScheduleScreen() {
             buttonText = "수락하기",
             roundedCornerShape = RoundedCornerShape(8.dp)
         ) {
-
+            onMake()
         }
         Spacer(modifier = Modifier.weight(1f))
     }
 }
 
 @Composable
-private fun SetTeamView(myUri: MutableState<Uri?>,otherUserUri: MutableState<Uri?>) {
+private fun SetTeamView(myUri: MutableState<Uri?>, otherUserUri: MutableState<Uri?>) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         DefaultEmblemSelectIconView(
             modifier = Modifier
@@ -257,7 +259,9 @@ private fun CalendarSheet(
 @Preview
 @Composable
 fun MakeScheduleScreenPreview() {
-    MakeScheduleScreen()
+    MakeScheduleScreen {
+
+    }
 }
 
 

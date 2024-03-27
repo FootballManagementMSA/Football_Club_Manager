@@ -37,7 +37,7 @@ fun HomeScreen(
 ) {
     val uiState = mainHomeViewModel.uiState.collectAsState()
     val scheduleUiState = mainHomeViewModel.scheduleUiState.collectAsState()
-    var studentData: StudentUiModel?= null
+    var studentData : StudentUiModel?= null
     var scheduleData: List<MainSchedule?> = emptyList()
 
     LaunchedEffect(Unit){
