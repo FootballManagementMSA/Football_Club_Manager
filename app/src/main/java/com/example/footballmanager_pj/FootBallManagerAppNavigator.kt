@@ -13,11 +13,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.feature_clubpage.presentation.screen.ClubPageScreen
 import com.example.feature_join.presentation.screen.JoinScreen
 import com.example.feature_join.presentation.screen.JoinSuccessScreen1
 import com.example.feature_join.presentation.screen.ProfileSettingScreen
 import com.example.feature_join.presentation.viewmodel.JoinViewModel
 import com.example.feature_joinclub.presentation.screen.ClubSearchScreen
+import com.example.feature_clubpage.presentation.screen.ClubPageScreen
 import com.example.feature_joinclub.presentation.screen.JoinClubScreen
 import com.example.feature_joinclub.presentation.viewmodel.ClubSearchViewModel
 import com.example.feature_login.presentation.screen.LoginScreen
@@ -43,7 +45,6 @@ fun FootBallManagerAppNavigator(
     onNavigate: (String) -> Unit
 ) {
     val myPageViewModel: MyPageViewModel = hiltViewModel()
-    val joinViewModel: JoinViewModel = hiltViewModel()
     val clubSearchViewModel: ClubSearchViewModel = hiltViewModel()
     val makeClubViewModel: MakeClubViewModel = hiltViewModel()
     val scheduleViewModel: ScheduleViewModel = hiltViewModel()
@@ -162,6 +163,13 @@ fun FootBallManagerAppNavigator(
         composable(Route.CLUB_SEARCH) {
             onNavigate(Route.CLUB_SEARCH)
             ClubSearchScreen(
+                onJoinIconClick = { clubSearchViewModel.searchedClub },
+                onNavigateToRequestJoin = {
+                    navHostController.navigate("CLUB_PAGE") {
+                    }
+                },
+                clubSearchViewModel,
+
                 clubSearchViewModel.searchedClub.collectAsState(),
                 clubSearchViewModel.searchValue.collectAsState().value
             )

@@ -17,6 +17,9 @@ object Route {
     const val JOIN_CLUB = "JOIN_CLUB"
     const val CLUB_PAGE="CLUB_PAGE"
     const val CLUB_SEARCH = "CLUB_SEARCH"
+    const val JOIN_REQUEST="JOIN_REQUEST"
+
+    const val CLUB_PAGE="CLUB_PAGE"
 }
 
 val showBarList = listOf(Route.HOME)
