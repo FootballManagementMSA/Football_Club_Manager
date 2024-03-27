@@ -173,6 +173,8 @@ fun ClubSearchScreenPreview() {
             uniqueNum = "bcd2",
             emblem = ""
         )
+        ClubInfo(teamId = 3, teamName = "Test", totalMemberCnt = 10, details = "", uniqueNum = "bcd", emblem = ""),
+        ClubInfo(teamId = 3, teamName = "Test", totalMemberCnt = 10, details = "", uniqueNum = "bcd2", emblem = "")
     )
 
     ClubSearchScreen(

@@ -55,48 +55,51 @@ fun EmblemSelectScreen(
                 Toast.LENGTH_SHORT
             ).show()
         }
-
-        is MakeClubResult.Loading -> {
-            CircularProgressIndicator()
-        }
-
         is MakeClubResult.Initial -> {
 
         }
 
         else -> {}
     }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .background(color = mainTheme)
-            .padding(40.dp)
-    ) {
-        EmblemSelectTopView() {
-            onNavigateToMakeClub()
-        }
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize()
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .background(color = mainTheme)
+                .padding(40.dp)
         ) {
-            EmblemSelectIconView(viewModel.selectedImageUri.collectAsState()) {
-                viewModel.updateSelectedImageUri(it)
+            EmblemSelectTopView() {
+                onNavigateToMakeClub()
+            }
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                EmblemSelectIconView(viewModel.selectedImageUri.collectAsState()) {
+                    viewModel.updateSelectedImageUri(it)
+                }
+            }
+            VerticalSpacer(value = 60)
+            EmblemInfoBox(text = "규격에 맞는 엠블럼 사진을 업로드 해주세요.")
+            VerticalSpacer(value = 40)
+            EmblemInfoBox(text = "건너뛸 시,학교 로고가 들어갑니다.")
+            VerticalSpacer(value = 30)
+            WhiteButton(
+                buttonText = "건너뛰기",
+                textColor = lastGradientColor,
+                roundedCornerShape = RoundedCornerShape(20.dp)
+            ) {
+                viewModel.sendClubInfoData(context)
             }
         }
-        VerticalSpacer(value = 60)
-        EmblemInfoBox(text = "규격에 맞는 엠블럼 사진을 업로드 해주세요.")
-        VerticalSpacer(value = 40)
-        EmblemInfoBox(text = "건너뛸 시,학교 로고가 들어갑니다.")
-        VerticalSpacer(value = 30)
-        WhiteButton(
-            buttonText = "건너뛰기",
-            textColor = lastGradientColor,
-            roundedCornerShape = RoundedCornerShape(20.dp)
-        ) {
-            viewModel.sendClubInfoData(context)
+        if (state is MakeClubResult.Loading) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center)
+            )
         }
     }
+
 }
 
 @Preview

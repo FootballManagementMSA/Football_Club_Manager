@@ -3,34 +3,38 @@ package com.example.network_api.response
 import com.google.gson.annotations.SerializedName
 import java.time.LocalDateTime
 
-data class MainHomeResponse(
+data class MainHomeStudentDataResponse(
     val status: Int,
     val code: String,
     val message: String,
-    val data: Data
-)
-
-data class Data(
-    @SerializedName("student") val student: Student,
-    @SerializedName("schedule") val schedule: Schedule
+    val data: Student
 )
 
 data class Student(
-    val name: Int,
+    val name: String,
     val game: Int,
     val goal: Int,
     val position: String,
-    val foot: String
+    val foot: String,
+    val image: String,
+    val age: Int
 )
 
-data class Schedule(
+data class MainHomeScheduleResponse(
+    val status: Int,
+    val code: String,
+    val message: String,
+    val data: List<MainScheduleResponse?>
+)
+
+data class MainScheduleResponse(
     val place: String,
     val startTime: LocalDateTime,
-    @SerializedName("HomeTeam") val homeTeam: Team,
-    @SerializedName("AwayTeam") val awayTeam: Team
+    @SerializedName("HomeTeam") val homeTeam: TeamResponse,
+    @SerializedName("AwayTeam") val awayTeam: TeamResponse
 )
 
-data class Team(
+data class TeamResponse(
     val name: String,
     val emblem: String
 )

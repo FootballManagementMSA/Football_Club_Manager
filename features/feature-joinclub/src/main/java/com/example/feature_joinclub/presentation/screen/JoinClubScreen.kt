@@ -102,10 +102,10 @@ fun dummyClub() = Club(
     status = 1,
     message = "message",
     data = listOf(
-        ClubInfo(teamId = 3, teamName = "구단명", totalMemberCnt = 20, uniqueNum = "3da", emblem = "emblem_uri"),
-        ClubInfo(teamId = 3, teamName = "구단명2", totalMemberCnt = 20, uniqueNum = "3db", emblem = "emblem_uri"),
-        ClubInfo(teamId = 3, teamName = "구단명3", totalMemberCnt = 20, uniqueNum = "3dc", emblem = "emblem_uri"),
-        ClubInfo(teamId = 3, teamName = "구단명4", totalMemberCnt = 20, uniqueNum = "3de", emblem = "emblem_uri"),
+        ClubInfo(teamId = 3, teamName = "구단명", totalMemberCnt = 20, details = "", uniqueNum = "3da", emblem = "emblem_uri"),
+        ClubInfo(teamId = 3, teamName = "구단명2", totalMemberCnt = 20, details = "", uniqueNum = "3db", emblem = "emblem_uri"),
+        ClubInfo(teamId = 3, teamName = "구단명3", totalMemberCnt = 20, details = "", uniqueNum = "3dc", emblem = "emblem_uri"),
+        ClubInfo(teamId = 3, teamName = "구단명4", totalMemberCnt = 20, details = "", uniqueNum = "3de", emblem = "emblem_uri"),
     )
 )
 

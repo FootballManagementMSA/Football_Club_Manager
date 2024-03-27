@@ -1,6 +1,7 @@
 package com.example.core.datasource
 
 import android.util.Log
+import com.example.core.JoinResult
 import com.example.core.ResultState.BaseResult
 import com.example.core.ResultState.ClubJoinRequestResult
 import com.example.core.ResultState.LoginResult
@@ -68,6 +69,7 @@ internal class UserRemoteDataSourceImpl @Inject constructor(
                     saveAccessToken(result.data.tokenData.refreshToken)
                     saveAccount(loginModel.id)
                     savePassword(loginModel.pw)
+                    saveUserId(result.data.tokenData.userId)
                 }
                 LoginResult.Success(
                     result.data.tokenData.accessToken,

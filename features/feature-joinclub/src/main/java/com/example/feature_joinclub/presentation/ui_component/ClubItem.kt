@@ -92,18 +92,18 @@ fun ClubContent(club: ClubInfo) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column(Modifier) {
-            Text(text = club.teamName, fontWeight = FontWeight.Bold, fontSize = veryBigFont)
+            Text(text = club.teamName ?: "", fontWeight = FontWeight.Bold, fontSize = veryBigFont)
             VerticalSpacer(value = 10)
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(imageVector = Icons.Default.Person, contentDescription = "")
                 HorizontalSpacer(value = 5)
                 Text(text = "${club.totalMemberCnt} 명", fontSize = tinyFont)
             }
-//            Row(verticalAlignment = Alignment.CenterVertically) {
-//                Icon(imageVector = Icons.Default.Person, contentDescription = "")
-//                HorizontalSpacer(value = 5)
-//                Text(text = club.introduction, fontSize = tinyFont)
-//            }
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(imageVector = Icons.Default.Person, contentDescription = "")
+                HorizontalSpacer(value = 5)
+                Text(text = club.details ?: "", fontSize = tinyFont)
+            }
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
             AsyncImage(
@@ -135,6 +135,8 @@ fun ClubItemPreview() {
 
     ClubItem(selectedIndex = selectedIndex, index = 1, {}) {
         ClubContent(club = ClubInfo(3, "teamname", 20, "unique", ""))
+    ClubItem(selectedIndex = mutableStateOf(1), index = 1) {
+        ClubContent(club = ClubInfo(3, "teamname", 20,"세부적인 내용을 적어주세요", "unique", ""))
     }
 
 }

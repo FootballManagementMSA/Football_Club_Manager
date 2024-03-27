@@ -1,5 +1,8 @@
 package com.example.footballmanager_pj
 
+import android.os.Build
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -29,9 +32,12 @@ import com.example.feature_mypage.presentation.screen.MyPageScreen
 import com.example.feature_mypage.presentation.viewmodel.MyPageViewModel
 import com.example.feature_navigation.Route
 import com.example.feature_navigation.showBarList
+import com.example.feature_schedule.presentation.view.MakeScheduleScreen
+import com.example.feature_schedule.presentation.viewmodel.ScheduleViewModel
 import com.example.feature_squard.presentation.screen.SquadScreen
 import com.example.presentation.screen.HomeScreen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun FootBallManagerAppNavigator(
     navHostController: NavHostController,
@@ -41,6 +47,8 @@ fun FootBallManagerAppNavigator(
     val myPageViewModel: MyPageViewModel = hiltViewModel()
     val clubSearchViewModel: ClubSearchViewModel = hiltViewModel()
     val makeClubViewModel: MakeClubViewModel = hiltViewModel()
+    val scheduleViewModel: ScheduleViewModel = hiltViewModel()
+
     NavHost(
         modifier = Modifier.padding(vertical = if (showBarList.contains(uiRoute.value)) 60.dp else 0.dp),
         navController = navHostController,
@@ -53,6 +61,32 @@ fun FootBallManagerAppNavigator(
         composable(Route.LOGIN) {
             onNavigate(Route.LOGIN)
             LoginScreen(navHostController)
+        }
+        composable(Route.JOIN) {
+            JoinScreen(
+                navHostController, joinViewModel,
+                onNavigateToProfileSettingScreen = {
+                    navHostController.navigate("PROFILE_SETTING")
+                },
+            )
+        }
+        composable("make_schedule") {
+            MakeScheduleScreen { id, schedule ->
+                Log.e("123","$id $schedule")
+                scheduleViewModel.makeClub(id, schedule)
+            }
+        }
+        composable(Route.PROFILE_SETTING) {
+            onNavigate(Route.PROFILE_SETTING)
+            ProfileSettingScreen(
+                joinViewModel,
+                onNavigateToJoinSuccessScreen = { navHostController.navigate("JOIN_SUCCESS") })
+        }
+        composable(Route.JOIN_SUCCESS) {
+            onNavigate(Route.JOIN_SUCCESS)
+            JoinSuccessScreen1(onNavigateToLoginScreen = {
+                navHostController.navigate("LOGIN")
+            })
         }
         composable(Route.SQUAD) {
             onNavigate(Route.SQUAD)
