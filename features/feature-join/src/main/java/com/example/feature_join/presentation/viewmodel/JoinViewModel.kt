@@ -3,10 +3,9 @@ package com.example.feature_join.presentation.viewmodel
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.layout.LookaheadScope
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.JoinResult
+import com.example.core.ResultState.JoinResult
 import com.example.core.model.JoinModel
 import com.example.feature_join.domain.usecase.JoinUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
