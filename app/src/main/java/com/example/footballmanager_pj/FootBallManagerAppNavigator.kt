@@ -50,7 +50,7 @@ fun FootBallManagerAppNavigator(
             onNavigate(Route.HOME)
             HomeScreen(navHostController)
         }
-        composable(Route.CLUB_PAGE){
+        composable(Route.CLUB_PAGE) {
             onNavigate(Route.CLUB_PAGE)
             ClubPageScreen()
         }
@@ -74,7 +74,7 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.JOIN_SUCCESS) {
             onNavigate(Route.JOIN_SUCCESS)
-            JoinSuccessScreen1 (onNavigateToLoginScreen = {
+            JoinSuccessScreen1(onNavigateToLoginScreen = {
                 navHostController.navigate("LOGIN")
             })
         }
@@ -152,7 +152,17 @@ fun FootBallManagerAppNavigator(
         }
         composable(Route.CLUB_SEARCH) {
             onNavigate(Route.CLUB_SEARCH)
-            //ClubSearchScreen(clubSearchViewModel.searchedClub.collectAsState(), clubSearchViewModel.searchValue.value)
+            ClubSearchScreen(
+                onJoinIconClick = { clubSearchViewModel.searchedClub },
+                onNavigateToRequestJoin = {
+                    navHostController.navigate("CLUB_PAGE") {
+                    }
+                },
+                clubSearchViewModel,
+
+                clubSearchViewModel.searchedClub.collectAsState(),
+                clubSearchViewModel.searchValue.collectAsState().value
+            )
         }
     }
 }
