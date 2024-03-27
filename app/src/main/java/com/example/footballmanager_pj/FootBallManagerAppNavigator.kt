@@ -16,6 +16,7 @@ import com.example.feature_join.presentation.screen.JoinSuccessScreen1
 import com.example.feature_join.presentation.screen.ProfileSettingScreen
 import com.example.feature_join.presentation.viewmodel.JoinViewModel
 import com.example.feature_joinclub.presentation.screen.ClubSearchScreen
+import com.example.feature_clubpage.presentation.screen.ClubPageScreen
 import com.example.feature_joinclub.presentation.screen.JoinClubScreen
 import com.example.feature_joinclub.presentation.viewmodel.ClubSearchViewModel
 import com.example.feature_login.presentation.screen.LoginScreen
@@ -38,7 +39,6 @@ fun FootBallManagerAppNavigator(
     onNavigate: (String) -> Unit
 ) {
     val myPageViewModel: MyPageViewModel = hiltViewModel()
-    val joinViewModel: JoinViewModel = hiltViewModel()
     val clubSearchViewModel: ClubSearchViewModel = hiltViewModel()
     val makeClubViewModel: MakeClubViewModel = hiltViewModel()
     NavHost(
@@ -50,33 +50,9 @@ fun FootBallManagerAppNavigator(
             onNavigate(Route.HOME)
             HomeScreen(navHostController)
         }
-        composable(Route.CLUB_PAGE) {
-            onNavigate(Route.CLUB_PAGE)
-            ClubPageScreen()
-        }
         composable(Route.LOGIN) {
             onNavigate(Route.LOGIN)
             LoginScreen(navHostController)
-        }
-        composable(Route.JOIN) {
-            JoinScreen(
-                navHostController, joinViewModel,
-                onNavigateToProfileSettingScreen = {
-                    navHostController.navigate("PROFILE_SETTING")
-                },
-            )
-        }
-        composable(Route.PROFILE_SETTING) {
-            onNavigate(Route.PROFILE_SETTING)
-            ProfileSettingScreen(
-                joinViewModel,
-                onNavigateToJoinSuccessScreen = { navHostController.navigate("JOIN_SUCCESS") })
-        }
-        composable(Route.JOIN_SUCCESS) {
-            onNavigate(Route.JOIN_SUCCESS)
-            JoinSuccessScreen1(onNavigateToLoginScreen = {
-                navHostController.navigate("LOGIN")
-            })
         }
         composable(Route.SQUAD) {
             onNavigate(Route.SQUAD)
