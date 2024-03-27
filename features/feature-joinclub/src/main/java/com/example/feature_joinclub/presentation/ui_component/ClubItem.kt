@@ -1,5 +1,6 @@
 package com.example.feature_joinclub.presentation.ui_component
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,6 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.core.model.ClubInfo
 import com.example.ui_component.HorizontalSpacer
@@ -42,6 +45,7 @@ import com.example.ui_component.values.veryBigFont
 fun ClubItem(
     selectedIndex: MutableState<Int>,
     index: Int,
+    on: () -> Unit,
     content: @Composable () -> Unit
 ) {
     DefaultItem(
@@ -49,12 +53,19 @@ fun ClubItem(
             .padding(bottom = 12.dp)
             .selectable(
                 selected = selectedIndex.value == index,
-                onClick = {
-                    if (selectedIndex.value == index)
+                onClick =
+                {
+
+                    if (selectedIndex.value == index) {
                         selectedIndex.value = -1
-                    else
+                    }
+                    else {
                         selectedIndex.value = index
+                        on()
+                    }
+
                 }
+
             )
             .border(
                 width = 2.dp,
@@ -119,7 +130,11 @@ fun ClubContent(club: ClubInfo) {
 @Composable
 @Preview
 fun ClubItemPreview() {
-    ClubItem(selectedIndex = mutableStateOf(1), index = 1) {
+    val selectedIndex =
+        remember { mutableStateOf(1) } // Remember to initialize selectedIndex using remember
+
+    ClubItem(selectedIndex = selectedIndex, index = 1, {}) {
         ClubContent(club = ClubInfo(3, "teamname", 20, "unique", ""))
     }
+
 }
