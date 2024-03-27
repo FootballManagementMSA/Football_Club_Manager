@@ -129,6 +129,7 @@ object UiModelMapper {
                             teamId = -1,
                             teamName = "err",
                             totalMemberCnt = 0,
+                            details = "",
                             uniqueNum = "err",
                             emblem = ""
                         )
@@ -142,6 +143,7 @@ object UiModelMapper {
         teamId = this.teamId,
         teamName = this.teamName,
         totalMemberCnt = this.totalMemberCnt,
+        details = this.details,
         uniqueNum = this.uniqueNum,
         emblem = this.emblem
     )
