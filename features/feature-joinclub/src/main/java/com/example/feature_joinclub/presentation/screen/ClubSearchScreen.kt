@@ -88,8 +88,8 @@ fun ClubSearchScreen(
 @Preview
 fun ClubSearchScreenPreview() {
     val sampleClubList = listOf(
-        ClubInfo(teamId = 3, teamName = "Test", totalMemberCnt = 10, uniqueNum = "bcd", emblem = ""),
-        ClubInfo(teamId = 3, teamName = "Test", totalMemberCnt = 10, uniqueNum = "bcd2", emblem = "")
+        ClubInfo(teamId = 3, teamName = "Test", totalMemberCnt = 10, details = "", uniqueNum = "bcd", emblem = ""),
+        ClubInfo(teamId = 3, teamName = "Test", totalMemberCnt = 10, details = "", uniqueNum = "bcd2", emblem = "")
     )
 
     ClubSearchScreen(
