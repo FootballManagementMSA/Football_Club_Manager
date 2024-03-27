@@ -3,7 +3,7 @@ package com.example.network.repository
 import com.example.network_api.ErrorType
 import com.example.network_api.RespMapper
 import com.example.network_api.api.ClubApi
-import com.example.core.model.ClubSchedule
+import com.example.network_api.entity.ClubSchedule
 import com.example.network_api.repository.ClubRepository
 import com.example.network_api.response.MakeClubResponse
 import com.example.network_api.response.MakeClubScheduleResponse
@@ -44,7 +44,7 @@ internal class ClubRepositoryImpl @Inject constructor(
 
     override suspend fun createClubSchedule(
         teamId: Long,
-        clubSchedule: com.example.core.model.ClubSchedule
+        clubSchedule: ClubSchedule
     ): RespResult<MakeClubScheduleResponse> {
         val response = clubApi.makeClubSchedule(teamId, clubSchedule)
         return if (response.isSuccessful) {

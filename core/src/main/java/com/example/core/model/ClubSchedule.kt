@@ -9,4 +9,17 @@ data class ClubSchedule(
     val awayTeamId: Long,
     val longitude: Double,
     val latitude: Double
-)
+) {
+    companion object {
+        fun ClubSchedule.mapToEntity() = com.example.network_api.entity.ClubSchedule(
+            this.title,
+            this.memo,
+            this.startTime,
+            this.endTime,
+            this.place,
+            this.awayTeamId,
+            this.longitude,
+            this.latitude
+        )
+    }
+}

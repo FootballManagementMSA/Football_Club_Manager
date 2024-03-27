@@ -1,6 +1,6 @@
 package com.example.network_api.api
 
-import com.example.core.model.ClubSchedule
+import com.example.network_api.entity.ClubSchedule
 import com.example.network_api.response.MakeClubResponse
 import com.example.network_api.response.MakeClubScheduleResponse
 import com.example.network_api.response.SearchClubResponse
@@ -32,6 +32,6 @@ interface ClubApi {
     @POST("/api/team-service/{teamId}/schedules")
     suspend fun makeClubSchedule(
         @Path("teamId") teamId: Long,
-        @Body clubSchedule: com.example.core.model.ClubSchedule
+        @Body clubSchedule: ClubSchedule
     ): Response<MakeClubScheduleResponse>
 }
