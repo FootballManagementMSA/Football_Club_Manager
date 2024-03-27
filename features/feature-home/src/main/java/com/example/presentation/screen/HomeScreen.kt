@@ -95,7 +95,9 @@ fun HomeScreen(
                 Modifier
                     .requiredHeightIn(min = 400.dp)
                     .weight(7f), mutableStateOf(scheduleData)
-            )
+            ) {
+                navHostController.navigate("make_schedule")
+            }
         }
     }
 
