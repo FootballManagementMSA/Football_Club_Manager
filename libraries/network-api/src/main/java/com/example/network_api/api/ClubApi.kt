@@ -16,6 +16,7 @@ interface ClubApi {
     @POST("/api/team-service/teams")
     suspend fun sendClubInfo(
         @Part("name") name: RequestBody,
+        @Part("details") details: RequestBody,
         @Part emblem: MultipartBody.Part
     ): Response<MakeClubResponse>
     

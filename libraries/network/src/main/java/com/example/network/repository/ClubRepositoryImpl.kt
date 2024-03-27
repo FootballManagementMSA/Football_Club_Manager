@@ -16,9 +16,10 @@ internal class ClubRepositoryImpl @Inject constructor(
 ) : ClubRepository {
     override suspend fun sendClubInfo(
         name: RequestBody,
+        details: RequestBody,
         emblem: MultipartBody.Part
     ): RespResult<MakeClubResponse> {
-        val response = clubApi.sendClubInfo(name = name, emblem= emblem)
+        val response = clubApi.sendClubInfo(name = name, details = details ,emblem= emblem)
         return if (response.isSuccessful) {
             RespResult.Success(response.body()!!)
         } else {

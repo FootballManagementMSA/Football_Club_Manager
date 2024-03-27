@@ -15,7 +15,8 @@ class ClubDataSourceImpl @Inject constructor(
 ) : ClubDataSource {
     override suspend fun sendClubInfo(makeClubModel: MakeClubModel): MakeClubResult {
         val requestName = FormDataUtil.mapToRequestBody(makeClubModel.name)
-        val result = clubRepository.sendClubInfo(requestName, FormDataUtil.mapToMultipart("emblem", makeClubModel.emblem))
+        val requestDetails = FormDataUtil.mapToRequestBody(makeClubModel.details)
+        val result = clubRepository.sendClubInfo(requestName, requestDetails, FormDataUtil.mapToMultipart("emblem", makeClubModel.emblem))
         return when (result) {
             is RespResult.Success -> {
                 userLocalDataSource.saveUniqueNumber(result.data.unique.uniqueNumber)
